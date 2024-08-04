@@ -16,6 +16,12 @@ public class TipoMovimiento {
     public TipoMovimiento() {
     }
 
+    public TipoMovimiento(String descripcion, String accion, String estado) {
+        this.descripcion = descripcion;
+        this.accion = accion;
+        this.estado = estado;
+    }
+
     public String getCodigo() {
         return codigo;
     }

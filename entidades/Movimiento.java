@@ -1,3 +1,5 @@
+package entidades;
+
 import java.sql.Date;
 
 public class Movimiento {
@@ -7,19 +9,19 @@ public class Movimiento {
     private String emplcodigo;
     private String tipoCodigo;
     private float importe;
-    private String cuenReferenciaa;
+    private String cuenReferencia;
 
     public Movimiento() {
     }
 
-    public Movimiento(String cuencodigo, int movinumero, Date fecha, String emplcodigo, String tipoCodigo, float importe, String cuenReferenciaa) {
+    public Movimiento(String cuencodigo, int movinumero, Date fecha, String emplcodigo, String tipoCodigo, float importe, String cuenReferencia) {
         this.cuencodigo = cuencodigo;
         this.movinumero = movinumero;
         this.fecha = fecha;
         this.emplcodigo = emplcodigo;
         this.tipoCodigo = tipoCodigo;
         this.importe = importe;
-        this.cuenReferenciaa = cuenReferenciaa;
+        this.cuenReferencia = cuenReferencia;
     }
 
     public String getCuencodigo() {
@@ -70,11 +72,11 @@ public class Movimiento {
         this.importe = importe;
     }
 
-    public String getCuenReferenciaa() {
-        return cuenReferenciaa;
+    public String getCuenReferencia() {
+        return cuenReferencia;
     }
 
-    public void setCuenReferencia(String cuenreferenciaa) {
-        this.cuenReferenciaa = cuenreferenciaa;
+    public void setCuenReferencia(String cuenreferencia) {
+        this.cuenReferencia = cuenreferencia;
     }
 }

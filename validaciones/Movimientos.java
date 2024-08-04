@@ -12,7 +12,6 @@ public class Movimientos {
         if (numero <= 0) throw new IllegalArgumentException(errMsg + "El número debe ser mayor que cero.");
     }
 
-
     public static Movimiento obtener(int numero) throws IllegalArgumentException, SQLException{
         validarMovNumero(numero);
         return DBMovimiento.obtener(numero);

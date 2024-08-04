@@ -1,13 +1,10 @@
 package listas;
 import java.sql.*;
-import entidades.Empleado;
 import entidades.Movimiento;
 import conexion.ConexionDB;
-import static javax.swing.JOptionPane.showMessageDialog;
 
 public class DBMovimiento {
 
-    private static Connection cn = null;
     private static ResultSet rs = null;
     private static CallableStatement cs = null;
 
@@ -15,7 +12,7 @@ public class DBMovimiento {
     
     public static Movimiento obtener(int numero) throws SQLException{
         cs = db.prepareCall("CALL sp_BuscarMovimiento(?)");
-        cs.setInt(2, numero);
+        cs.setInt(1, numero);
         rs = cs.executeQuery();
 
         if (rs.next()){
@@ -23,7 +20,7 @@ public class DBMovimiento {
             m.setCuencodigo(rs.getString(1));
             m.setMovinumero(rs.getInt(2));
             m.setFecha(rs.getDate(3));
-            m.setEmplcodigo(rs.getString(4);
+            m.setEmplcodigo(rs.getString(4));
             m.setTipoCodigo(rs.getString(5));
             m.setImporte(rs.getFloat(6));
             m.setCuenReferencia(rs.getString(7));
