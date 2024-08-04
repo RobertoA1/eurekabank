@@ -8,6 +8,10 @@ public class Sucursal{
     private String direccion;
     private int contCuenta;
 
+    public Sucursal(){
+        this("00", "NN", "NC", "ND", "0")
+    }
+
     public Sucursal(String codigo, String nombre, String ciudad, String direccion, int contCuenta) {
         this.codigo = codigo;
         this.nombre = nombre;
