@@ -5,6 +5,10 @@ public class Moneda {
     private String codigo;
     private String descripcion;
 
+    public Moneda() {
+        this("00", "ND");
+    }
+
     public Moneda(String codigo, String descripcion){
         this.codigo = codigo;
         this.descripcion = descripcion;
