@@ -135,6 +135,13 @@ CREATE TABLE interesmensual (
     FOREIGN KEY (monecódigo) REFERENCES moneda(monecódigo)
 );
 
+-- Creacion de la tabla Usuarios
+CREATE TABLE Usuario (
+    usercodigo CHAR(8);
+    userclave CHAR(8);
+    PRIMARY KEY (usercodigo);
+);
+
 -- Población de datos iniciales (opcional)
 INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, tipostado) VALUES ('001', 'Deposito', 'Credito', 'Activo');
 INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, tipostado) VALUES ('002', 'Retiro', 'Debito', 'Activo');
