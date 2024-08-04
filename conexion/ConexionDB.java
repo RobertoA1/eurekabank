@@ -35,7 +35,7 @@ public class ConexionDB {
         Class.forName("com.mysql.cj.jdbc.Driver");
         url = "jdbc:mysql://localhost:3306/eurekabank";
         propiedades = new Properties();
-        propiedades.put("user", "roberto");
+        propiedades.put("user", "admin");
         propiedades.put("password", "12345");
         
         return DriverManager.getConnection(url, propiedades);
