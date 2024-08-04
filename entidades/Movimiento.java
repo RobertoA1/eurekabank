@@ -3,13 +3,13 @@ package entidades;
 import java.sql.Date;
 
 public class Movimiento {
-    private String cuencodigo;
-    private int movinumero;
-    private Date fecha;
-    private String emplcodigo;
-    private String tipoCodigo;
-    private float importe;
-    private String cuenReferencia;
+    private String cuencodigo = null;
+    private int movinumero = -1;
+    private Date fecha = null;
+    private String emplcodigo = null;
+    private String tipoCodigo = null;
+    private float importe = -1;
+    private String cuenReferencia = null;
 
     public Movimiento() {
     }
@@ -17,6 +17,16 @@ public class Movimiento {
     public Movimiento(String cuencodigo, int movinumero, Date fecha, String emplcodigo, String tipoCodigo, float importe, String cuenReferencia) {
         this.cuencodigo = cuencodigo;
         this.movinumero = movinumero;
+        this.fecha = fecha;
+        this.emplcodigo = emplcodigo;
+        this.tipoCodigo = tipoCodigo;
+        this.importe = importe;
+        this.cuenReferencia = cuenReferencia;
+    }
+
+    public Movimiento(String cuencodigo, Date fecha, String emplcodigo, String tipoCodigo, float importe,
+            String cuenReferencia) {
+        this.cuencodigo = cuencodigo;
         this.fecha = fecha;
         this.emplcodigo = emplcodigo;
         this.tipoCodigo = tipoCodigo;

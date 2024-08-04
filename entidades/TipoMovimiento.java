@@ -1,10 +1,10 @@
 package entidades;
 
 public class TipoMovimiento {
-    private String codigo;
-    private String descripcion;
-    private String accion; 
-    private String estado; 
+    private String codigo = null;
+    private String descripcion = null;
+    private String accion = null; 
+    private String estado = null; 
 
     public TipoMovimiento(String codigo, String descripcion, String accion, String estado) {
         this.codigo = codigo;
