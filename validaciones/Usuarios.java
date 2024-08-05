@@ -1,6 +1,8 @@
 package validaciones;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import entidades.Usuario;
 import listas.DBUsuario;
 
@@ -39,8 +41,8 @@ public class Usuarios {
         DBUsuario.modificarUsuario(codigo, nuevaClave.trim());
     }
 
-    public static void listarUsuarios() throws SQLException{
-        DBUsuario.listarUsuarios();
+    public static ArrayList<Usuario> listarUsuarios() throws SQLException{
+        return DBUsuario.listarUsuarios();
     }
 
 }
