@@ -74,6 +74,7 @@ CREATE TABLE movimiento (
     tipocodigo CHAR(3),
     movimporte DECIMAL(12,2),
     cuenreferencia CHAR(8),
+    estado TINYINT,
     FOREIGN KEY (cuencodigo) REFERENCES cuenta(cuencodigo),
     FOREIGN KEY (emplecodigo) REFERENCES empleado(emplcodigo),
     FOREIGN KEY (tipocodigo) REFERENCES tipomovimiento(tipocodigo)
