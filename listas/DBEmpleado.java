@@ -7,6 +7,29 @@ import conexion.ConexionDB;
 public class DBEmpleado {
     private static Connection db = ConexionDB.obtenerDB();
 
+    public static boolean existe(String codigo) throws SQLException{
+        CallableStatement cs = db.prepareCall("CALL sp_empleado_obtenerEstado(?)");
+        cs.setString(1, codigo);
+        ResultSet rs = cs.executeQuery();
+
+        if (!rs.next()) return false;
+        if (rs.getInt(1) == 0) return false;
+        return true;
+    }
+
+    public static void agregar(Empleado empleado) throws SQLException {
+        CallableStatement cs = db.prepareCall("CALL sp_agregarEmpleado(?, ?, ?, ?, ?, ?, ?)");
+        cs.setString(1, empleado.getCodigo());
+        cs.setString(2, empleado.getApellidoPaterno());
+        cs.setString(3, empleado.getApellidoMaterno());
+        cs.setString(4, empleado.getNombre());
+        cs.setString(5, empleado.getCiudad());
+        cs.setString(6, empleado.getDireccion());
+        cs.setString(7, empleado.getIdUsuario());
+
+        cs.executeQuery();
+    }
+
     public static Empleado obtener(String codigo) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_BuscarEmpleado(?)");
         cs.setString(1, codigo);
@@ -64,6 +87,13 @@ public class DBEmpleado {
         cs.setString(1, codigo);
         cs.setString(2, nuevaDireccion);
 
+        cs.executeQuery();
+    }
+
+    public static void remover(String codigo) throws SQLException{
+        CallableStatement cs = db.prepareCall("CALL sp_remEmpleado(?)");
+        cs.setString(1, codigo);
+        
         cs.executeQuery();
     }
 }

@@ -22,4 +22,9 @@ public class Movimientos {
         if (nuevoImporte <= 0) throw new IllegalArgumentException(errMsg + "El nuevo importe debe ser mayor que cero.");
         DBMovimiento.modificarImporte( moviNumero,nuevoImporte);
     }
+
+    public static void remover(int numero) throws SQLException{
+        validarMovNumero(numero);
+        DBMovimiento.remover(numero);
+    }
 }

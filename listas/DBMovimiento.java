@@ -36,4 +36,11 @@ public class DBMovimiento {
 
         cs.executeQuery();
     }
+
+    public static void remover(int numero) throws SQLException{
+        cs = db.prepareCall("CALL sp_remMovimiento(?)");
+        cs.setInt(1, numero);
+
+        cs.executeQuery();
+    }
 }
