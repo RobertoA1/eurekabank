@@ -35,7 +35,7 @@ public class Usuarios {
 
     public static String buscarUsuario(String codigo) {
         if(codigo.trim().length()==8)
-            return DBUsuario.buscarUsuario(codigo);
+            return DBUsuario.buscarUsuario(codigo.trim());
         else
             return null;
     }
