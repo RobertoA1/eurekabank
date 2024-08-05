@@ -3,41 +3,28 @@ package validaciones;
 import java.sql.SQLException;
 import entidades.Usuario;
 import listas.DBUsuario;
-import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Usuarios {
     private static String errMsg = "Error en usuarios: ";
-    private static Usuario usuario;
 
-    private static void validarCodigo(String codigo) throws IllegalArgumentException {
+    private static void validarCodigo(String codigo) throws IllegalArgumentException,SQLException {
         if (codigo.length() != 8) throw new IllegalArgumentException(errMsg + "El código es demasiado largo (Debe ser de 8 caracteres).");
         if (codigo.isBlank()) throw new IllegalArgumentException(errMsg + "El código introducido es inválido.");
+        if(!DBUsuario.buscarUsuario(codigo)) throw new IllegalArgumentException(errMsg + "El codigo introducido no se encuentra vinculado a ningun usuario");
     }
 
-    public static void insertarUsuario(String codigo, String clave) throws IllegalArgumentException{
+    public static void insertarUsuario(String codigo, String clave) throws IllegalArgumentException, SQLException{
         validarCodigo(codigo);
-        validarCodigo(clave);
-        String mensaje;
-        if(buscarUsuario(codigo) == null) {                
-                usuario = new Usuario(codigo,clave);
-                mensaje = DBUsuario.insertarUsuario(usuario);
-                if(mensaje == null) {
-                    showMessageDialog(null, "Registro insertado", "Resultado", 1);
-                } else {
-                    showMessageDialog(null, mensaje, "Error", 0);
-                    
-                }
-            } else {
-                showMessageDialog(null, "Codigo ya existe", "Error", 0);
-                
-            }
+        String err = errMsg + "Creación | ";
+        if(clave.trim().length()!=8) throw new IllegalArgumentException(err + "La clave introducida debe de ser de 8 caracteres");
+        if(buscarUsuario(codigo)) throw new IllegalArgumentException(err + "El codigo ya existe en otro usuario");
+        DBUsuario.insertarUsuario(new Usuario(codigo,clave));
     }
 
-    public static String buscarUsuario(String codigo) {
+    public static boolean buscarUsuario(String codigo) throws SQLException {
         if(codigo.trim().length()==8)
             return DBUsuario.buscarUsuario(codigo.trim());
-        else
-            return null;
+        return false;
     }
 
     public static Usuario obtenerUsuario(String codigo) throws IllegalArgumentException, SQLException{
@@ -47,12 +34,12 @@ public class Usuarios {
 
     public static void modificarUsuario(String codigo, String nuevaClave) throws IllegalArgumentException, SQLException{
         validarCodigo(codigo);
-        if (nuevaClave.isBlank()) throw new IllegalArgumentException(errMsg + "El nuevo nombre no puede estar vacío.");
-        if (nuevaClave.length() != 8) throw new IllegalArgumentException(errMsg + "El código es inválido (Debe ser de 8 caracteres).");
+        if (nuevaClave.isBlank()) throw new IllegalArgumentException(errMsg + "La nueva clave no puede estar vacía.");
+        if (nuevaClave.length() != 8) throw new IllegalArgumentException(errMsg + "La clave es inválida (Debe ser de 8 caracteres).");
         DBUsuario.modificarUsuario(codigo, nuevaClave.trim());
     }
 
-    public static void listarUsuarios(){
+    public static void listarUsuarios() throws SQLException{
         DBUsuario.listarUsuarios();
     }
 
