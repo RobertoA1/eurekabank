@@ -18,7 +18,7 @@ public class DBMonedas {
     public static String buscarMoneda(String codigo) {
         String sql;
         try {
-            cn = ConexionDB.realizarConexion();
+            cn = ConexionDB.obtenerDB();
             sql = "{call sp_buscar_moneda(?)}";
             cs = cn.prepareCall(sql);
             cs.setString(1, codigo);
@@ -26,7 +26,7 @@ public class DBMonedas {
             while(rs.next()) {
                 return rs.getString("monecodigo");
             }
-        } catch(ClassNotFoundException | SQLException ex) {
+        } catch(SQLException ex) {
             showMessageDialog(null, ex.getMessage(), "Error", 0);
         } finally {
             try {
@@ -43,7 +43,7 @@ public class DBMonedas {
     public static Moneda obtenerMoneda(String codigo) {
         Moneda moneda = new Moneda();
         try {
-            cn = ConexionDB.realizarConexion();
+            cn = ConexionDB.obtenerDB();
             String sql = "{call sp_buscar_moneda(?)}";
             cs = cn.prepareCall(sql);
             cs.setString(1, codigo);
@@ -52,7 +52,7 @@ public class DBMonedas {
                 moneda.setCodigo(rs.getString(1));
                 moneda.setDescripcion(rs.getString(2));
             }
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (SQLException ex) {
             showMessageDialog(null, ex.getMessage(), "Error", 0);
         } finally {
             try {
@@ -69,13 +69,13 @@ public class DBMonedas {
     public static String actualizarMoneda(Moneda moneda) {
         String mensaje = null;
         try {
-            cn = ConexionDB.realizarConexion();
+            cn = ConexionDB.obtenerDB();
             String sql = "{call sp_actualizar_moneda(?, ?)}";
             cs = cn.prepareCall(sql);
             cs.setString(1, moneda.getCodigo());
             cs.setString(2, moneda.getDescripcion());
             cs.executeUpdate();
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (SQLException ex) {
             mensaje = ex.getMessage();
         } finally {
             try {

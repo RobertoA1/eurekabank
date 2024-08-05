@@ -15,7 +15,7 @@ public class DBSucursales {
     public static String insertarSucursal(Sucursal sucursal) {
         String mensaje = null, sql;
         try {
-            cn = ConexionDB.realizarConexion();
+            cn = ConexionDB.obtenerDB();
             sql = "{call sp_insertar_sucursal(?, ?, ?, ?, ?)}";   
             cs = cn.prepareCall(sql);
             cs.setString(1, sucursal.getCodigo());
@@ -24,7 +24,7 @@ public class DBSucursales {
             cs.setString(4, sucursal.getDireccion());
             cs.setInt(5, sucursal.getContCuenta());
             cs.executeUpdate();            
-        } catch(ClassNotFoundException | SQLException ex) {
+        } catch(SQLException ex) {
             mensaje = ex.getMessage();
         } finally {
             try {
@@ -40,7 +40,7 @@ public class DBSucursales {
     public static String buscarSucursal(String codigo) {
         String sql;
         try {
-            cn = ConexionDB.realizarConexion();
+            cn = ConexionDB.obtenerDB();
             sql = "{call sp_buscar_sucursal(?)}";
             cs = cn.prepareCall(sql);
             cs.setString(1, codigo);
@@ -48,7 +48,7 @@ public class DBSucursales {
             while(rs.next()) {
                 return rs.getString("sucucodigo");
             }
-        } catch(ClassNotFoundException | SQLException ex) {
+        } catch(SQLException ex) {
             showMessageDialog(null, ex.getMessage(), "Error", 0);
         } finally {
             try {
@@ -66,7 +66,7 @@ public class DBSucursales {
         String sql;
         ArrayList<Sucursal> sucursales = new ArrayList<>();
         try {
-            cn = ConexionDB.realizarConexion();
+            cn = ConexionDB.obtenerDB();
             sql = "{call sp_listar_sucursales()}";
             cs = cn.prepareCall(sql);
             rs = cs.executeQuery(sql);
@@ -79,7 +79,7 @@ public class DBSucursales {
                 sucursal.setContCuenta(rs.getInt(5));
                 sucursales.add(sucursal);
             }
-        } catch(ClassNotFoundException | SQLException ex) {
+        } catch(SQLException ex) {
             showMessageDialog(null, ex.getMessage(), "Error", 0);
         } finally {
             try {
@@ -96,7 +96,7 @@ public class DBSucursales {
     public static String actualizarSucursal(Sucursal sucursal) {
         String mensaje = null;
         try {
-            cn = ConexionDB.realizarConexion();
+            cn = ConexionDB.obtenerDB();
             String sql = "{call sp_actualizar_sucursal(?, ?, ?, ?, ?)}";
             cs = cn.prepareCall(sql);
             cs.setString(1, sucursal.getCodigo());
@@ -105,7 +105,7 @@ public class DBSucursales {
             cs.setString(4, sucursal.getDireccion());
             cs.setInt(5, sucursal.getContCuenta());
             cs.executeUpdate();
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (SQLException ex) {
             mensaje = ex.getMessage();
         } finally {
             try {
@@ -121,7 +121,7 @@ public class DBSucursales {
     public static Sucursal obtenerSucursal(String codigo) {
         Sucursal sucursal = new Sucursal();
         try {
-            cn = ConexionDB.realizarConexion();
+            cn = ConexionDB.obtenerDB();
             String sql = "{call sp_buscar_sucursal(?)}";
             cs = cn.prepareCall(sql);
             cs.setString(1, codigo);
@@ -133,7 +133,7 @@ public class DBSucursales {
                 sucursal.setDireccion(rs.getString(4));
                 sucursal.setContCuenta(rs.getInt(5));
             }
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (SQLException ex) {
             showMessageDialog(null, ex.getMessage(), "Error", 0);
         } finally {
             try {
@@ -150,12 +150,12 @@ public class DBSucursales {
     public static String eliminarSucursal(String codigo) {
         String mensaje = null;
         try {
-            cn = ConexionDB.realizarConexion();
+            cn = ConexionDB.obtenerDB();
             String sql = "{call sp_eliminar_sucursal(?)}";
             cs = cn.prepareCall(sql);
             cs.setString(1, codigo);
             cs.executeUpdate();
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (SQLException ex) {
             mensaje = ex.getMessage();
         } finally {
             try {

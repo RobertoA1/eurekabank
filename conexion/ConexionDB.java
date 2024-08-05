@@ -28,7 +28,7 @@ public class ConexionDB {
         return null;
     }
 
-    public static Connection realizarConexion() throws ClassNotFoundException, SQLException {
+    private static Connection realizarConexion() throws ClassNotFoundException, SQLException {
         String url;
         Properties propiedades;
         
