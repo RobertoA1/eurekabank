@@ -1,7 +1,6 @@
 package listas;
 import java.sql.*;
 
-import entidades.Empleado;
 import entidades.Movimiento;
 import conexion.ConexionDB;
 
@@ -22,7 +21,6 @@ public class DBMovimiento {
         return true;
     }
 
-
     public static void agregar(Movimiento movimiento) throws SQLException {
         cs = db.prepareCall("CALL sp_agregarMovimiento(?, ?, ?, ?, ?, ?, ?)");
 
@@ -35,7 +33,7 @@ public class DBMovimiento {
         cs.setFloat(6, movimiento.getImporte());
         cs.setString(7, movimiento.getCuenReferencia());
 
-        cs.executeQuery();
+        cs.executeUpdate();
     }
     
     public static Movimiento obtener(int numero) throws SQLException{
@@ -62,13 +60,13 @@ public class DBMovimiento {
         cs.setInt(1, moviNumero);
         cs.setFloat(2, nuevoImporte);
 
-        cs.executeQuery();
+        cs.executeUpdate();
     }
 
     public static void remover(int numero) throws SQLException{
         cs = db.prepareCall("CALL sp_remMovimiento(?)");
         cs.setInt(1, numero);
 
-        cs.executeQuery();
+        cs.executeUpdate();
     }
 }

@@ -15,8 +15,12 @@ public class Empleados {
     }
 
     public static void agregar(String codigo, String nombre, String apPaterno, String apMaterno, String ciudad, String direccion, String idUsuario) throws IllegalArgumentException, SQLException {
-        validarCodigo(codigo);
         String err = errMsg + "Creación | ";
+        
+        if (codigo.length() > 4) throw new IllegalArgumentException(err + "El código es demasiado largo (máx. 4 caracteres).");
+        if (codigo.isBlank()) throw new IllegalArgumentException(err + "El código introducido es inválido.");
+        if (DBEmpleado.existe(codigo)) throw new IllegalArgumentException(err + "El código introducido ya está vinculado a un empleado.");
+        
         if (nombre.length() > 30) throw new IllegalArgumentException(err + "El nombre introducido es demasiado largo. (máx. 30 caracteres)");
         if (apPaterno.length() > 25) throw new IllegalArgumentException(err + "El apellido paterno es demasiado largo. (máx. 25 caracteres)");
         if (apMaterno.length() > 25) throw new IllegalArgumentException(err + "El apellido materno es demasiado largo. (máx. 25 caracteres)");
@@ -49,21 +53,21 @@ public class Empleados {
         validarCodigo(codigo);
         if (nuevoApellido.isBlank()) throw new IllegalArgumentException(errMsg + "El nuevo apellido materno no puede estar vacío.");
         if (nuevoApellido.length() > 25) throw new IllegalArgumentException(errMsg + "El nuevo apellido materno es demasiado largo (máx. 25 caracteres)");
-        DBEmpleado.modificarApellidoPaterno(codigo, nuevoApellido.trim());
+        DBEmpleado.modificarApellidoMaterno(codigo, nuevoApellido.trim());
     }
 
     public static void modificarCiudad(String codigo, String nuevaCiudad) throws IllegalArgumentException, SQLException{
         validarCodigo(codigo);
         if (nuevaCiudad.isBlank()) throw new IllegalArgumentException(errMsg + "La nueva ciudad no puede estar vacía.");
         if (nuevaCiudad.length() > 30) throw new IllegalArgumentException(errMsg + "El nombre de la nueva ciudad es demasiado largo (máx. 30 caracteres)");
-        DBEmpleado.modificarApellidoPaterno(codigo, nuevaCiudad.trim());
+        DBEmpleado.modificarCiudad(codigo, nuevaCiudad.trim());
     }
 
     public static void modificarDireccion(String codigo, String nuevaDireccion) throws IllegalArgumentException, SQLException{
         validarCodigo(codigo);
         if (nuevaDireccion.isBlank()) throw new IllegalArgumentException(errMsg + "La nueva dirección no puede estar vacía.");
         if (nuevaDireccion.length() > 30) throw new IllegalArgumentException(errMsg + "La nueva dirección es demasiado larga (máx. 50 caracteres)");
-        DBEmpleado.modificarApellidoPaterno(codigo, nuevaDireccion.trim());
+        DBEmpleado.modificarDireccion(codigo, nuevaDireccion.trim());
     }
 
     public static void remover(String codigo) throws SQLException{

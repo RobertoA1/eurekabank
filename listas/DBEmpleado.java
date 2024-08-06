@@ -27,7 +27,7 @@ public class DBEmpleado {
         cs.setString(6, empleado.getDireccion());
         cs.setString(7, empleado.getIdUsuario());
 
-        cs.executeQuery();
+        cs.executeUpdate();
     }
 
     public static Empleado obtener(String codigo) throws SQLException{
@@ -55,7 +55,7 @@ public class DBEmpleado {
         cs.setString(1, codigo);
         cs.setString(2, nuevoNombre);
 
-        cs.executeQuery();
+        cs.executeUpdate();
     }
 
     public static void modificarApellidoPaterno(String codigo, String nuevoApellido) throws SQLException{
@@ -63,7 +63,7 @@ public class DBEmpleado {
         cs.setString(1, codigo);
         cs.setString(2, nuevoApellido);
 
-        cs.executeQuery();
+        cs.executeUpdate();
     }
 
     public static void modificarApellidoMaterno(String codigo, String nuevoApellido) throws SQLException{
@@ -71,7 +71,7 @@ public class DBEmpleado {
         cs.setString(1, codigo);
         cs.setString(2, nuevoApellido);
 
-        cs.executeQuery();
+        cs.executeUpdate();
     }
 
     public static void modificarCiudad(String codigo, String nuevaCiudad) throws SQLException{
@@ -79,7 +79,7 @@ public class DBEmpleado {
         cs.setString(1, codigo);
         cs.setString(2, nuevaCiudad);
 
-        cs.executeQuery();
+        cs.executeUpdate();
     }
 
     public static void modificarDireccion(String codigo, String nuevaDireccion) throws SQLException{
@@ -87,13 +87,13 @@ public class DBEmpleado {
         cs.setString(1, codigo);
         cs.setString(2, nuevaDireccion);
 
-        cs.executeQuery();
+        cs.executeUpdate();
     }
 
     public static void remover(String codigo) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_remEmpleado(?)");
         cs.setString(1, codigo);
         
-        cs.executeQuery();
+        cs.executeUpdate();
     }
 }
