@@ -2,12 +2,12 @@ package entidades;
 
 public class CargoMantenimiento {
     
-    private String codigoMoneda;
-    private float montoMaximo;
-    private float importe;
+    private String codigoMoneda = null;
+    private float montoMaximo = -1;
+    private float importe = -1;
     
     public CargoMantenimiento() {
-        this("00", 0.0f, 0.0f);
+
     }
     
     public CargoMantenimiento(String codigoMoneda, float montoMaximo, float importe) {

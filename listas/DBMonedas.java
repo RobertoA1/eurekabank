@@ -8,15 +8,15 @@ public class DBMonedas {
 
     private static Connection db = ConexionDB.obtenerDB();
 
-    public static String buscar(String codigo) throws SQLException {
+    public static int buscar(String codigo) throws SQLException {
         CallableStatement cs = db.prepareCall("{call sp_buscar_moneda(?)}");
         cs.setString(1, codigo);
 
         ResultSet rs = cs.executeQuery();
-        String resultado = null;
+        int resultado = -1;
 
         if (rs.next()) {
-            resultado = rs.getString("monecodigo");
+            resultado = rs.getInt("estado");
         }
         rs.close();
         cs.close();
@@ -33,6 +33,7 @@ public class DBMonedas {
             Moneda moneda = new Moneda();
             moneda.setCodigo(rs.getString(1));
             moneda.setDescripcion(rs.getString(2));
+            moneda.setEstado(rs.getInt(3));
             return moneda;
         }
         rs.close();
@@ -49,6 +50,10 @@ public class DBMonedas {
         cs.close();
     }
 
-
-
+    public static void eliminar(String codigo) throws SQLException {
+        CallableStatement cs = db.prepareCall("{call sp_eliminar_moneda(?)}");
+        cs.setString(1, codigo);
+        cs.executeUpdate();
+        cs.close();
+    }
 }

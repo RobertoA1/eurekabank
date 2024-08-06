@@ -2,14 +2,14 @@ package entidades;
 
 public class Sucursal{
 
-    private String codigo;
-    private String nombre;
-    private String ciudad;
-    private String direccion;
-    private int contCuenta;
+    private String codigo = null;
+    private String nombre = null;
+    private String ciudad = null;
+    private String direccion = null;
+    private int contCuenta = 0;
+    private int estado = 1;
 
     public Sucursal(){
-        this("00", "NN", "NC", "ND", 0);
     }
 
     public Sucursal(String codigo, String nombre, String ciudad, String direccion, int contCuenta) {
@@ -59,4 +59,13 @@ public class Sucursal{
     public void setContCuenta(int contCuenta) {
         this.contCuenta = contCuenta;
     }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+ 
 }

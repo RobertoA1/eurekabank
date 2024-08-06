@@ -20,14 +20,14 @@ public class DBSucursales {
         cs.close();
     }
 
-    public static String buscar(String codigo) throws SQLException {
-        String resultado = null;
+    public static int buscar(String codigo) throws SQLException {
+        int resultado = -1;
         CallableStatement cs = db.prepareCall("{call sp_buscar_sucursal(?)}");
         cs.setString(1, codigo);
         ResultSet rs = cs.executeQuery();
 
         if (rs.next()) {
-            resultado = rs.getString("sucucodigo");
+            resultado = rs.getInt("estado");
         }
 
         rs.close();
@@ -100,6 +100,7 @@ public class DBSucursales {
             sucursal.setCiudad(rs.getString(3));
             sucursal.setDireccion(rs.getString(4));
             sucursal.setContCuenta(rs.getInt(5));
+            sucursal.setEstado(rs.getInt(6));
             return sucursal;
         }
 

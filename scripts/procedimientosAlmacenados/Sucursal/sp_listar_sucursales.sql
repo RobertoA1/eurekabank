@@ -1,4 +1,4 @@
-CREATE DEFINER=`lucano`@`localhost` PROCEDURE `sp_listar_sucursales`()
+CREATE DEFINER=`admin`@`%` PROCEDURE `sp_listar_sucursales`()
 BEGIN
-    SELECT * FROM sucursal;
+    SELECT * FROM sucursal where estado = 1;
 END

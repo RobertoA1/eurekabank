@@ -2,11 +2,11 @@ package entidades;
 
 public class Moneda {
     
-    private String codigo;
-    private String descripcion;
+    private String codigo = null;
+    private String descripcion = null;
+    private int estado = 1;
 
     public Moneda() {
-        this("00", "ND");
     }
 
     public Moneda(String codigo, String descripcion){
@@ -30,6 +30,14 @@ public class Moneda {
         this.descripcion = descripcion;
     }
 
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+    
     
 
 }
