@@ -45,13 +45,13 @@ public class Cliente{
     public void setCodigo(String codigo){
         this.codigo=codigo;
     }
-    public String getApelligoPaterno(){
+    public String getApellidoPaterno(){
         return apellidoPaterno;
     }
     public void setApellidoPaterno(String apellidoPaterno){
         this.apellidoPaterno=apellidoPaterno;
     }
-    public String getApelligoMaterno(){
+    public String getApellidoMaterno(){
         return apellidoMaterno;
     }
     public void setApellidoMaterno(String apellidoMaterno){

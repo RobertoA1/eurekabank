@@ -62,7 +62,7 @@ public class Clientes {
     public static void modificarDni(String codigo, String nuevoDni) throws IllegalArgumentException, SQLException{
         validarCodigo(codigo);
         if (nuevoDni.isBlank()) throw new IllegalArgumentException(errMsg + "El nuevo DNI no puede estar vacía.");
-        if (nuevoDNI.length() =! 8) throw new IllegalArgumentException(errMsg + "El nuevo DNI es invalido (8 caracteres necesarios)");
+        if (nuevoDni.length() != 8) throw new IllegalArgumentException(errMsg + "El nuevo DNI es invalido (8 caracteres necesarios)");
         DBCliente.modificarDni(codigo, nuevoDni.trim());
     }
 

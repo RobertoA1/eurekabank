@@ -29,7 +29,7 @@ public class DBCliente{
         cs.setString(7, cliente.getDireccion());
         cs.setString(8, cliente.getTelefono());
         cs.setString(9, cliente.getEmail());
-        cs.setString(10, cliente.getIdUsuario();)
+        cs.setString(10, cliente.getIdUsuario());
 
         cs.executeUpdate();
     }
@@ -116,7 +116,7 @@ public class DBCliente{
     public static void modificarEmail(String codigo, String nuevoEmail) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_modCliente_email(?, ?)");
         cs.setString(1, codigo);
-        cs.setString(2, email);
+        cs.setString(2, nuevoEmail);
 
         cs.executeQuery();
     }
