@@ -44,7 +44,9 @@ CREATE TABLE cliente (
     clieciudad VARCHAR(30),
     cliedireccion VARCHAR(50),
     clietelefono VARCHAR(20),
-    clieemail VARCHAR(50)
+    clieemail VARCHAR(50),
+    clieidusuario CHAR(8),
+    estado TINYINT
 );
 
 -- Creación de la tabla cuenta
