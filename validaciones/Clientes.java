@@ -13,6 +13,26 @@ public class Clientes {
         if (codigo.isBlank()) throw new IllegalArgumentException(errMsg + "El código introducido es inválido.");
     }
 
+    public static void agregar(String codigo, String nombre, String apPaterno, String apMaterno,String dni, String ciudad, String direccion, String telefono, String email, String idUsuario) throws IllegalArgumentException, SQLException {
+        String err = errMsg + "Creación | ";
+        
+        if (codigo.length() > 5) throw new IllegalArgumentException(err + "El código es demasiado largo (máx. 5 caracteres).");
+        if (codigo.isBlank()) throw new IllegalArgumentException(err + "El código introducido es inválido.");
+        if (DBCliente.existe(codigo)) throw new IllegalArgumentException(err + "El código introducido ya está vinculado a un cliente.");
+        
+        if (nombre.length() > 30) throw new IllegalArgumentException(err + "El nombre introducido es demasiado largo. (máx. 30 caracteres)");
+        if (apPaterno.length() > 25) throw new IllegalArgumentException(err + "El apellido paterno es demasiado largo. (máx. 25 caracteres)");
+        if (apMaterno.length() > 25) throw new IllegalArgumentException(err + "El apellido materno es demasiado largo. (máx. 25 caracteres)");
+        if (dni.length() != 8) throw new IllegalArgumentException(err + "El dni no es valido. (8 caracteres necesarios)");
+        if (ciudad.length() > 30) throw new IllegalArgumentException(err + "El nombre de la ciudad es demasiado largo (máx. 30 caracteres)");
+        if (direccion.length() > 50) throw new IllegalArgumentException(err + "La dirección es demasiado larga (máx. 50 caracteres)");
+        if (telefono.length() > 20) throw new IllegalArgumentException(err + "El telefono es demasiado largo. (máx. 20 caracteres)");
+        if (email.length() > 50) throw new IllegalArgumentException(err + "El email es demasiado largo. (máx. 50 caracteres)");
+        if (idUsuario.length() > 8) throw new IllegalArgumentException(err + "El id del usuario es demasiado largo (máx. 8 caracteres)");
+
+        DBCliente.agregar(new Cliente(codigo, nombre, apPaterno, apMaterno,dni, ciudad, direccion,telefono, email, idUsuario));
+    }
+
     public static Cliente obtener(String codigo) throws IllegalArgumentException, SQLException{
         validarCodigo(codigo);
         return DBCliente.obtener(codigo);
@@ -72,6 +92,11 @@ public class Clientes {
         if (nuevaEmail.isBlank()) throw new IllegalArgumentException(errMsg + "El nuevo Email no puede estar vacía.");
         if (nuevaEmail.length() > 50) throw new IllegalArgumentException(errMsg + "El nuevo Email es demasiado largo (máx. 50 caracteres)");
         DBCliente.modificarEmail(codigo, nuevaEmail.trim());
+    }
+
+    public static void remover(String codigo) throws SQLException{
+        validarCodigo(codigo);
+        DBCliente.remover(codigo);
     }
 
 }

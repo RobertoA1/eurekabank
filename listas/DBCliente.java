@@ -7,6 +7,33 @@ import conexion.ConexionDB;
 public class DBCliente{
     private static Connection db = ConexionDB.obtenerDB();
 
+    public static boolean existe(String codigo) throws SQLException{
+        CallableStatement cs = db.prepareCall("CALL sp_cliente_obtenerEstado(?)");
+        cs.setString(1,codigo);
+
+        ResultSet rs = cs.executeQuery();
+
+        if(!rs.next()) return false;
+        if(rs.getInt(1)==0) return false;
+        return true;
+    }
+
+    public static void agregar(Cliente cliente) throws SQLException{
+        CallableStatement cs = db.prepareCall("CALL sp_agregarCliente(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        cs.setString(1, cliente.getCodigo());
+        cs.setString(2, cliente.getApellidoPaterno());
+        cs.setString(3, cliente.getApellidoMaterno());
+        cs.setString(4, cliente.getNombre());
+        cs.setString(5, cliente.getDni());
+        cs.setString(6, cliente.getCiudad());
+        cs.setString(7, cliente.getDireccion());
+        cs.setString(8, cliente.getTelefono());
+        cs.setString(9, cliente.getEmail());
+        cs.setString(10, cliente.getIdUsuario();)
+
+        cs.executeUpdate();
+    }
+
     public static Cliente obtener(String codigo) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_BuscarCliente(?)");
         cs.setString(1, codigo);
@@ -23,7 +50,8 @@ public class DBCliente{
             c.setCiudad(rs.getString(6));
             c.setDireccion(rs.getString(7));
             c.setTelefono(rs.getString(8));
-            c.setEmail(rs.getString(7));
+            c.setEmail(rs.getString(9));
+            c.setIdUsuario(rs.getString(10));
             return c;
         }
         return null;
@@ -91,5 +119,12 @@ public class DBCliente{
         cs.setString(2, email);
 
         cs.executeQuery();
+    }
+
+    public static void remover(String codigo) throws SQLException{
+        CallableStatement cs = db.prepareCall("CALL sp_remCliente(?)");
+        cs.setString(1, codigo);
+        
+        cs.executeUpdate();
     }
 }
