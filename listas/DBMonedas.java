@@ -3,26 +3,32 @@ package listas;
 import entidades.*;
 import conexion.ConexionDB;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DBMonedas {
 
     private static Connection db = ConexionDB.obtenerDB();
 
-    public static int buscar(String codigo) throws SQLException {
-        CallableStatement cs = db.prepareCall("{call sp_buscar_moneda(?)}");
+    public static boolean existe(String codigo) throws SQLException {
+        CallableStatement cs = db.prepareCall("CALL sp_buscar_moneda(?)");
         cs.setString(1, codigo);
 
         ResultSet rs = cs.executeQuery();
-        int resultado = -1;
-
-        if (rs.next()) {
-            resultado = rs.getInt("estado");
+        if (rs.next()){
+            if (rs.getInt(3) == 1) return true;
         }
-        rs.close();
-        cs.close();
 
-        return resultado;
+        return false;
     }
+
+    public static void insertar(Moneda moneda) throws SQLException{
+        CallableStatement cs = db.prepareCall("CALL sp_insertar_moneda(?, ?)");
+        cs.setString(1, moneda.getCodigo());
+        cs.setString(2, moneda.getDescripcion());
+
+        cs.executeUpdate();
+    }
+
 
     public static Moneda obtener(String codigo) throws SQLException {
         CallableStatement cs = db.prepareCall("CALL sp_buscar_moneda(?)");
@@ -36,24 +42,34 @@ public class DBMonedas {
             moneda.setEstado(rs.getInt(3));
             return moneda;
         }
-        rs.close();
-        cs.close();
+
         return null;
     }
 
     public static void actualizarDescripcion(String codigo, String nuevaDescripcion) throws SQLException {
-        CallableStatement cs = db.prepareCall("{call sp_actualizar_moneda_descripcion(?, ?)}");
+        CallableStatement cs = db.prepareCall("CALL sp_actualizar_moneda_descripcion(?, ?)");
         cs.setString(1, codigo);
         cs.setString(2, nuevaDescripcion);
-
         cs.executeUpdate();
-        cs.close();
     }
 
     public static void eliminar(String codigo) throws SQLException {
-        CallableStatement cs = db.prepareCall("{call sp_eliminar_moneda(?)}");
+        CallableStatement cs = db.prepareCall("CALL sp_eliminar_moneda(?)");
         cs.setString(1, codigo);
         cs.executeUpdate();
-        cs.close();
+    }
+
+    public static ArrayList<Moneda> listarMonedas() throws SQLException {
+        ArrayList<Moneda> arr = new ArrayList<>();
+        CallableStatement cs = db.prepareCall("CALL sp_listar_monedas()");
+        ResultSet rs = cs.executeQuery();
+
+        while (rs.next()){
+            Moneda m = new Moneda();
+            m.setCodigo(rs.getString(1));
+            m.setDescripcion(rs.getString(2));
+        }
+        
+        return arr;
     }
 }

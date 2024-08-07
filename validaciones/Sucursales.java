@@ -1,51 +1,38 @@
 package validaciones;
 
 import entidades.*;
+import listas.DBMonedas;
 import listas.DBSucursales;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Sucursales {
-    private static Sucursal sucursal;
     private static String errMsg = "Error en sucursales: ";
     
     private static void validarCodigo(String codigo) throws IllegalArgumentException {
-        if (codigo.length() != 3) throw new IllegalArgumentException(errMsg + "El código debe tener exactamente 3 caracteres.");
+        if (codigo.length() > 3) throw new IllegalArgumentException(errMsg + "El código de la sucursal es muy largo (máx. 3 caracteres).");
         if (codigo.isBlank()) throw new IllegalArgumentException(errMsg + "El código introducido es inválido.");
-    }
-
-    private static void validarEstado(String codigo) throws IllegalArgumentException, SQLException {
-        int estado = obtenerEstadoSucursal(codigo);
-        if (estado != 1) throw new IllegalArgumentException(errMsg + "La sucursal solicitada no existe");
     }
 
     public static void insertar(String codigo, String nombre, String ciudad, String direccion, int contCuenta) throws IllegalArgumentException, SQLException {
         validarCodigo(codigo);
-        if (nombre == null || nombre.trim().length() <= 0 || nombre.trim().length() > 50) {
-            throw new IllegalArgumentException("Nombre no válido");
-        }
-        if (ciudad == null || ciudad.trim().length() <= 0 || ciudad.trim().length() > 30) {
-            throw new IllegalArgumentException("Ciudad no válida");
-        }
-        if (direccion == null || direccion.trim().length() <= 0 || direccion.trim().length() > 50) {
-            throw new IllegalArgumentException("Dirección no válida");
-        }
-        if (contCuenta < 0) {
-            throw new IllegalArgumentException("El número de cuentas no puede ser negativo.");
-        }
+        if (DBMonedas.existe(codigo)) throw new IllegalArgumentException(errMsg + "El código especificado ya está vinculado a otra sucursal.");
+        if (nombre.isBlank()) throw new IllegalArgumentException(errMsg + "El nombre no puede estar vacío.");
+        if (ciudad.isBlank()) throw new IllegalArgumentException(errMsg + "La ciudad no puede estar vacía.");
+        if (direccion.isBlank()) throw new IllegalArgumentException(errMsg + "La dirección no puede estar vacía.");
+        if (contCuenta < 0) throw new IllegalArgumentException(errMsg + "La cantidad de cuentas no puede ser menor que cero.");
 
-        if (buscar(codigo) == -1) {
-            sucursal = new Sucursal(codigo, nombre, ciudad, direccion, contCuenta);
-            DBSucursales.insertar(sucursal);
-        } else {
-            throw new IllegalArgumentException("Código ya existe");
-        }
+        if (nombre.length() > 50) throw new IllegalArgumentException(errMsg +"El nombre de la sucursal es muy largo (máx. 50 caracteres).");
+        if (ciudad.length() > 30) throw new IllegalArgumentException(errMsg + "El nombre de la ciudad de la sucursal es muy largo (máx. 30 caracteres).");
+        if (direccion.length() > 50) throw new IllegalArgumentException(errMsg + "La dirección de la sucursal es muy larga(máx. 50 caracteres)");
+
+        DBSucursales.insertar(new Sucursal(codigo, nombre, ciudad, direccion, contCuenta));
     }
 
-    public static int buscar(String codigo) throws IllegalArgumentException, SQLException {
+    public static boolean existe(String codigo) throws IllegalArgumentException, SQLException {
         validarCodigo(codigo);
-        return DBSucursales.buscar(codigo);
+        return DBSucursales.existe(codigo);
     }
 
     public static ArrayList<Sucursal> listarSucursales() throws IllegalArgumentException, SQLException {
@@ -95,8 +82,7 @@ public class Sucursales {
         DBSucursales.eliminar(codigo);
     }
 
-    private static int obtenerEstadoSucursal(String codigo) throws SQLException {
-        int estado = DBSucursales.buscar(codigo);
-        return estado;
+    private static void validarEstado(String codigo) throws SQLException {
+        if (!DBSucursales.existe(codigo)) throw new IllegalArgumentException("La sucursal solicitada no existe.");
     }
 }

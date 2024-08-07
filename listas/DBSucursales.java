@@ -10,34 +10,29 @@ public class DBSucursales {
     private static Connection db = ConexionDB.obtenerDB();
 
     public static void insertar(Sucursal sucursal) throws SQLException {
-        CallableStatement cs = db.prepareCall("{call sp_insertar_sucursal(?, ?, ?, ?, ?)}");
+        CallableStatement cs = db.prepareCall("CALL sp_insertar_sucursal(?, ?, ?, ?, ?)");
         cs.setString(1, sucursal.getCodigo());
         cs.setString(2, sucursal.getNombre());
         cs.setString(3, sucursal.getCiudad());
         cs.setString(4, sucursal.getDireccion());
         cs.setInt(5, sucursal.getContCuenta());
         cs.executeUpdate();
-        cs.close();
     }
 
-    public static int buscar(String codigo) throws SQLException {
-        int resultado = -1;
-        CallableStatement cs = db.prepareCall("{call sp_buscar_sucursal(?)}");
+    public static boolean existe(String codigo) throws SQLException {
+        CallableStatement cs = db.prepareCall("CALL sp_buscar_sucursal(?)");
         cs.setString(1, codigo);
         ResultSet rs = cs.executeQuery();
 
         if (rs.next()) {
-            resultado = rs.getInt("estado");
+            if (rs.getInt(3) == 1) return true;
         }
-
-        rs.close();
-        cs.close();
-        return resultado;
-    }
+        return false;
+    }   
 
     public static ArrayList<Sucursal> listarSucursales() throws SQLException {
         ArrayList<Sucursal> sucursales = new ArrayList<>();
-        CallableStatement cs = db.prepareCall("{call sp_listar_sucursales()}");
+        CallableStatement cs = db.prepareCall("CALL sp_listar_sucursales()");
         ResultSet rs = cs.executeQuery();
 
         while (rs.next()) {
@@ -50,8 +45,6 @@ public class DBSucursales {
             sucursales.add(sucursal);
         }
 
-        rs.close();
-        cs.close();
         return sucursales;
     }
 
@@ -60,7 +53,7 @@ public class DBSucursales {
         cs.setString(1, codigo);
         cs.setString(2, nuevoNombre);
         cs.executeUpdate();
-        cs.close();
+        
     }
 
     public static void actualizarCiudad(String codigo, String nuevaCiudad) throws SQLException {
@@ -68,7 +61,7 @@ public class DBSucursales {
         cs.setString(1, codigo);
         cs.setString(2, nuevaCiudad);
         cs.executeUpdate();
-        cs.close();
+        
     }
 
     public static void actualizarDireccion(String codigo, String nuevaDireccion) throws SQLException {
@@ -76,15 +69,15 @@ public class DBSucursales {
         cs.setString(1, codigo);
         cs.setString(2, nuevaDireccion);
         cs.executeUpdate();
-        cs.close();
+        
     }
 
     public static void actualizarContCuenta(String codigo, int nuevaContCuenta) throws SQLException {
-        CallableStatement cs = db.prepareCall("{call sp_actualizar_sucursal_contactocuenta(?, ?)}");
+        CallableStatement cs = db.prepareCall("{call sp_actualizar_sucursal_contcuenta(?, ?)}");
         cs.setString(1, codigo);
         cs.setInt(2, nuevaContCuenta);
         cs.executeUpdate();
-        cs.close();
+        
     }
 
 
@@ -104,8 +97,8 @@ public class DBSucursales {
             return sucursal;
         }
 
-        rs.close();
-        cs.close();
+        
+        
         return null;
     }
 
@@ -113,6 +106,6 @@ public class DBSucursales {
         CallableStatement cs = db.prepareCall("{call sp_eliminar_sucursal(?)}");
         cs.setString(1, codigo);
         cs.executeUpdate();
-        cs.close();
+        
     }
 }
