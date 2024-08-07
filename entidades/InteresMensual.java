@@ -2,7 +2,7 @@ package entidades;
 
 public class InteresMensual {
     
-    private String codigoMoneda = "00";
+    private String codigoMoneda = null;
     private float importe = 0.0f;
     
     public InteresMensual() {
