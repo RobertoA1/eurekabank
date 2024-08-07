@@ -8,7 +8,8 @@ CREATE TABLE sucursal (
     sucunombre VARCHAR(50),
     sucuciudad VARCHAR(30),
     sucudireccion VARCHAR(50),
-    sucucuentacta INT(11)
+    sucucuentacta INT(11),
+    estado TINYINT(1) DEFAULT 1
 );
 
 -- Creación de la tabla empleado
@@ -92,7 +93,8 @@ CREATE TABLE tipomovimiento (
 -- Creación de la tabla moneda
 CREATE TABLE moneda (
     monecódigo CHAR(2) PRIMARY KEY,
-    monedescription VARCHAR(20)
+    monedescription VARCHAR(20),
+    estado TINYINT DEFAULT 1
 );
 
 -- Creación de la tabla parametro
