@@ -2,7 +2,6 @@ package validaciones;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import seguridad.Contrasenas;
 
 import entidades.Usuario;
 import listas.DBUsuario;
@@ -18,9 +17,8 @@ public class Usuarios {
 
     public static void insertarUsuario(String codigo, String clave) throws IllegalArgumentException, SQLException{
         validarCodigo(codigo);
-        String err = errMsg + "Creación | ";
-        if(clave.trim().length() >= 8) throw new IllegalArgumentException(err + "La clave introducida debe de ser de al menos 8 caracteres.");
-        if(buscarUsuario(codigo)) throw new IllegalArgumentException(err + "El codigo ya existe en otro usuario.");
+        // String err = errMsg + "Creación | ";
+        // if(buscarUsuario(codigo)) throw new IllegalArgumentException(err + "El codigo ya existe en otro usuario.");
 
         DBUsuario.insertarUsuario(new Usuario(codigo,clave));
     }
