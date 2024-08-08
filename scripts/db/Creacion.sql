@@ -8,7 +8,8 @@ CREATE TABLE sucursal (
     sucunombre VARCHAR(50),
     sucuciudad VARCHAR(30),
     sucudireccion VARCHAR(50),
-    sucucuentacta INT(11)
+    sucucuentacta INT(11),
+    estado TINYINT(1) DEFAULT 1
 );
 
 -- Creación de la tabla empleado
@@ -44,7 +45,9 @@ CREATE TABLE cliente (
     clieciudad VARCHAR(30),
     cliedireccion VARCHAR(50),
     clietelefono VARCHAR(20),
-    clieemail VARCHAR(50)
+    clieemail VARCHAR(50),
+    clieidusuario CHAR(8),
+    estado TINYINT
 );
 
 -- Creación de la tabla cuenta
@@ -91,7 +94,8 @@ CREATE TABLE tipomovimiento (
 -- Creación de la tabla moneda
 CREATE TABLE moneda (
     monecódigo CHAR(2) PRIMARY KEY,
-    monedescription VARCHAR(20)
+    monedescription VARCHAR(20),
+    estado TINYINT DEFAULT 1
 );
 
 -- Creación de la tabla parametro
@@ -134,6 +138,13 @@ CREATE TABLE interesmensual (
     intimporte DECIMAL(12,2),
     PRIMARY KEY (monecódigo),
     FOREIGN KEY (monecódigo) REFERENCES moneda(monecódigo)
+);
+
+-- Creacion de la tabla Usuarios
+CREATE TABLE Usuario (
+    usercodigo CHAR(8);
+    userclave CHAR(8);
+    PRIMARY KEY (usercodigo);
 );
 
 -- Población de datos iniciales (opcional)
