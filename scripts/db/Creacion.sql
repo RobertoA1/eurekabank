@@ -144,7 +144,7 @@ CREATE TABLE interesmensual (
 -- Creacion de la tabla Usuarios
 CREATE TABLE usuario (
     codigo CHAR(8),
-    clave VARCHAR(16);
+    clave CHAR(56);
     PRIMARY KEY (usercodigo)
 );
 

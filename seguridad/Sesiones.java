@@ -1,8 +1,6 @@
 package seguridad;
 
 import java.sql.*;
-import entidades.Usuario;
-import validaciones.Usuarios;
 import conexion.ConexionDB;
 
 public class Sesiones {
@@ -63,11 +61,6 @@ public class Sesiones {
             if (rs.getInt(1) == 1) return true;
         }
         return false;
-    }
-
-    public static Usuario obtenerUsuario() throws IllegalStateException, SQLException{
-        Sesion s = Sesiones.obtenerSesion();
-        return Usuarios.obtenerUsuario(s.getUserCodigo());
     }
 }
 
