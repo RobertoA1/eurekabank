@@ -47,7 +47,8 @@ CREATE TABLE cliente (
     clietelefono VARCHAR(20),
     clieemail VARCHAR(50),
     clieidusuario CHAR(8),
-    estado TINYINT
+    estado TINYINT DEFAULT 1,
+    FOREIGN KEY (clieidusuario) REFERENCES usuario(codigo)
 );
 
 -- Creacion de la tabla Usuarios

@@ -7,14 +7,30 @@ import conexion.ConexionDB;
 public class DBCliente{
     private static Connection db = ConexionDB.obtenerDB();
 
+    public static String generarCodigo() throws SQLException{
+        int siguienteId = 0;
+        CallableStatement cs = db.prepareCall("CALL sp_cantidad_clientes()");
+        ResultSet rs = cs.executeQuery();
+        if (rs.next()) siguienteId = rs.getInt(1) + 1;
+        
+        StringBuilder codigoBuilder = new StringBuilder();
+        String tempCodigo = String.valueOf(siguienteId);
+        for (int i = tempCodigo.length(); i < 4; i++){
+            codigoBuilder.append("0");
+        }
+        
+        codigoBuilder.append(tempCodigo);
+        return codigoBuilder.toString();
+    }
+    
     public static boolean existe(String codigo) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_cliente_obtenerEstado(?)");
         cs.setString(1,codigo);
 
         ResultSet rs = cs.executeQuery();
 
-        if(!rs.next()) return false;
-        if(rs.getInt(1)==0) return false;
+        if (!rs.next()) return false;
+        if (rs.getInt(1)==0) return false;
         return true;
     }
 

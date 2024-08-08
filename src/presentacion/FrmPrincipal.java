@@ -11,11 +11,11 @@ import javax.swing.*;
  * @author Sistemas
  */
 public class FrmPrincipal extends javax.swing.JFrame {
-
+    private static FrmPrincipal form = null;
     /**
      * Creates new form FrmPrincipal
      */
-    public FrmPrincipal() {
+    private FrmPrincipal() {
         initComponents();
     }
 
@@ -229,7 +229,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    private static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -261,7 +261,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
     }
     
-    public static FrmPrincipal obtenerForm(){
+    public static FrmPrincipal getInstance(){
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -284,9 +284,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        return new FrmPrincipal();
+        if (form == null) form = new FrmPrincipal();
+        return form;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

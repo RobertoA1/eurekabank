@@ -7,7 +7,11 @@ import entidades.Cliente;
 
 public class Clientes {
     private static String errMsg = "Error en clientes: ";
-
+    
+    public static String generarCodigo(){
+        return DBCliente.generarCodigo();
+    }
+    
     private static void validarCodigo(String codigo) throws IllegalArgumentException {
         if (codigo.length() > 5) throw new IllegalArgumentException(errMsg + "El código es demasiado largo (máx. 5 caracteres).");
         if (codigo.isBlank()) throw new IllegalArgumentException(errMsg + "El código introducido es inválido.");
@@ -28,7 +32,7 @@ public class Clientes {
         if (direccion.length() > 50) throw new IllegalArgumentException(err + "La dirección es demasiado larga (máx. 50 caracteres)");
         if (telefono.length() > 20) throw new IllegalArgumentException(err + "El telefono es demasiado largo. (máx. 20 caracteres)");
         if (email.length() > 50) throw new IllegalArgumentException(err + "El email es demasiado largo. (máx. 50 caracteres)");
-        if (idUsuario.length() > 8) throw new IllegalArgumentException(err + "El id del usuario es demasiado largo (máx. 8 caracteres)");
+        if (idUsuario.length() != 8) throw new IllegalArgumentException(err + "El nombre de usuario debe tener 8 caracteres.");
 
         DBCliente.agregar(new Cliente(codigo, nombre, apPaterno, apMaterno,dni, ciudad, direccion,telefono, email, idUsuario));
     }

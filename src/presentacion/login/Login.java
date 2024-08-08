@@ -4,6 +4,7 @@
  */
 package presentacion.login;
 
+import java.awt.Cursor;
 import java.awt.Image;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
@@ -21,7 +22,8 @@ import seguridad.Autenticacion;
  * @author Roberto
  */
 public class Login extends javax.swing.JFrame {
-
+    
+    private static Login form = null;
     /**
      * Creates new form Login
      */
@@ -110,9 +112,17 @@ public class Login extends javax.swing.JFrame {
         tip_ClienteNuevo.setForeground(new java.awt.Color(0, 0, 0));
         tip_ClienteNuevo.setText("¿Eres cliente nuevo?");
 
-        label_Registrate.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        label_Registrate.setForeground(new java.awt.Color(252, 163, 17));
+        label_Registrate.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        label_Registrate.setForeground(new java.awt.Color(210, 135, 15));
         label_Registrate.setText("Regístrate");
+        label_Registrate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label_RegistrateMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                label_RegistrateMouseEntered(evt);
+            }
+        });
 
         nlabel_nombreUsuario.setForeground(new java.awt.Color(0, 0, 0));
         nlabel_nombreUsuario.setText("Nombre de Usuario");
@@ -134,7 +144,7 @@ public class Login extends javax.swing.JFrame {
         tip_OlvidasteContraseña.setText("¿Olvidaste tu contraseña?");
 
         label_RecuperarCuenta.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        label_RecuperarCuenta.setForeground(new java.awt.Color(252, 163, 17));
+        label_RecuperarCuenta.setForeground(new java.awt.Color(210, 135, 15));
         label_RecuperarCuenta.setText("Recupera tu cuenta");
 
         chk_mantenerSesion.setForeground(new java.awt.Color(0, 0, 0));
@@ -157,18 +167,19 @@ public class Login extends javax.swing.JFrame {
                         .addComponent(btn_iniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(106, 106, 106))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
-                        .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chk_mantenerSesion)
-                            .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(nlabel_nombreUsuario)
-                                .addComponent(txt_nombreUsuario)
-                                .addComponent(nlabel_contraseña)
-                                .addComponent(txt_contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(chk_mantenerSesion)
+                                .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(nlabel_nombreUsuario)
+                                    .addComponent(txt_nombreUsuario)
+                                    .addComponent(nlabel_contraseña)
+                                    .addComponent(txt_contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(panelLoginLayout.createSequentialGroup()
                                 .addComponent(tip_ClienteNuevo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(label_Registrate)))
-                        .addGap(42, 42, 42)))
+                        .addGap(48, 48, 48)))
                 .addGap(45, 45, 45))
         );
         panelLoginLayout.setVerticalGroup(
@@ -211,7 +222,7 @@ public class Login extends javax.swing.JFrame {
         try {
             Autenticacion.iniciarSesion(nombreUsuario, pass);
             this.setVisible(false);
-            FrmPrincipal menuPrincipal = FrmPrincipal.obtenerForm();
+            FrmPrincipal menuPrincipal = FrmPrincipal.getInstance();
             menuPrincipal.setVisible(true);
             this.dispose();
         } catch (InvalidKeySpecException | NoSuchAlgorithmException | NullPointerException e){
@@ -224,8 +235,18 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Autenticación: Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
             System.out.println(e.getMessage());
         }
-        
     }//GEN-LAST:event_btn_iniciarSesionActionPerformed
+
+    private void label_RegistrateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_RegistrateMouseClicked
+        this.setVisible(false);
+        Registro reg = Registro.getInstance();
+        reg.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_label_RegistrateMouseClicked
+
+    private void label_RegistrateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_RegistrateMouseEntered
+        evt.getComponent().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_label_RegistrateMouseEntered
 
     /**
      * @param args the command line arguments
@@ -260,6 +281,11 @@ public class Login extends javax.swing.JFrame {
                 new Login().setVisible(true);
             }
         });
+    }
+    
+    public static Login getInstance(){
+        if (form == null) form = new Login();
+        return form;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
