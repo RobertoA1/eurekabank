@@ -1,4 +1,5 @@
-CREATE DEFINER=`admin`@`%` PROCEDURE `sp_sesion_coincide`(IN codigo CHAR(8), IN token CHAR(24))
+DELIMITER //
+CREATE DEFINER=`admin`@`%` PROCEDURE `sp_sesion_coincide`(IN s_codigo CHAR(8), IN s_token CHAR(32))
 BEGIN
-    SELECT sesiones.estado FROM sesiones WHERE sesiones.usercodigo = codigo AND sesiones.token = token;
+    SELECT estado FROM sesiones WHERE usercodigo = s_codigo AND token = s_token;
 END

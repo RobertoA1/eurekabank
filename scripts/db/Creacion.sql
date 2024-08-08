@@ -1,6 +1,6 @@
 -- Creación de la base de datos
-CREATE DATABASE IF NOT EXISTS Eurekabank;
-USE BancoDB;
+CREATE DATABASE IF NOT EXISTS Eureka;
+USE Eureka;
 
 -- Creación de la tabla sucursal
 CREATE TABLE sucursal (
@@ -50,6 +50,27 @@ CREATE TABLE cliente (
     estado TINYINT
 );
 
+-- Creacion de la tabla Usuarios
+CREATE TABLE usuario (
+    codigo CHAR(8),
+    clave CHAR(56),
+    PRIMARY KEY (codigo)
+);
+
+CREATE TABLE sesiones (
+    usercodigo CHAR(8),
+    token CHAR(32) PRIMARY KEY,
+    estado TINYINT,
+    FOREIGN KEY (usercodigo) REFERENCES usuario(codigo)
+);
+
+-- Creación de la tabla moneda
+CREATE TABLE moneda (
+    monecodigo CHAR(2) PRIMARY KEY,
+    monedescription VARCHAR(20),
+    estado TINYINT DEFAULT 1
+);
+
 -- Creación de la tabla cuenta
 CREATE TABLE cuenta (
     cuencodigo CHAR(8) PRIMARY KEY,
@@ -62,12 +83,20 @@ CREATE TABLE cuenta (
     cuestado VARCHAR(15),
     cuencontrmov INT(11),
     cuenclave CHAR(6),
-    codigousuario CHAR(8)
+    codigousuario CHAR(8),
     FOREIGN KEY (codigousuario) REFERENCES usuario(codigo),
     FOREIGN KEY (monecodigo) REFERENCES moneda(monecodigo),
     FOREIGN KEY (succodigo) REFERENCES sucursal(succodigo),
-    FOREIGN KEY (cliecódigo) REFERENCES cliente(cliecódigo),
+    FOREIGN KEY (cliecódigo) REFERENCES cliente(cliecodigo),
     FOREIGN KEY (emplecódigo) REFERENCES empleado(emplcodigo)
+);
+
+-- Creación de la tabla tipomovimiento
+CREATE TABLE tipomovimiento (
+    tipocodigo CHAR(3) PRIMARY KEY,
+    tipodescripcion VARCHAR(40),
+    tipoaccion VARCHAR(10),
+    tipostado VARCHAR(15)
 );
 
 -- Creación de la tabla movimiento
@@ -82,21 +111,6 @@ CREATE TABLE movimiento (
     FOREIGN KEY (cuencodigo) REFERENCES cuenta(cuencodigo),
     FOREIGN KEY (emplecodigo) REFERENCES empleado(emplcodigo),
     FOREIGN KEY (tipocodigo) REFERENCES tipomovimiento(tipocodigo)
-);
-
--- Creación de la tabla tipomovimiento
-CREATE TABLE tipomovimiento (
-    tipocodigo CHAR(3) PRIMARY KEY,
-    tipodescripcion VARCHAR(40),
-    tipoaccion VARCHAR(10),
-    tipostado VARCHAR(15)
-);
-
--- Creación de la tabla moneda
-CREATE TABLE moneda (
-    monecodigo CHAR(2) PRIMARY KEY,
-    monedescription VARCHAR(20),
-    estado TINYINT DEFAULT 1
 );
 
 -- Creación de la tabla parametro
@@ -140,20 +154,6 @@ CREATE TABLE interesmensual (
     PRIMARY KEY (monecodigo),
     FOREIGN KEY (monecodigo) REFERENCES moneda(monecodigo)
 );
-
--- Creacion de la tabla Usuarios
-CREATE TABLE usuario (
-    codigo CHAR(8),
-    clave CHAR(56);
-    PRIMARY KEY (codigo)
-);
-
-CREATE TABLE sesiones (
-    usercodigo CHAR(8),
-    token CHAR(24) PRIMARY KEY,
-    estado TINYINT,
-    FOREIGN KEY (usercodigo) REFERENCES usuario(usercodigo)
-)
 
 -- Población de datos iniciales (opcional)
 INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, tipostado) VALUES ('001', 'Deposito', 'Credito', 'Activo');

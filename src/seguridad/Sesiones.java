@@ -2,6 +2,7 @@ package seguridad;
 
 import java.sql.*;
 import conexion.ConexionDB;
+import java.util.Base64;
 
 public class Sesiones {
     private static Sesion sesion = null;
@@ -13,7 +14,7 @@ public class Sesiones {
         if (verificarSesionActiva()) throw new IllegalStateException(err + "Ya existe una sesión iniciada.");
         if (sesion == null) sesion = new Sesion();
 
-        String token = FabricaToken.generarToken();
+        String token = generarSesionKey();
         sesion.setUserCodigo(userCodigo);
         sesion.setTokenAcceso(token);
 
@@ -61,6 +62,11 @@ public class Sesiones {
             if (rs.getInt(1) == 1) return true;
         }
         return false;
+    }
+    
+    private static String generarSesionKey(){
+        byte[] salt = FabricaToken.generarBytes();
+        return Base64.getEncoder().encodeToString(salt);
     }
 }
 

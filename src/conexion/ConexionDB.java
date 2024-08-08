@@ -33,7 +33,7 @@ public class ConexionDB {
         Properties propiedades;
         
         Class.forName("com.mysql.cj.jdbc.Driver");
-        url = "jdbc:mysql://localhost:3306/eurekabank";
+        url = "jdbc:mysql://localhost:3306/eureka";
         propiedades = new Properties();
         propiedades.put("user", "admin");
         propiedades.put("password", "12345");
