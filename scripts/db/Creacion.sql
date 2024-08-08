@@ -145,7 +145,7 @@ CREATE TABLE interesmensual (
 CREATE TABLE usuario (
     codigo CHAR(8),
     clave CHAR(56);
-    PRIMARY KEY (usercodigo)
+    PRIMARY KEY (codigo)
 );
 
 CREATE TABLE sesiones (

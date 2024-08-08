@@ -40,7 +40,7 @@ public class Autenticacion {
     }
 
     private boolean esContrasenaValida(String user, String pass) throws InvalidKeySpecException, NoSuchAlgorithmException, NullPointerException, IllegalArgumentException, SQLException{
-        CallableStatement cs = db.prepareCall("CALL sp_obtenerKey(?)");
+        CallableStatement cs = db.prepareCall("CALL sp_usuario_obtenerKey(?)");
         cs.setString(1, user);
         ResultSet rs = cs.executeQuery();
         if (!rs.next()) return false;
