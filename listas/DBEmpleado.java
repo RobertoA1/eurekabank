@@ -1,6 +1,8 @@
 package listas;
 
 import java.sql.*;
+import java.util.ArrayList;
+
 import entidades.Empleado;
 import conexion.ConexionDB;
 
@@ -95,5 +97,25 @@ public class DBEmpleado {
         cs.setString(1, codigo);
         
         cs.executeUpdate();
+    }
+
+    public static ArrayList<Empleado> listar() throws SQLException{
+        ArrayList<Empleado> arr = new ArrayList<>();
+        CallableStatement cs = db.prepareCall("CALL sp_listarEmpleados()");
+        ResultSet rs = cs.executeQuery();
+
+        while (rs.next()){
+            Empleado e = new Empleado();
+            e.setCodigo(rs.getString(1));
+            e.setApellidoPaterno(rs.getString(2));
+            e.setApellidoMaterno(rs.getString(3));
+            e.setNombre(rs.getString(4));
+            e.setCiudad(rs.getString(5));
+            e.setDireccion(rs.getString(6));
+            e.setIdUsuario(rs.getString(7));
+            arr.add(e);
+        }
+
+        return arr;
     }
 }
