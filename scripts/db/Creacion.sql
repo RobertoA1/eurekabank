@@ -1,5 +1,5 @@
 -- Creación de la base de datos
-CREATE DATABASE IF NOT EXISTS BancoDB;
+CREATE DATABASE IF NOT EXISTS Eurekabank;
 USE BancoDB;
 
 -- Creación de la tabla sucursal
@@ -62,7 +62,8 @@ CREATE TABLE cuenta (
     cuestado VARCHAR(15),
     cuencontrmov INT(11),
     cuenclave CHAR(6),
-    idusuario
+    codigousuario CHAR(8)
+    FOREIGN KEY (codigousuario) REFERENCES usuario(codigo),
     FOREIGN KEY (monecodigo) REFERENCES moneda(monecodigo),
     FOREIGN KEY (succodigo) REFERENCES sucursal(succodigo),
     FOREIGN KEY (cliecódigo) REFERENCES cliente(cliecódigo),
