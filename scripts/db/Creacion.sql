@@ -1,6 +1,6 @@
 -- Creación de la base de datos
-CREATE DATABASE IF NOT EXISTS BancoDB;
-USE BancoDB;
+CREATE DATABASE IF NOT EXISTS Eureka;
+USE Eureka;
 
 -- Creación de la tabla sucursal
 CREATE TABLE sucursal (
@@ -47,13 +47,35 @@ CREATE TABLE cliente (
     clietelefono VARCHAR(20),
     clieemail VARCHAR(50),
     clieidusuario CHAR(8),
-    estado TINYINT
+    estado TINYINT DEFAULT 1,
+    FOREIGN KEY (clieidusuario) REFERENCES usuario(codigo)
+);
+
+-- Creacion de la tabla Usuarios
+CREATE TABLE usuario (
+    codigo CHAR(8),
+    clave CHAR(56),
+    PRIMARY KEY (codigo)
+);
+
+CREATE TABLE sesiones (
+    usercodigo CHAR(8),
+    token CHAR(32) PRIMARY KEY,
+    estado TINYINT,
+    FOREIGN KEY (usercodigo) REFERENCES usuario(codigo)
+);
+
+-- Creación de la tabla moneda
+CREATE TABLE moneda (
+    monecodigo CHAR(2) PRIMARY KEY,
+    monedescription VARCHAR(20),
+    estado TINYINT DEFAULT 1
 );
 
 -- Creación de la tabla cuenta
 CREATE TABLE cuenta (
     cuencodigo CHAR(8) PRIMARY KEY,
-    monecódigo CHAR(2),
+    monecodigo CHAR(2),
     succodigo CHAR(3),
     cliecódigo CHAR(5),
     emplecódigo CHAR(4),
@@ -62,10 +84,20 @@ CREATE TABLE cuenta (
     cuestado VARCHAR(15),
     cuencontrmov INT(11),
     cuenclave CHAR(6),
-    FOREIGN KEY (monecódigo) REFERENCES moneda(monecódigo),
+    codigousuario CHAR(8),
+    FOREIGN KEY (codigousuario) REFERENCES usuario(codigo),
+    FOREIGN KEY (monecodigo) REFERENCES moneda(monecodigo),
     FOREIGN KEY (succodigo) REFERENCES sucursal(succodigo),
-    FOREIGN KEY (cliecódigo) REFERENCES cliente(cliecódigo),
+    FOREIGN KEY (cliecódigo) REFERENCES cliente(cliecodigo),
     FOREIGN KEY (emplecódigo) REFERENCES empleado(emplcodigo)
+);
+
+-- Creación de la tabla tipomovimiento
+CREATE TABLE tipomovimiento (
+    tipocodigo CHAR(3) PRIMARY KEY,
+    tipodescripcion VARCHAR(40),
+    tipoaccion VARCHAR(10),
+    tipostado VARCHAR(15)
 );
 
 -- Creación de la tabla movimiento
@@ -81,21 +113,6 @@ CREATE TABLE movimiento (
     FOREIGN KEY (cuencodigo) REFERENCES cuenta(cuencodigo),
     FOREIGN KEY (emplecodigo) REFERENCES empleado(emplcodigo),
     FOREIGN KEY (tipocodigo) REFERENCES tipomovimiento(tipocodigo)
-);
-
--- Creación de la tabla tipomovimiento
-CREATE TABLE tipomovimiento (
-    tipocodigo CHAR(3) PRIMARY KEY,
-    tipodescripcion VARCHAR(40),
-    tipoaccion VARCHAR(10),
-    tipostado VARCHAR(15)
-);
-
--- Creación de la tabla moneda
-CREATE TABLE moneda (
-    monecódigo CHAR(2) PRIMARY KEY,
-    monedescription VARCHAR(20),
-    estado TINYINT DEFAULT 1
 );
 
 -- Creación de la tabla parametro
@@ -117,41 +134,34 @@ CREATE TABLE contador (
 
 -- Creación de la tabla cargomantenimiento
 CREATE TABLE cargomantenimiento (
-    monecódigo CHAR(2),
+    monecodigo CHAR(2),
     cargMontoMaximo DECIMAL(12,2),
     cargImporte DECIMAL(12,2),
-    PRIMARY KEY (monecódigo),
-    FOREIGN KEY (monecódigo) REFERENCES moneda(monecódigo)
+    PRIMARY KEY (monecodigo),
+    FOREIGN KEY (monecodigo) REFERENCES moneda(monecodigo)
 );
 
 -- Creación de la tabla costomovimiento
 CREATE TABLE costomovimiento (
-    monecódigo CHAR(2),
+    monecodigo CHAR(2),
     costimporte DECIMAL(12,2),
-    PRIMARY KEY (monecódigo),
-    FOREIGN KEY (monecódigo) REFERENCES moneda(monecódigo)
+    PRIMARY KEY (monecodigo),
+    FOREIGN KEY (monecodigo) REFERENCES moneda(monecodigo)
 );
 
 -- Creación de la tabla interesmensual
 CREATE TABLE interesmensual (
-    monecódigo CHAR(2),
+    monecodigo CHAR(2),
     intimporte DECIMAL(12,2),
-    PRIMARY KEY (monecódigo),
-    FOREIGN KEY (monecódigo) REFERENCES moneda(monecódigo)
-);
-
--- Creacion de la tabla Usuarios
-CREATE TABLE Usuario (
-    usercodigo CHAR(8);
-    userclave CHAR(8);
-    PRIMARY KEY (usercodigo);
+    PRIMARY KEY (monecodigo),
+    FOREIGN KEY (monecodigo) REFERENCES moneda(monecodigo)
 );
 
 -- Población de datos iniciales (opcional)
 INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, tipostado) VALUES ('001', 'Deposito', 'Credito', 'Activo');
 INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, tipostado) VALUES ('002', 'Retiro', 'Debito', 'Activo');
-INSERT INTO moneda (monecódigo, monedescription) VALUES ('01', 'Dólar Estadounidense');
-INSERT INTO moneda (monecódigo, monedescription) VALUES ('02', 'Sol Peruano');
+INSERT INTO moneda (monecodigo, monedescription) VALUES ('01', 'Dólar Estadounidense');
+INSERT INTO moneda (monecodigo, monedescription) VALUES ('02', 'Sol Peruano');
 INSERT INTO parametro (paracodigo, paradescripcion, paratipocacion, paravalor, parastado) VALUES ('001', 'Tasa de Interés', 'Porcentaje', '0.05', 'Activo');
 INSERT INTO contador (contabla, continit, contingount) VALUES ('cuenta', 0, 0);
 INSERT INTO contador (contabla, continit, contingount) VALUES ('movimiento', 0, 0);
