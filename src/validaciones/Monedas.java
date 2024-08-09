@@ -10,6 +10,7 @@ public class Monedas {
     private static String errMsg = "Error en monedas: ";
 
     private static void validarCodigo(String codigo) throws IllegalArgumentException {
+        if (codigo == null) throw new IllegalArgumentException(errMsg + "El código introducido es inválido.");
         if (codigo.length() != 2) throw new IllegalArgumentException(errMsg + "El código debe tener exactamente 2 caracteres.");
         if (codigo.isBlank()) throw new IllegalArgumentException(errMsg + "El código introducido es inválido.");
     }

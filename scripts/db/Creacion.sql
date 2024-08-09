@@ -35,6 +35,13 @@ CREATE TABLE asignado (
     FOREIGN KEY (emplcodigo) REFERENCES empleado(emplcodigo)
 );
 
+-- Creacion de la tabla Usuarios
+CREATE TABLE usuario (
+    codigo CHAR(8),
+    clave CHAR(56),
+    PRIMARY KEY (codigo)
+);
+
 -- Creación de la tabla cliente
 CREATE TABLE cliente (
     cliecodigo CHAR(5) PRIMARY KEY,
@@ -49,13 +56,6 @@ CREATE TABLE cliente (
     clieidusuario CHAR(8),
     estado TINYINT DEFAULT 1,
     FOREIGN KEY (clieidusuario) REFERENCES usuario(codigo)
-);
-
--- Creacion de la tabla Usuarios
-CREATE TABLE usuario (
-    codigo CHAR(8),
-    clave CHAR(56),
-    PRIMARY KEY (codigo)
 );
 
 CREATE TABLE sesiones (
@@ -83,7 +83,7 @@ CREATE TABLE cuenta (
     cuefechacreacion DATE,
     cuestado VARCHAR(15),
     cuencontrmov INT(11),
-    cuenclave CHAR(6),
+    cuenclave CHAR(56),
     codigousuario CHAR(8),
     FOREIGN KEY (codigousuario) REFERENCES usuario(codigo),
     FOREIGN KEY (monecodigo) REFERENCES moneda(monecodigo),

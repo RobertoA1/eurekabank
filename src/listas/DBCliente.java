@@ -1,7 +1,10 @@
 package listas;
 
 import java.sql.*;
+import java.util.ArrayList;
+
 import entidades.Cliente;
+import entidades.Cuenta;
 import conexion.ConexionDB;
 
 public class DBCliente{
@@ -142,5 +145,29 @@ public class DBCliente{
         cs.setString(1, codigo);
         
         cs.executeUpdate();
+    }
+
+    public static ArrayList<Cuenta> listarCuentas(String codigoCliente) throws SQLException{
+        ArrayList<Cuenta> arr = new ArrayList<>();
+
+        CallableStatement cs = db.prepareCall("CALL sp_cliente_obtenerCuentas(?)");
+        cs.setString(1, codigoCliente);
+
+        ResultSet rs = cs.executeQuery();
+        
+        while (rs.next()){
+            Cuenta cuenta = Cuenta.builder()
+                .codigo(rs.getString(1))
+                .codigoMoneda(rs.getString(2))
+                .codigoSucursal(rs.getString(3))
+                .codigoCliente(rs.getString(4))
+                .saldo(rs.getFloat(5))
+                .fechaCreacion(rs.getDate(6))
+                .cantidadMovimientos(rs.getInt(7))
+                .clave(rs.getString(8))
+                .build();
+                arr.add(cuenta);
+        }
+        return arr;
     }
 }
