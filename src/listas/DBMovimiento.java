@@ -1,5 +1,6 @@
 package listas;
 import java.sql.*;
+
 import entidades.Movimiento;
 import conexion.ConexionDB;
 
@@ -9,6 +10,31 @@ public class DBMovimiento {
     private static CallableStatement cs = null;
 
     private static Connection db = ConexionDB.obtenerDB();
+
+    public static boolean existe(int numero) throws SQLException{
+        cs = db.prepareCall("CALL sp_movimiento_obtenerEstado(?)");
+        cs.setInt(1, numero);
+        rs = cs.executeQuery();
+
+        if (!rs.next()) return false;
+        if (rs.getInt(1) == 0) return false;
+        return true;
+    }
+
+    public static void agregar(Movimiento movimiento) throws SQLException {
+        cs = db.prepareCall("CALL sp_agregarMovimiento(?, ?, ?, ?, ?, ?, ?)");
+
+
+        cs.setString(1,movimiento.getCuencodigo());
+        cs.setInt(2, movimiento.getMovinumero());
+        cs.setDate(3, movimiento.getFecha());
+        cs.setString(4, movimiento.getEmplcodigo());
+        cs.setString(5, movimiento.getTipoCodigo());
+        cs.setFloat(6, movimiento.getImporte());
+        cs.setString(7, movimiento.getCuenReferencia());
+
+        cs.executeUpdate();
+    }
     
     public static Movimiento obtener(int numero) throws SQLException{
         cs = db.prepareCall("CALL sp_BuscarMovimiento(?)");
@@ -34,6 +60,13 @@ public class DBMovimiento {
         cs.setInt(1, moviNumero);
         cs.setFloat(2, nuevoImporte);
 
-        cs.executeQuery();
+        cs.executeUpdate();
+    }
+
+    public static void remover(int numero) throws SQLException{
+        cs = db.prepareCall("CALL sp_remMovimiento(?)");
+        cs.setInt(1, numero);
+
+        cs.executeUpdate();
     }
 }
