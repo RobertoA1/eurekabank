@@ -36,7 +36,7 @@ public class ConexionDB {
         url = "jdbc:mysql://localhost:3306/eureka";
         propiedades = new Properties();
         propiedades.put("user", "admin");
-        propiedades.put("password", "12345");
+        propiedades.put("password", "240705");
         
         return DriverManager.getConnection(url, propiedades);
     }
