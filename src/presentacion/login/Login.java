@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import java.sql.SQLException;
-import presentacion.FrmPrincipal;
+import presentacion.FrmEmpleado;
 
 import seguridad.Autenticacion;
 
@@ -222,8 +222,8 @@ public class Login extends javax.swing.JFrame {
         try {
             Autenticacion.iniciarSesion(nombreUsuario, pass);
             this.setVisible(false);
-            FrmPrincipal menuPrincipal = FrmPrincipal.getInstance();
-            menuPrincipal.setVisible(true);
+            FrmEmpleado menuEmpleado = FrmEmpleado.getInstance();
+            menuEmpleado.setVisible(true);
             this.dispose();
         } catch (InvalidKeySpecException | NoSuchAlgorithmException | NullPointerException e){
             JOptionPane.showMessageDialog(this, "Autenticación: Ha ocurrido un problema grave. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
