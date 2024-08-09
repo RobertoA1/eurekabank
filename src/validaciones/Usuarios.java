@@ -10,6 +10,7 @@ public class Usuarios {
     private static String errMsg = "Error en usuarios: ";
 
     private static void validarCodigo(String codigo) throws IllegalArgumentException,SQLException {
+        if (codigo == null) throw new IllegalArgumentException(errMsg + "El código introducido es inválido.");
         if (codigo.length() != 8) throw new IllegalArgumentException(errMsg + "El código es demasiado largo (Debe ser de 8 caracteres).");
         if (codigo.isBlank()) throw new IllegalArgumentException(errMsg + "El código introducido es inválido.");
     }

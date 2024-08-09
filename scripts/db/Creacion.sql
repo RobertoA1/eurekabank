@@ -83,7 +83,7 @@ CREATE TABLE cuenta (
     cuefechacreacion DATE,
     cuestado VARCHAR(15),
     cuencontrmov INT(11),
-    cuenclave CHAR(6),
+    cuenclave CHAR(56),
     codigousuario CHAR(8),
     FOREIGN KEY (codigousuario) REFERENCES usuario(codigo),
     FOREIGN KEY (monecodigo) REFERENCES moneda(monecodigo),

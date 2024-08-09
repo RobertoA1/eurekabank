@@ -11,6 +11,7 @@ public class Sucursales {
     private static String errMsg = "Error en sucursales: ";
     
     private static void validarCodigo(String codigo) throws IllegalArgumentException {
+        if (codigo == null) throw new IllegalArgumentException(errMsg + "El código introducido es inválido.");
         if (codigo.length() > 3) throw new IllegalArgumentException(errMsg + "El código de la sucursal es muy largo (máx. 3 caracteres).");
         if (codigo.isBlank()) throw new IllegalArgumentException(errMsg + "El código introducido es inválido.");
     }
