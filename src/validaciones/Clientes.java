@@ -8,7 +8,7 @@ import entidades.Cliente;
 public class Clientes {
     private static String errMsg = "Error en clientes: ";
     
-    public static String generarCodigo(){
+    public static String generarCodigo() throws SQLException{
         return DBCliente.generarCodigo();
     }
     
