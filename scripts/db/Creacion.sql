@@ -35,6 +35,13 @@ CREATE TABLE asignado (
     FOREIGN KEY (emplcodigo) REFERENCES empleado(emplcodigo)
 );
 
+-- Creacion de la tabla Usuarios
+CREATE TABLE usuario (
+    codigo CHAR(8),
+    clave CHAR(56),
+    PRIMARY KEY (codigo)
+);
+
 -- Creación de la tabla cliente
 CREATE TABLE cliente (
     cliecodigo CHAR(5) PRIMARY KEY,
@@ -49,13 +56,6 @@ CREATE TABLE cliente (
     clieidusuario CHAR(8),
     estado TINYINT DEFAULT 1,
     FOREIGN KEY (clieidusuario) REFERENCES usuario(codigo)
-);
-
--- Creacion de la tabla Usuarios
-CREATE TABLE usuario (
-    codigo CHAR(8),
-    clave CHAR(56),
-    PRIMARY KEY (codigo)
 );
 
 CREATE TABLE sesiones (
