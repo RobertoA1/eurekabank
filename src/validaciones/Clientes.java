@@ -1,9 +1,11 @@
 package validaciones;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import listas.DBCliente;
 import entidades.Cliente;
+import entidades.Cuenta;
 
 public class Clientes {
     private static String errMsg = "Error en clientes: ";
@@ -15,6 +17,11 @@ public class Clientes {
     private static void validarCodigo(String codigo) throws IllegalArgumentException {
         if (codigo.length() > 5) throw new IllegalArgumentException(errMsg + "El código es demasiado largo (máx. 5 caracteres).");
         if (codigo.isBlank()) throw new IllegalArgumentException(errMsg + "El código introducido es inválido.");
+    }
+
+    public static boolean existe(String codigo) throws IllegalArgumentException, SQLException{
+        validarCodigo(codigo);
+        return DBCliente.existe(codigo);
     }
 
     public static void agregar(String codigo, String nombre, String apPaterno, String apMaterno,String dni, String ciudad, String direccion, String telefono, String email, String idUsuario) throws IllegalArgumentException, SQLException {
@@ -103,4 +110,8 @@ public class Clientes {
         DBCliente.remover(codigo);
     }
 
+    public static ArrayList<Cuenta> listarCuentas(String codigoCliente) throws SQLException{
+        validarCodigo(codigoCliente);
+        return DBCliente.listarCuentas(codigoCliente);
+    }
 }

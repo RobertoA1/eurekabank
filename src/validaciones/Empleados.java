@@ -9,6 +9,7 @@ public class Empleados {
     private static String errMsg = "Error en empleados: ";
 
     private static void validarCodigo(String codigo) throws IllegalArgumentException, SQLException {
+        if (codigo == null) throw new IllegalArgumentException(errMsg + "El código introducido es inválido.");
         if (codigo.length() > 4) throw new IllegalArgumentException(errMsg + "El código es demasiado largo (máx. 4 caracteres).");
         if (codigo.isBlank()) throw new IllegalArgumentException(errMsg + "El código introducido es inválido.");
         if (!DBEmpleado.existe(codigo)) throw new IllegalArgumentException(errMsg + "El código introducido no está vinculado a ningún empleado.");
