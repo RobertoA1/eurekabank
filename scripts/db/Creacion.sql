@@ -15,13 +15,13 @@ CREATE TABLE sucursal (
 -- Creación de la tabla empleado
 CREATE TABLE empleado (
     emplcodigo CHAR(4) PRIMARY KEY,
-    emplaterno VARCHAR(25),
-    emlaterno VARCHAR(25),
-    emplnombre VARCHAR(25),
-    emplnombres VARCHAR(50),
+    emplpaterno VARCHAR(25),
+    emplmaterno VARCHAR(25),
+    emplnombre VARCHAR(30),
     emplciudad VARCHAR(30),
     empldireccion VARCHAR(50),
-    emplusuario VARCHAR(15)
+    idusuario CHAR(8),
+    estado TINYINT  /* Establece si el empleado está activo o está eliminado */
 );
 
 -- Creación de la tabla asignado
@@ -77,6 +77,7 @@ CREATE TABLE movimiento (
     tipocodigo CHAR(3),
     movimporte DECIMAL(12,2),
     cuenreferencia CHAR(8),
+    estado TINYINT,
     FOREIGN KEY (cuencodigo) REFERENCES cuenta(cuencodigo),
     FOREIGN KEY (emplecodigo) REFERENCES empleado(emplcodigo),
     FOREIGN KEY (tipocodigo) REFERENCES tipomovimiento(tipocodigo)
