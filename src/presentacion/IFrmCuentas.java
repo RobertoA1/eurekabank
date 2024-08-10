@@ -4,7 +4,12 @@
  */
 package presentacion;
 
+import entidades.Cuenta;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import validaciones.Cuentas;
 
 /**
  *
@@ -70,7 +75,6 @@ public class IFrmCuentas extends javax.swing.JInternalFrame {
         btnMovimientos.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         btnMovimientos.setForeground(new java.awt.Color(0, 0, 0));
         btnMovimientos.setText("Consultar Movimientos");
-        btnMovimientos.setEnabled(false);
         btnMovimientos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMovimientosActionPerformed(evt);
@@ -93,8 +97,7 @@ public class IFrmCuentas extends javax.swing.JInternalFrame {
         btnInteres.setBackground(new java.awt.Color(255, 255, 255));
         btnInteres.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         btnInteres.setForeground(new java.awt.Color(0, 0, 0));
-        btnInteres.setText("Modificar interés mensual");
-        btnInteres.setEnabled(false);
+        btnInteres.setText("Modificar Moneda");
         btnInteres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInteresActionPerformed(evt);
@@ -114,7 +117,6 @@ public class IFrmCuentas extends javax.swing.JInternalFrame {
         btnTransaccion.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         btnTransaccion.setForeground(new java.awt.Color(0, 0, 0));
         btnTransaccion.setText("Modifcar Transaccion");
-        btnTransaccion.setEnabled(false);
         btnTransaccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTransaccionActionPerformed(evt);
@@ -137,27 +139,27 @@ public class IFrmCuentas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String respuesta;
         codigo = txtCodigo.getText();
-        cuenta = Cuentas.buscarCuentas(codigo);
+        try {
+            cuenta = Cuentas.obtener(codigo);
+        } catch (SQLException ex) {
+            Logger.getLogger(IFrmCuentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
         if(cuenta != null) {
-            if(cuenta.getCodigo().compareTo("00") != 0) {
-                codigo = moneda.getCodigo();
-                txtDescripcion.setText(moneda.getDescripcion());
+            if(cuenta.getCodigo().compareTo("00000000") != 0) {
+                codigo = cuenta.getCodigo();
+                txtUser.setText(cuenta.getCodigoUsuario());
                 txtCodigo.setEnabled(false);
                 btnBuscar.setEnabled(false);
-                txtNueva.requestFocus();
             } else {
                 JOptionPane.showMessageDialog(this, "El código no existe", "Resultado", 1);
                 limpiar();
                 activar(false);
-                btnNuevo.requestFocus();
             }
         } else {
             JOptionPane.showMessageDialog(this, "El código no es valido", "Resultado", 0);
             limpiar();
             activar(false);
-            btnNuevo.requestFocus();
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -167,7 +169,7 @@ public class IFrmCuentas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnTransaccionActionPerformed
 
     private void btnInteresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInteresActionPerformed
-        IFrmModificarInteresMensual i = new IFrmModificarInteresMensual();
+        IFrmModificarMoneda i = new IFrmModificarMoneda();
         FrmEmpleado.centrarInternalFrame(i);
     }//GEN-LAST:event_btnInteresActionPerformed
 
@@ -187,7 +189,7 @@ public class IFrmCuentas extends javax.swing.JInternalFrame {
     }
     
     
-    
+    private Cuenta cuenta;
     private String codigo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;

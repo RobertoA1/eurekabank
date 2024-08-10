@@ -4,25 +4,24 @@
  */
 package presentacion;
 
-import entidades.Cliente;
-import entidades.Movimiento;
+import entidades.InteresMensual;
+import entidades.Moneda;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import validaciones.Clientes;
-import validaciones.Movimientos;
+import validaciones.Monedas;
 
 /**
  *
  * @author LUCANO
  */
-public class IFrmModificarTransaccion extends javax.swing.JInternalFrame {
+public class IFrmModificarMoneda extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form IFrmRealizarTransaccion
+     * Creates new form IFrmModificarInteresMensual
      */
-    public IFrmModificarTransaccion() {
+    public IFrmModificarMoneda() {
         initComponents();
     }
 
@@ -35,54 +34,24 @@ public class IFrmModificarTransaccion extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jSeparator2 = new javax.swing.JSeparator();
-        jLabel3 = new javax.swing.JLabel();
-        txtEstado = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
-        txtImporte = new javax.swing.JTextField();
-        txtReferencia = new javax.swing.JTextField();
+        txtInteres = new javax.swing.JTextField();
         btnNuevo = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        cbxAño = new javax.swing.JComboBox<>();
-        cbxDia = new javax.swing.JComboBox<>();
-        cbxMes = new javax.swing.JComboBox<>();
-
-        jLabel2.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("CÓDIGO DE LA CUENTA:");
-
-        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
-
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jButton3.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 0, 0));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/search.gif"))); // NOI18N
-        jButton3.setText("Buscar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel1.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("USUARIO:");
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        txtMM = new javax.swing.JTextField();
+        txtCargo = new javax.swing.JTextField();
+        txtCosto = new javax.swing.JTextField();
 
         jPanel1.setBackground(new java.awt.Color(229, 229, 229));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -90,14 +59,6 @@ public class IFrmModificarTransaccion extends javax.swing.JInternalFrame {
         jSeparator2.setBackground(new java.awt.Color(102, 255, 102));
         jSeparator2.setForeground(new java.awt.Color(0, 204, 102));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jLabel3.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("ESTADO:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 80, 34));
-
-        txtEstado.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(txtEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, 170, -1));
 
         btnBuscar.setBackground(new java.awt.Color(255, 255, 255));
         btnBuscar.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
@@ -115,32 +76,19 @@ public class IFrmModificarTransaccion extends javax.swing.JInternalFrame {
 
         jLabel5.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("NÚMERO DE LA TRANSACCION:");
+        jLabel5.setText("CÓDIGO DE LA MONEDA:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 189, 34));
-
-        jLabel6.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("FECHA:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 110, 34));
 
         jLabel7.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("IMPORTE:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 100, 34));
-
-        jLabel8.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel8.setText("REFERENCIA:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 90, 34));
+        jLabel7.setText("INTERÉS MENSUAL:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 150, 34));
 
         txtCodigo.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 170, -1));
 
-        txtImporte.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(txtImporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, 170, -1));
-
-        txtReferencia.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(txtReferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 170, -1));
+        txtInteres.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(txtInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 320, 170, -1));
 
         btnNuevo.setBackground(new java.awt.Color(255, 255, 255));
         btnNuevo.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
@@ -153,7 +101,7 @@ public class IFrmModificarTransaccion extends javax.swing.JInternalFrame {
                 btnNuevoActionPerformed(evt);
             }
         });
-        jPanel1.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, -1, -1));
+        jPanel1.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 400, -1, -1));
 
         btnActualizar.setBackground(new java.awt.Color(255, 255, 255));
         btnActualizar.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
@@ -166,7 +114,7 @@ public class IFrmModificarTransaccion extends javax.swing.JInternalFrame {
                 btnActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 410, -1, -1));
+        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 400, -1, -1));
 
         btnSalir.setBackground(new java.awt.Color(255, 255, 255));
         btnSalir.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
@@ -179,59 +127,63 @@ public class IFrmModificarTransaccion extends javax.swing.JInternalFrame {
                 btnSalirActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 410, -1, -1));
+        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 400, -1, -1));
 
-        cbxAño.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxAño, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 160, -1, -1));
+        jLabel8.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("MONTO MÁXIMO:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 150, 34));
 
-        cbxDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, -1, -1));
+        jLabel9.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("CARGO POR MANTENIMIENTO:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 180, 34));
 
-        cbxMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 160, -1, -1));
+        jLabel10.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("COSTO POR MOVIMIENTO:");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 150, 34));
+
+        txtMM.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(txtMM, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, 170, -1));
+
+        txtCargo.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(txtCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, 170, -1));
+
+        txtCosto.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(txtCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, 170, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        int numero = Integer.parseInt(txtCodigo.getText());
-        Movimiento movimiento = null;
+        String codigo = txtCodigo.getText();
+        Moneda moneda = null;
         try {
-            movimiento = Movimientos.obtener(numero);
+            moneda = Monedas.obtener(codigo);
         } catch (IllegalArgumentException ex) {
             Logger.getLogger(IFrmModificarTransaccion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(IFrmModificarTransaccion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if(movimiento != null) {
-            if(movimiento.getMovinumero() != 0) {
-                numero= movimiento.getMovinumero();
-                txtCodigo.setEnabled(false);
-                
-                txtImporte.setText(String.valueOf(movimiento.getImporte()));
-                txtReferencia.setText(movimiento.getCuenReferencia());
-                txtEstado.setText(String.valueOf(movimiento.getEstado()));
-                int dia = movimiento.getFecha().getDate();
-                cbxDia.setSelectedItem(String.valueOf(dia));
-                int mes = movimiento.getFecha().getMonth() + 1; 
-                cbxDia.setSelectedItem(String.valueOf(mes));
-                int año = movimiento.getFecha().getYear() ;
-                cbxDia.setSelectedItem(String.valueOf(año));
+        } 
+        if(moneda != null) {
+            if(moneda.getCodigo().compareTo("00") != 0) {
+                codigo = moneda.getCodigo();
+                txtMM.setText(String.valueOf(moneda.getMontoMax()));
+                txtCargo.setText(String.valueOf(moneda.getCargoMantenimiento()));
+                txtCosto.setText(String.valueOf(moneda.getCostoMovimiento()));
+                txtInteres.setText(String.valueOf(moneda.getInteresMensual()));
                 btnBuscar.setEnabled(false);
             } else {
                 JOptionPane.showMessageDialog(this, "El código no existe", "Resultado", 1);
@@ -249,34 +201,29 @@ public class IFrmModificarTransaccion extends javax.swing.JInternalFrame {
 
     
     private void activar(boolean estado) {
-        txtImporte.setEnabled(estado);
-        txtReferencia.setEnabled(estado);
-        txtEstado.setEnabled(estado);
-        cbxDia.setEnabled(estado);
-        cbxMes.setEnabled(estado);
-        cbxAño.setEnabled(estado);
         txtCodigo.setEnabled(!estado);
+        txtMM.setEnabled(estado);
+        txtCargo.setEnabled(estado);
+        txtCosto.setEnabled(estado);
+        txtInteres.setEnabled(estado);
         btnBuscar.setEnabled(!estado);
         btnActualizar.setEnabled(estado);
         btnNuevo.setEnabled(!estado);
     }
-
     
     private void limpiar() {
         txtCodigo.setText(null);
-        txtImporte.setText(null);
-        txtReferencia.setText(null);
-        txtEstado.setText(null);
-        cbxDia.setSelectedIndex(0);
-        cbxMes.setSelectedIndex(0);
-        cbxAño.setSelectedIndex(0);
+        txtMM.setText(null);
+        txtCargo.setText(null);
+        txtCosto.setText(null);
+        txtInteres.setText(null);
     }
-
+    
     
     
     
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        
+
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
@@ -293,26 +240,19 @@ public class IFrmModificarTransaccion extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JComboBox<String> cbxAño;
-    private javax.swing.JComboBox<String> cbxDia;
-    private javax.swing.JComboBox<String> cbxMes;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField txtCargo;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtEstado;
-    private javax.swing.JTextField txtImporte;
-    private javax.swing.JTextField txtReferencia;
+    private javax.swing.JTextField txtCosto;
+    private javax.swing.JTextField txtInteres;
+    private javax.swing.JTextField txtMM;
     // End of variables declaration//GEN-END:variables
 }
