@@ -26,6 +26,28 @@ public class DBCuentas {
         return false;
     }
 
+    public static Cuenta obtener(String codigo) throws SQLException{
+        CallableStatement cs = db.prepareCall("CALL sp_cuenta_buscar(?)");
+        cs.setString(1, codigo);
+
+        ResultSet rs = cs.executeQuery();
+        if (rs.next()){
+            Cuenta c = Cuenta.builder()
+                        .codigo(rs.getString(1))
+                        .codigoMoneda(rs.getString(2))
+                        .codigoSucursal(rs.getString(3))
+                        .codigoCliente(rs.getString(4))
+                        .codigoUsuario(rs.getString(5))
+                        .saldo(rs.getFloat(6))
+                        .fechaCreacion(rs.getDate(7))
+                        .cantidadMovimientos(rs.getInt(8))
+                        .clave(rs.getString(9))
+                        .build();
+            return c;
+        }
+        return null;
+    }
+
     public static void agregar(Cuenta cuenta) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_cuenta_agregar(?, ?, ?, ?, ?, ?, ?, ?, ?)");
         cs.setString(1, cuenta.getCodigo());
