@@ -6,6 +6,7 @@ package presentacion.empleados;
 
 import javax.swing.JInternalFrame;
 import presentacion.FrmPrincipal;
+import presentacion.IFrmSucursales;
 import presentacion.clientes.registro.Registro;
 import presentacion.empleados.opciones.*;
 
@@ -146,6 +147,11 @@ public class FrmEmpleado extends javax.swing.JFrame {
         jMenu1.add(jMenuItem3);
 
         jMenuItem4.setText("Sucursales");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem4);
 
         jMenuItem5.setText("Monedas");
@@ -229,7 +235,11 @@ public class FrmEmpleado extends javax.swing.JFrame {
         centrarInternalFrame(form);
     }//GEN-LAST:event_mi_verDatosMovimientoActionPerformed
 
-    
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        IFrmSucursales i = new IFrmSucursales();
+        centrarInternalFrame(i);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     public static FrmEmpleado getInstance(){
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
