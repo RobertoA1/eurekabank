@@ -4,7 +4,7 @@
  */
 package presentacion.empleados.opciones;
 
-import presentacion.empleados.opciones.IFrmConsultarMovimientos;
+import presentacion.empleados.opciones.IFrmListarMovimientosPorCuenta;
 import presentacion.empleados.FrmEmpleado;
 import entidades.Cuenta;
 import java.sql.SQLException;
@@ -180,7 +180,7 @@ public class IFrmCuentas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnMonedaActionPerformed
 
     private void btnMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMovimientosActionPerformed
-        IFrmConsultarMovimientos i = new IFrmConsultarMovimientos();
+        IFrmListarMovimientosPorCuenta i = new IFrmListarMovimientosPorCuenta();
         FrmEmpleado.centrarInternalFrame(i);
     }//GEN-LAST:event_btnMovimientosActionPerformed
 

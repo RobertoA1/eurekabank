@@ -6,6 +6,7 @@ package presentacion.empleados;
 
 import javax.swing.JInternalFrame;
 import presentacion.FrmPrincipal;
+import presentacion.IFrmSucursales;
 import presentacion.clientes.registro.Registro;
 import presentacion.empleados.opciones.*;
 
@@ -87,6 +88,11 @@ public class FrmEmpleado extends javax.swing.JFrame {
         menuBuscar.add(mi_verDatosCliente);
 
         mi_verDatosMovimiento.setText("Buscar un movimiento");
+        mi_verDatosMovimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_verDatosMovimientoActionPerformed(evt);
+            }
+        });
         menuBuscar.add(mi_verDatosMovimiento);
 
         jMenuBar1.add(menuBuscar);
@@ -141,6 +147,11 @@ public class FrmEmpleado extends javax.swing.JFrame {
         jMenu1.add(jMenuItem3);
 
         jMenuItem4.setText("Sucursales");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem4);
 
         jMenuItem5.setText("Monedas");
@@ -170,7 +181,7 @@ public class FrmEmpleado extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dspFondo)
+            .addComponent(dspFondo, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -205,7 +216,8 @@ public class FrmEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_mi_registrarClienteActionPerformed
 
     private void mi_verDatosClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_verDatosClienteActionPerformed
-        // TODO add your handling code here:
+        IFrmConsultarDatosCliente form = new IFrmConsultarDatosCliente();
+        centrarInternalFrame(form);
     }//GEN-LAST:event_mi_verDatosClienteActionPerformed
 
     private void mi_modificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_modificarClienteActionPerformed
@@ -217,7 +229,16 @@ public class FrmEmpleado extends javax.swing.JFrame {
         centrarInternalFrame(form);
     }//GEN-LAST:event_mi_verDatosCuentaActionPerformed
 
-    
+    private void mi_verDatosMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_verDatosMovimientoActionPerformed
+        IFrmConsultarDatosMovimiento form = new IFrmConsultarDatosMovimiento();
+        centrarInternalFrame(form);
+    }//GEN-LAST:event_mi_verDatosMovimientoActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        IFrmSucursales i = new IFrmSucursales();
+        centrarInternalFrame(i);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     public static FrmEmpleado getInstance(){
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

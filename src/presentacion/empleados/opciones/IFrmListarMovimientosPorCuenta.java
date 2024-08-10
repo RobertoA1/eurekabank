@@ -18,15 +18,15 @@ import validaciones.Movimientos;
  *
  * @author LUCANO
  */
-public class IFrmConsultarMovimientos extends javax.swing.JInternalFrame {
+public class IFrmListarMovimientosPorCuenta extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form IFrmConsultarMovimientos
+     * Creates new form IFrmListarMovimientosPorCuenta
      */
     
      private String cuenValue;
     
-    public IFrmConsultarMovimientos() {
+    public IFrmListarMovimientosPorCuenta() {
         this.cuenValue = IFrmCuentas.getCuenValue();
         initComponents();
     }
@@ -141,7 +141,7 @@ public class IFrmConsultarMovimientos extends javax.swing.JInternalFrame {
                 llenarTabla();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(IFrmConsultarMovimientos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(IFrmListarMovimientosPorCuenta.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Error al obtener los movimientos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_formInternalFrameOpened
