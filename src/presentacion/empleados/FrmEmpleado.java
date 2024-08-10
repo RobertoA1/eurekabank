@@ -87,6 +87,11 @@ public class FrmEmpleado extends javax.swing.JFrame {
         menuBuscar.add(mi_verDatosCliente);
 
         mi_verDatosMovimiento.setText("Buscar un movimiento");
+        mi_verDatosMovimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_verDatosMovimientoActionPerformed(evt);
+            }
+        });
         menuBuscar.add(mi_verDatosMovimiento);
 
         jMenuBar1.add(menuBuscar);
@@ -205,7 +210,8 @@ public class FrmEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_mi_registrarClienteActionPerformed
 
     private void mi_verDatosClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_verDatosClienteActionPerformed
-        // TODO add your handling code here:
+        IFrmConsultarDatosCliente form = new IFrmConsultarDatosCliente();
+        centrarInternalFrame(form);
     }//GEN-LAST:event_mi_verDatosClienteActionPerformed
 
     private void mi_modificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_modificarClienteActionPerformed
@@ -217,6 +223,12 @@ public class FrmEmpleado extends javax.swing.JFrame {
         //centrarInternalFrame(form);
         /* Es una futura adición */
     }//GEN-LAST:event_mi_verDatosCuentaActionPerformed
+
+    private void mi_verDatosMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_verDatosMovimientoActionPerformed
+        //IFrmConsultarDatosMovimientos form = new IFrmConsultarDatosMovimientos();
+        //centrarInternalFrame(form);
+        //Creo que ta mal xd
+    }//GEN-LAST:event_mi_verDatosMovimientoActionPerformed
 
     
     public static FrmEmpleado getInstance(){
