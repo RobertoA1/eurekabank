@@ -81,4 +81,9 @@ public class Cuentas {
         validarCodigoExistente(codigoCuenta, "cuenta");
         DBCuentas.modificar_fechaCreacion(codigoCuenta, fechaCreacion);
     }
+
+    public static Cuenta obtener(String codigo) throws SQLException{
+        validarCodigoExistente(codigo, "cuenta");
+        return DBCuentas.obtener(codigo);
+    }
 }
