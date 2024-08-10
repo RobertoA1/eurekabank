@@ -12,19 +12,13 @@ import validaciones.Usuarios;
 public class Autenticacion {
     private static Connection db = ConexionDB.obtenerDB();
 
-    public static void registrar(String user, String pass) throws InvalidKeySpecException, NoSuchAlgorithmException, NullPointerException, IllegalArgumentException, SQLException{
+    public static void registrar(String user, String pass, int nivelPermisos) throws InvalidKeySpecException, NoSuchAlgorithmException, NullPointerException, IllegalArgumentException, SQLException{
         String err = "Autenticación | No se puede registrar: ";
         if (Usuarios.buscarUsuario(user)) throw new IllegalArgumentException(err + "Ya existe un usuario con ese nombre.");
         if (pass.length() < 8) throw new IllegalArgumentException(err + "La contraseña debe ser de mínimo 8 caracteres.");
 
         String key = Contrasenas.generarKey(pass);
-        /*
-        System.out.println("key: " + key);
-        System.out.println("salt: " + key.substring(0, 32));
-        System.out.println("hash: " + key.substring(32));
-        
-        */
-        Usuarios.insertarUsuario(user, key);
+        Usuarios.insertarUsuario(user, key, nivelPermisos);
     }
 
     public static void iniciarSesion(String user, String pass) throws InvalidKeySpecException, NoSuchAlgorithmException, NullPointerException, IllegalArgumentException, SQLException{
@@ -49,22 +43,13 @@ public class Autenticacion {
         cs.setString(1, user);
         ResultSet rs = cs.executeQuery();
         if (!rs.next()) return false;
-        
-        // System.out.println("contraseña usada: " + pass);
-        
+
         String key = rs.getString(1);
         String saltStr = key.substring(0, 32);
         String hashStr = key.substring(32);
 
         byte[] salt = Base64.getDecoder().decode(saltStr);
 
-        /*
-        System.out.println("keyOriginal: " + key);
-        System.out.println("salt: " + saltStr);
-        System.out.println("hash: " + hashStr);
-        
-        System.out.println("A COMPARAR: " + Contrasenas.generarHash(pass, salt));
-        */
         if (Contrasenas.generarHash(pass, salt).equals(hashStr)) return true;
         return false;
     }

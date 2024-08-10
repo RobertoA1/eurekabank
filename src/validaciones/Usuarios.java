@@ -15,12 +15,14 @@ public class Usuarios {
         if (codigo.isBlank()) throw new IllegalArgumentException(errMsg + "El código introducido es inválido.");
     }
 
-    public static void insertarUsuario(String codigo, String clave) throws IllegalArgumentException, SQLException{
+    public static boolean existe(String codigo) throws IllegalArgumentException, SQLException{
         validarCodigo(codigo);
-        // String err = errMsg + "Creación | ";
-        // if(buscarUsuario(codigo)) throw new IllegalArgumentException(err + "El codigo ya existe en otro usuario.");
+        return DBUsuario.existe(codigo);
+    }
 
-        DBUsuario.insertarUsuario(new Usuario(codigo,clave));
+    public static void insertarUsuario(String codigo, String clave, int nivelPermisos) throws IllegalArgumentException, SQLException{
+        validarCodigo(codigo);
+        DBUsuario.insertarUsuario(new Usuario(codigo, clave, nivelPermisos));
     }
 
     public static boolean buscarUsuario(String codigo) throws SQLException {

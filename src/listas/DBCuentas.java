@@ -4,7 +4,6 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.sql.Date;
 
 import conexion.ConexionDB;
@@ -28,16 +27,16 @@ public class DBCuentas {
     }
 
     public static void agregar(Cuenta cuenta) throws SQLException{
-        CallableStatement cs = db.prepareCall("CALL sp_cuenta_agregar(?, ?, ?, ?, ?, ?, ?, ?)");
+        CallableStatement cs = db.prepareCall("CALL sp_cuenta_agregar(?, ?, ?, ?, ?, ?, ?, ?, ?)");
         cs.setString(1, cuenta.getCodigo());
         cs.setString(2, cuenta.getCodigoMoneda());
         cs.setString(3, cuenta.getCodigoSucursal());
-        cs.setString(4, cuenta.getCodigoSucursal());
-        cs.setFloat(5, cuenta.getSaldo());
-        cs.setDate(6, cuenta.getFechaCreacion());
-        cs.setInt(7, cuenta.getCantidadMovimientos());
-        cs.setString(8, cuenta.getClaveCuenta());
-
+        cs.setString(4, cuenta.getCodigoCliente());
+        cs.setString(5, cuenta.getCodigoUsuario());
+        cs.setFloat(6, cuenta.getSaldo());
+        cs.setDate(7, cuenta.getFechaCreacion());
+        cs.setInt(8, cuenta.getCantidadMovimientos());
+        cs.setString(9, cuenta.getClaveCuenta());
         cs.executeUpdate();
     }
 
@@ -54,29 +53,5 @@ public class DBCuentas {
         cs.setDate(2, fechaCreacion);
 
         cs.executeUpdate();
-    }
-
-    public static ArrayList<Cuenta> listar(String codigoCliente) throws SQLException{
-        ArrayList<Cuenta> arr = new ArrayList<>();
-        CallableStatement cs = db.prepareCall("CALL sp_cuenta_listar(?)");
-        cs.setString(1, codigoCliente);
-
-        ResultSet rs = cs.executeQuery();
-
-        while (rs.next()){
-            Cuenta c = Cuenta.builder()
-                        .codigo(rs.getString(1))
-                        .codigoMoneda(rs.getString(2))
-                        .codigoSucursal(rs.getString(3))
-                        .codigoCliente(rs.getString(4))
-                        .saldo(rs.getFloat(5))
-                        .fechaCreacion(rs.getDate(6))
-                        .cantidadMovimientos(rs.getInt(7))
-                        .clave(rs.getString(8))
-                        .build();
-            arr.add(c);
-        }
-
-        return arr;
     }
 }

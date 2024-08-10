@@ -222,7 +222,8 @@ public class RegistroPaso2 extends javax.swing.JFrame {
             Cliente c = resultadosPaso1;
             c.setIdUsuario(nombreUsuario);
             c.setCodigo(Clientes.generarCodigo());
-            Autenticacion.registrar(nombreUsuario, pass);
+            
+            Autenticacion.registrar(nombreUsuario, pass, 1);
             Clientes.agregar(c.getCodigo(), c.getNombre(), c.getApellidoPaterno(), c.getApellidoMaterno(), c.getDni(), c.getCiudad(), c.getDireccion(), c.getTelefono(), c.getEmail(), nombreUsuario);
             JOptionPane.showMessageDialog(null, "La cuenta se ha creado correctamente. Ya puedes iniciar sesión.", "¡Ya eres parte de Eurekabank!", JOptionPane.INFORMATION_MESSAGE);
         } catch (InvalidKeySpecException | NoSuchAlgorithmException | NullPointerException e){

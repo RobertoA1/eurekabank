@@ -44,18 +44,17 @@ public class Sesiones {
     public static Sesion obtenerSesion() throws IllegalStateException, SQLException{
         if (!verificarSesionActiva()) throw new IllegalStateException("Autenticación | No se puede obtener la sesión actual: No se ha iniciado sesión.");
         Sesion s = new Sesion();
-        s.setTokenAcceso(s.getTokenAcceso());
-        s.setUserCodigo(s.getUserCodigo());
+        s.setTokenAcceso(sesion.getTokenAcceso());
+        s.setUserCodigo(sesion.getUserCodigo());
         return s;
     }
 
     public static boolean verificarSesionActiva() throws SQLException{
         if (sesion == null) return false;
-        Sesion s = Sesiones.obtenerSesion();
 
         CallableStatement cs = db.prepareCall("CALL sp_sesion_coincide(?, ?)"); // (usercodigo, supuesto token)
-        cs.setString(1, s.getUserCodigo());
-        cs.setString(2, s.getTokenAcceso());
+        cs.setString(1, sesion.getUserCodigo());
+        cs.setString(2, sesion.getTokenAcceso());
 
         ResultSet rs = cs.executeQuery(); // Devuelve estado si es que es correcto.
         if (rs.next()){
