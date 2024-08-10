@@ -4,6 +4,8 @@
  */
 package presentacion;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author LUCANO
@@ -28,53 +30,175 @@ public class IFrmCuentas extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        txtUser = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        btnMovimientos = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        btnInteres = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
+        btnTransaccion = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(229, 229, 229));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(252, 162, 17));
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("CÓDIGO DE LA CUENTA:");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
+            .addGap(0, 100, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(396, Short.MAX_VALUE))
+            .addGap(0, 330, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 470));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 330));
+
+        txtUser.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
+        txtUser.setForeground(new java.awt.Color(0, 0, 0));
+        txtUser.setText("USUARIO:");
+        jPanel1.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 189, 34));
+
+        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField1.setEnabled(false);
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 170, -1));
+
+        btnMovimientos.setBackground(new java.awt.Color(255, 255, 255));
+        btnMovimientos.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        btnMovimientos.setForeground(new java.awt.Color(0, 0, 0));
+        btnMovimientos.setText("Consultar Movimientos");
+        btnMovimientos.setEnabled(false);
+        btnMovimientos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMovimientosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnMovimientos, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 160, 40));
+
+        btnBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(0, 0, 0));
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/search.gif"))); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, 100, 30));
+
+        btnInteres.setBackground(new java.awt.Color(255, 255, 255));
+        btnInteres.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        btnInteres.setForeground(new java.awt.Color(0, 0, 0));
+        btnInteres.setText("Modificar interés mensual");
+        btnInteres.setEnabled(false);
+        btnInteres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInteresActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 190, 40));
+
+        jLabel2.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("CÓDIGO DE LA CUENTA:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 140, 20));
+
+        txtCodigo.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 170, -1));
+
+        btnTransaccion.setBackground(new java.awt.Color(255, 255, 255));
+        btnTransaccion.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        btnTransaccion.setForeground(new java.awt.Color(0, 0, 0));
+        btnTransaccion.setText("Modifcar Transaccion");
+        btnTransaccion.setEnabled(false);
+        btnTransaccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTransaccionActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnTransaccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 150, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        String respuesta;
+        codigo = txtCodigo.getText();
+        cuenta = Cuentas.buscarCuentas(codigo);
+        if(cuenta != null) {
+            if(cuenta.getCodigo().compareTo("00") != 0) {
+                codigo = moneda.getCodigo();
+                txtDescripcion.setText(moneda.getDescripcion());
+                txtCodigo.setEnabled(false);
+                btnBuscar.setEnabled(false);
+                txtNueva.requestFocus();
+            } else {
+                JOptionPane.showMessageDialog(this, "El código no existe", "Resultado", 1);
+                limpiar();
+                activar(false);
+                btnNuevo.requestFocus();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "El código no es valido", "Resultado", 0);
+            limpiar();
+            activar(false);
+            btnNuevo.requestFocus();
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void btnTransaccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransaccionActionPerformed
+        IFrmModificarTransaccion i = new IFrmModificarTransaccion();
+        FrmEmpleado.centrarInternalFrame(i);
+    }//GEN-LAST:event_btnTransaccionActionPerformed
+
+    private void btnInteresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInteresActionPerformed
+        IFrmModificarInteresMensual i = new IFrmModificarInteresMensual();
+        FrmEmpleado.centrarInternalFrame(i);
+    }//GEN-LAST:event_btnInteresActionPerformed
+
+    private void btnMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMovimientosActionPerformed
+        IFrmConsultarMovimientos i = new IFrmConsultarMovimientos();
+        FrmEmpleado.centrarInternalFrame(i);
+    }//GEN-LAST:event_btnMovimientosActionPerformed
+
+    private void activar(boolean estado) {
+        btnBuscar.setEnabled(!estado);
+        btnInteres.setEnabled(!estado);
+        btnMovimientos.setEnabled(!estado);
+    }
+    
+    private void limpiar() {
+        txtCodigo.setText(null);
+    }
+    
+    
+    
+    private String codigo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnInteres;
+    private javax.swing.JButton btnMovimientos;
+    private javax.swing.JButton btnTransaccion;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JLabel txtUser;
     // End of variables declaration//GEN-END:variables
 }
