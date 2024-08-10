@@ -15,6 +15,11 @@ public class Usuarios {
         if (codigo.isBlank()) throw new IllegalArgumentException(errMsg + "El código introducido es inválido.");
     }
 
+    public static boolean existe(String codigo) throws IllegalArgumentException, SQLException{
+        validarCodigo(codigo);
+        return DBUsuario.existe(codigo);
+    }
+
     public static void insertarUsuario(String codigo, String clave) throws IllegalArgumentException, SQLException{
         validarCodigo(codigo);
         // String err = errMsg + "Creación | ";

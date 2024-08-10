@@ -32,6 +32,8 @@ public class Cuentas {
             if (!Sucursales.existe(codigo)) throw new IllegalArgumentException(errMsg + "El código de la sucursal es inválido.");
         } else if (tipo.equalsIgnoreCase("cliente")){
             if (!Clientes.existe(codigo)) throw new IllegalArgumentException(errMsg + "El código del cliente es inválido.");
+        } else if (tipo.equalsIgnoreCase("usuario")){
+            if (!Usuarios.existe(codigo)) throw new IllegalArgumentException(errMsg+ "El código del usuario es inválido.");
         } else {
             throw new IllegalArgumentException(errMsg + "El tipo de validación solicitada no existe.");
         }
@@ -43,12 +45,13 @@ public class Cuentas {
         return true;
     }
 
-    public static void agregar(String codigo, String codigoMoneda, String codigoSucursal, String codigoCliente, String clave) throws InvalidKeySpecException, NoSuchAlgorithmException, NullPointerException, SQLException{
+    public static void agregar(String codigo, String codigoMoneda, String codigoSucursal, String codigoCliente, String codigoUsuario, String clave) throws InvalidKeySpecException, NoSuchAlgorithmException, NullPointerException, SQLException{
         String errMsg = "Ocurrió un problema mientras creábamos la cuenta: ";
         validarCodigoExistente(codigo, "cuenta");
         validarCodigoExistente(codigoMoneda, "moneda");
         validarCodigoExistente(codigoSucursal, "sucursal");
         validarCodigoExistente(codigoCliente, "cliente");
+        validarCodigoExistente(codigoUsuario, "usuario");
 
         if (clave.length() != 6) throw new IllegalArgumentException(errMsg + "La clave tiene que ser de seis dígitos.");
 
@@ -59,6 +62,7 @@ public class Cuentas {
                     .codigoMoneda(codigoMoneda)
                     .codigoSucursal(codigoSucursal)
                     .codigoCliente(codigoCliente)
+                    .codigoUsuario(codigoUsuario)
                     .saldo(0)
                     .fechaCreacion(new Date(System.currentTimeMillis()))
                     .cantidadMovimientos(0)
