@@ -4,6 +4,13 @@
  */
 package presentacion.administracion;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.sql.SQLException;
+import validaciones.Cuentas;
+import entidades.Usuario;
+import seguridad.Autenticacion;
+
 /**
  *
  * @author USER
@@ -26,21 +33,219 @@ public class CrearCuenta extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        esHoraDeCrear = new javax.swing.JLabel();
+        codigoDeCuenta = new javax.swing.JLabel();
+        tipoDeMoneda = new javax.swing.JLabel();
+        sucursal = new javax.swing.JLabel();
+        saldo = new javax.swing.JLabel();
+        clave = new javax.swing.JLabel();
+        btnCrear = new javax.swing.JButton();
+        txtCodigoCuenta = new javax.swing.JTextField();
+        txtSaldo = new javax.swing.JTextField();
+        txtClave = new javax.swing.JTextField();
+        btnValidar = new javax.swing.JButton();
+        txtMoneda = new javax.swing.JTextField();
+        txtSucursal = new javax.swing.JTextField();
+
+        setClosable(true);
+
+        jPanel1.setBackground(new java.awt.Color(20, 45, 68));
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Crea tu cuenta bancaria");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addComponent(jLabel1)
+                .addContainerGap(92, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        esHoraDeCrear.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        esHoraDeCrear.setText("Es hora de crear tu cuenta bancaria");
+
+        codigoDeCuenta.setText("Código de cuenta");
+
+        tipoDeMoneda.setText("Tipo de moneda");
+
+        sucursal.setText("Sucursal");
+
+        saldo.setText("Saldo inicial");
+
+        clave.setText("Clave");
+
+        btnCrear.setText("Crear");
+        btnCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearActionPerformed(evt);
+            }
+        });
+
+        txtCodigoCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoCuentaActionPerformed(evt);
+            }
+        });
+
+        btnValidar.setText("Validar");
+        btnValidar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnValidarActionPerformed(evt);
+            }
+        });
+
+        txtMoneda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMonedaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(esHoraDeCrear)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tipoDeMoneda)
+                            .addComponent(codigoDeCuenta)
+                            .addComponent(sucursal)
+                            .addComponent(saldo)
+                            .addComponent(clave))
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtMoneda, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCodigoCuenta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+                            .addComponent(btnCrear, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSaldo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtClave, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSucursal))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnValidar)))
+                .addContainerGap(99, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(esHoraDeCrear)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(codigoDeCuenta)
+                    .addComponent(txtCodigoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnValidar))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tipoDeMoneda)
+                    .addComponent(txtMoneda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sucursal)
+                            .addComponent(txtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(saldo))
+                    .addComponent(txtSaldo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(clave)
+                    .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCrear)
+                .addGap(0, 5, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtCodigoCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoCuentaActionPerformed
+
+    }//GEN-LAST:event_txtCodigoCuentaActionPerformed
+
+    private void txtMonedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMonedaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMonedaActionPerformed
+
+    private void btnValidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidarActionPerformed
+        String codigoCuenta = txtCodigoCuenta.getText();
+        try {
+            boolean existe = Cuentas.existe(codigoCuenta);
+            if (existe) {
+                javax.swing.JOptionPane.showMessageDialog(this, "La cuenta ya existe.");
+            } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "La cuenta no existe, puedes crearla.");
+            }
+        } catch (SQLException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al validar la cuenta: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnValidarActionPerformed
+
+    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+        String codigoCuenta = txtCodigoCuenta.getText();
+        String codigoMoneda = txtMoneda.getText();
+        String codigoSucursal = txtSucursal.getText();
+        String clave = txtClave.getText();
+
+        try {
+            Usuario usuarioActivo = Autenticacion.obtenerUsuario(); // Obtener el usuario activo
+            String codigoCliente = usuarioActivo.getCodigo(); // Aquí se obtiene el código del cliente (usuario activo)
+            Cuentas.agregar(codigoCuenta, codigoMoneda, codigoSucursal, codigoCliente, usuarioActivo.getCodigo(), clave);
+            javax.swing.JOptionPane.showMessageDialog(this, "Cuenta creada exitosamente.");
+        } catch (SQLException | NoSuchAlgorithmException | InvalidKeySpecException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al crear la cuenta: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnCrearActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCrear;
+    private javax.swing.JButton btnValidar;
+    private javax.swing.JLabel clave;
+    private javax.swing.JLabel codigoDeCuenta;
+    private javax.swing.JLabel esHoraDeCrear;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel saldo;
+    private javax.swing.JLabel sucursal;
+    private javax.swing.JLabel tipoDeMoneda;
+    private javax.swing.JTextField txtClave;
+    private javax.swing.JTextField txtCodigoCuenta;
+    private javax.swing.JTextField txtMoneda;
+    private javax.swing.JTextField txtSaldo;
+    private javax.swing.JTextField txtSucursal;
     // End of variables declaration//GEN-END:variables
 }
