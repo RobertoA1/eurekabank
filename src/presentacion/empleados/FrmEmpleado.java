@@ -213,9 +213,8 @@ public class FrmEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_mi_modificarClienteActionPerformed
 
     private void mi_verDatosCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_verDatosCuentaActionPerformed
-        //IFrmConsultarDatosCuenta form = new IFrmConsultarDatosCuenta();
-        //centrarInternalFrame(form);
-        /* Es una futura adición */
+        IFrmConsultarDatosCuenta form = new IFrmConsultarDatosCuenta();
+        centrarInternalFrame(form);
     }//GEN-LAST:event_mi_verDatosCuentaActionPerformed
 
     
