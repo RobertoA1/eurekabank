@@ -75,6 +75,11 @@ public class ModificarCuenta extends javax.swing.JInternalFrame {
         });
 
         btnCambiarClave.setText("Cambiar clave");
+        btnCambiarClave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCambiarClaveActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Eliminar mi cuenta");
 
@@ -157,6 +162,10 @@ public class ModificarCuenta extends javax.swing.JInternalFrame {
     private void btnEliminarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCuentaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarCuentaActionPerformed
+
+    private void btnCambiarClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarClaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCambiarClaveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
