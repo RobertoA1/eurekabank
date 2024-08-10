@@ -4,7 +4,7 @@ USE Eureka;
 
 -- Creación de la tabla sucursal
 CREATE TABLE sucursal (
-    succodigo CHAR(3) PRIMARY KEY,
+    sucucodigo CHAR(3) PRIMARY KEY,
     sucunombre VARCHAR(50),
     sucuciudad VARCHAR(30),
     sucudireccion VARCHAR(50),
@@ -31,7 +31,7 @@ CREATE TABLE asignado (
     emplcodigo CHAR(4),
     asigfecalta DATE,
     asigfecbaja DATE,
-    FOREIGN KEY (succodigo) REFERENCES sucursal(succodigo),
+    FOREIGN KEY (succodigo) REFERENCES sucursal(sucucodigo),
     FOREIGN KEY (emplcodigo) REFERENCES empleado(emplcodigo)
 );
 
@@ -88,7 +88,7 @@ CREATE TABLE cuenta (
     estado TINYINT,
 
     FOREIGN KEY (monecodigo) REFERENCES moneda(monecodigo),
-    FOREIGN KEY (sucucodigo) REFERENCES sucursal(succodigo),
+    FOREIGN KEY (sucucodigo) REFERENCES sucursal(sucucodigo),
     FOREIGN KEY (cliecodigo) REFERENCES cliente(cliecodigo),
     FOREIGN KEY (usurcodigo) REFERENCES usuario(codigo)
 );

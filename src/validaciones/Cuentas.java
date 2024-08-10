@@ -47,7 +47,8 @@ public class Cuentas {
 
     public static void agregar(String codigo, String codigoMoneda, String codigoSucursal, String codigoCliente, String codigoUsuario, String clave) throws InvalidKeySpecException, NoSuchAlgorithmException, NullPointerException, SQLException{
         String errMsg = "Ocurrió un problema mientras creábamos la cuenta: ";
-        validarCodigoExistente(codigo, "cuenta");
+        //validarCodigoExistente(codigo, "cuenta");
+        if (!esCodigoValido(codigo)) throw new IllegalArgumentException(errMsg + "El código de la cuenta es inválido.");
         validarCodigoExistente(codigoMoneda, "moneda");
         validarCodigoExistente(codigoSucursal, "sucursal");
         validarCodigoExistente(codigoCliente, "cliente");

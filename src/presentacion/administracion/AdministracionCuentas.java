@@ -4,6 +4,8 @@
  */
 package presentacion.administracion;
 
+import presentacion.FrmPrincipal;
+
 /**
  *
  * @author USER
@@ -140,16 +142,18 @@ public class AdministracionCuentas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearMiCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearMiCuentaActionPerformed
-        this.setVisible(false); 
+        this.setVisible(false);
+        FrmPrincipal form = FrmPrincipal.getInstance();
         CrearCuenta crearCuenta = new CrearCuenta();  
-        crearCuenta.setVisible(true);  
+        form.centrarInternalFrameExterno(crearCuenta);
         this.dispose();  
     }//GEN-LAST:event_btnCrearMiCuentaActionPerformed
 
     private void btnAdministrarMiCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministrarMiCuentaActionPerformed
-        this.setVisible(false);  
+        this.setVisible(false);
+        FrmPrincipal form = FrmPrincipal.getInstance();
         ModificarCuenta modificarCuenta = new ModificarCuenta();  
-        modificarCuenta.setVisible(true);  
+        form.centrarInternalFrameExterno(modificarCuenta);  
         this.dispose();  
     }//GEN-LAST:event_btnAdministrarMiCuentaActionPerformed
 

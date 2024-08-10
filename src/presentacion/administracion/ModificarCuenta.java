@@ -39,6 +39,8 @@ public class ModificarCuenta extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         btnEliminarCuenta = new javax.swing.JButton();
 
+        setClosable(true);
+
         jPanel1.setBackground(new java.awt.Color(20, 45, 68));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
