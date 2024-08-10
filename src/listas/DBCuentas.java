@@ -56,6 +56,17 @@ public class DBCuentas {
         cs.executeUpdate();
     }
 
+    public static float obtenerSaldo(String codigo) throws SQLException {
+        float saldo = 0;
+        CallableStatement cs = db.prepareCall("CALL sp_obtener_saldo_cuenta(?, ?)");
+        cs.setString(1, codigo);
+        cs.registerOutParameter(2, java.sql.Types.DECIMAL);
+        cs.execute();
+        saldo = cs.getFloat(2);
+        return saldo;
+    }
+    
+
     public static ArrayList<Cuenta> listar(String codigoCliente) throws SQLException{
         ArrayList<Cuenta> arr = new ArrayList<>();
         CallableStatement cs = db.prepareCall("CALL sp_cuenta_listar(?)");
