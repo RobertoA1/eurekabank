@@ -175,7 +175,7 @@ public class FrmEmpleado extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dspFondo)
+            .addComponent(dspFondo, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -225,9 +225,8 @@ public class FrmEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_mi_verDatosCuentaActionPerformed
 
     private void mi_verDatosMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_verDatosMovimientoActionPerformed
-        //IFrmConsultarDatosMovimientos form = new IFrmConsultarDatosMovimientos();
-        //centrarInternalFrame(form);
-        //Creo que ta mal xd
+        IFrmConsultarDatosMovimiento form = new IFrmConsultarDatosMovimiento();
+        centrarInternalFrame(form);
     }//GEN-LAST:event_mi_verDatosMovimientoActionPerformed
 
     

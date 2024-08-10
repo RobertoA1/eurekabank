@@ -8,12 +8,12 @@ package presentacion.empleados.opciones;
  *
  * @author LUCANO
  */
-public class IFrmConsultarDatosMovimientos extends javax.swing.JInternalFrame {
+public class IFrmConsultarDatosMovimiento extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form IFrmConsultarDatosMovimientos
      */
-    public IFrmConsultarDatosMovimientos() {
+    public IFrmConsultarDatosMovimiento() {
         initComponents();
     }
 
