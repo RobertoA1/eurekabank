@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package presentacion.login;
+package presentacion.clientes.registro;
 
 import entidades.Cliente;
 import javax.swing.JOptionPane;
+import presentacion.login.Login;
 
 /**
  *
@@ -13,6 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class Registro extends javax.swing.JFrame {
     private static Registro form = null;
+    private String fuente = "login";
     /**
      * Creates new form Registro
      */
@@ -79,49 +81,67 @@ public class Registro extends javax.swing.JFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 70));
 
         jPanel2.setBackground(new java.awt.Color(229, 229, 229));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tipCompletaForm.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         tipCompletaForm.setForeground(new java.awt.Color(0, 0, 0));
         tipCompletaForm.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tipCompletaForm.setText("Por favor, completa el siguiente formulario:");
+        jPanel2.add(tipCompletaForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 105, 900, -1));
 
         labelNombres.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         labelNombres.setForeground(new java.awt.Color(0, 0, 0));
         labelNombres.setText("Nombres");
+        jPanel2.add(labelNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 219, -1, -1));
+        jPanel2.add(txtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 242, 315, -1));
 
         labelApellidoPaterno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         labelApellidoPaterno.setForeground(new java.awt.Color(0, 0, 0));
         labelApellidoPaterno.setText("Apellido paterno");
+        jPanel2.add(labelApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 286, -1, -1));
+        jPanel2.add(txtApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 309, 315, -1));
+        jPanel2.add(txtApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 376, 315, -1));
 
         labelApellidoMaterno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         labelApellidoMaterno.setForeground(new java.awt.Color(0, 0, 0));
         labelApellidoMaterno.setText("Apellido materno");
+        jPanel2.add(labelApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 353, -1, -1));
 
         labelDNI.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         labelDNI.setForeground(new java.awt.Color(0, 0, 0));
         labelDNI.setText("DNI");
+        jPanel2.add(labelDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 164, -1, -1));
+        jPanel2.add(txtDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 187, 178, -1));
 
         tituloEmpecemos.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         tituloEmpecemos.setForeground(new java.awt.Color(0, 0, 0));
         tituloEmpecemos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloEmpecemos.setText("Empecemos la creación de tu nueva cuenta");
+        jPanel2.add(tituloEmpecemos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 29, 900, -1));
 
         tipEmpecemos.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         tipEmpecemos.setForeground(new java.awt.Color(0, 0, 0));
         tipEmpecemos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tipEmpecemos.setText("Por tu seguridad, debemos validar tus datos");
+        jPanel2.add(tipEmpecemos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 59, 900, -1));
 
         labelDireccion.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         labelDireccion.setForeground(new java.awt.Color(0, 0, 0));
         labelDireccion.setText("Dirección");
+        jPanel2.add(labelDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 219, -1, -1));
 
         labelTelefono.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         labelTelefono.setForeground(new java.awt.Color(0, 0, 0));
         labelTelefono.setText("Teléfono");
+        jPanel2.add(labelTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 286, -1, -1));
+        jPanel2.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 309, 171, -1));
 
         labelEmail.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         labelEmail.setForeground(new java.awt.Color(0, 0, 0));
         labelEmail.setText("Email");
+        jPanel2.add(labelEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 353, -1, -1));
+        jPanel2.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 376, 315, -1));
+        jPanel2.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 242, 315, -1));
 
         btnPaso2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnPaso2.setText("¡Quiero mi nueva cuenta!");
@@ -130,10 +150,13 @@ public class Registro extends javax.swing.JFrame {
                 btnPaso2ActionPerformed(evt);
             }
         });
+        jPanel2.add(btnPaso2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 440, 198, 47));
 
         labelCiudad.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         labelCiudad.setForeground(new java.awt.Color(0, 0, 0));
         labelCiudad.setText("Ciudad");
+        jPanel2.add(labelCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 164, -1, -1));
+        jPanel2.add(txtCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 187, 315, -1));
 
         btnRegresarLogin.setText("No, ya tengo cuenta");
         btnRegresarLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -141,101 +164,19 @@ public class Registro extends javax.swing.JFrame {
                 btnRegresarLoginActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tituloEmpecemos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(tipEmpecemos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(tipCompletaForm, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(116, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelApellidoPaterno)
-                    .addComponent(txtApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelApellidoMaterno)
-                    .addComponent(labelNombres)
-                    .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelDNI)
-                    .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelCiudad)
-                    .addComponent(labelDireccion)
-                    .addComponent(labelTelefono)
-                    .addComponent(labelEmail)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(115, 115, 115))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(btnRegresarLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(173, 173, 173)
-                .addComponent(btnPaso2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(tituloEmpecemos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tipEmpecemos)
-                .addGap(24, 24, 24)
-                .addComponent(tipCompletaForm)
-                .addGap(37, 37, 37)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelDNI)
-                    .addComponent(labelCiudad))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(labelNombres)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(labelApellidoPaterno)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(labelApellidoMaterno)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(labelDireccion)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(labelTelefono)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(labelEmail)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(btnPaso2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(43, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRegresarLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16))))
-        );
+        jPanel2.add(btnRegresarLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 481, 155, 38));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 900, 530));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegresarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarLoginActionPerformed
+        this.setVisible(false);
+        Login login = Login.getInstance();
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarLoginActionPerformed
 
     private void btnPaso2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaso2ActionPerformed
         String dni = txtDNI.getText();
@@ -246,9 +187,9 @@ public class Registro extends javax.swing.JFrame {
         String direccion = txtDireccion.getText();
         String telefono = txtTelefono.getText();
         String email = txtEmail.getText();
-        
+
         if (!verificarRestricciones()) return;
-        
+
         Cliente c = new Cliente();
         c.setDni(dni);
         c.setNombre(nombres);
@@ -258,8 +199,8 @@ public class Registro extends javax.swing.JFrame {
         c.setDireccion(direccion);
         c.setTelefono(telefono);
         c.setEmail(email);
-        
-        RegistroPaso2 reg2 = RegistroPaso2.getInstance(c);
+
+        RegistroPaso2 reg2 = RegistroPaso2.getInstance(c, fuente);
         this.setVisible(false);
         reg2.setVisible(true);
         this.dispose();
@@ -321,13 +262,6 @@ public class Registro extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Paso 1 del Registro | El campo de " + campo + " no puede estar vacío.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
     }
     
-    private void btnRegresarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarLoginActionPerformed
-        this.setVisible(false);
-        Login login = Login.getInstance();
-        login.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnRegresarLoginActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -363,8 +297,17 @@ public class Registro extends javax.swing.JFrame {
         });
     }
     
-    public static Registro getInstance(){
+    private void setFuente(String fuente){
+        this.fuente = fuente;
+    }
+    
+    public static Registro getInstance(String fuente){
         if (form == null) form = new Registro();
+        if (fuente.equalsIgnoreCase("login")) form.setFuente("login");
+        if (fuente.equalsIgnoreCase("empleados")) {
+            form.setFuente("empleados");
+            form.btnRegresarLogin.setVisible(false);
+        }
         return form;
     }
 

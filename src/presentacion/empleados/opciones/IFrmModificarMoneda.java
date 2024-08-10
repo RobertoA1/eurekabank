@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package presentacion;
+package presentacion.empleados.opciones;
 
 import entidades.Moneda;
 import java.sql.SQLException;
@@ -50,6 +50,8 @@ public class IFrmModificarMoneda extends javax.swing.JInternalFrame {
         txtMM = new javax.swing.JTextField();
         txtCargo = new javax.swing.JTextField();
         txtCosto = new javax.swing.JTextField();
+
+        setClosable(true);
 
         jPanel1.setBackground(new java.awt.Color(229, 229, 229));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

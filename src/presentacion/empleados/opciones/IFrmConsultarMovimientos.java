@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package presentacion;
+package presentacion.empleados.opciones;
 
 import entidades.Movimiento;
 import java.sql.SQLException;
@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import validaciones.Movimientos;
 
@@ -22,7 +23,11 @@ public class IFrmConsultarMovimientos extends javax.swing.JInternalFrame {
     /**
      * Creates new form IFrmConsultarMovimientos
      */
+    
+     private String cuenValue;
+    
     public IFrmConsultarMovimientos() {
+        this.cuenValue = IFrmCuentas.getCuenValue();
         initComponents();
     }
 
@@ -40,6 +45,7 @@ public class IFrmConsultarMovimientos extends javax.swing.JInternalFrame {
         tblMovimientos = new javax.swing.JTable();
         btnSalir = new javax.swing.JButton();
 
+        setClosable(true);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -60,6 +66,7 @@ public class IFrmConsultarMovimientos extends javax.swing.JInternalFrame {
 
         jPanel2.setBackground(new java.awt.Color(229, 229, 229));
 
+        tblMovimientos.setBackground(new java.awt.Color(252, 162, 17));
         tblMovimientos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -126,10 +133,17 @@ public class IFrmConsultarMovimientos extends javax.swing.JInternalFrame {
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         try {
             lista = Movimientos.listar();
+            lista.removeIf(movimiento -> !movimiento.getCuencodigo().equals(cuenValue));
+
+            if (lista.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No se encontraron movimientos.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                llenarTabla();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(IFrmConsultarMovimientos.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error al obtener los movimientos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        llenarTabla();
     }//GEN-LAST:event_formInternalFrameOpened
 
     
@@ -151,7 +165,7 @@ public class IFrmConsultarMovimientos extends javax.swing.JInternalFrame {
             modelo.addRow(fila);            
         }
         tblMovimientos.setModel(modelo);
-    }    
+    }  
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -161,9 +175,9 @@ public class IFrmConsultarMovimientos extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblMovimientos;
     // End of variables declaration//GEN-END:variables
     private DefaultTableModel modelo;
-    private ArrayList<Movimiento> lista;
-    private String columnas[] = {"Código", "Número","Fecha","Código de Empleado","",""};
-    private Object fila[] = new Object[columnas.length];
+    private ArrayList<Movimiento> lista = null;
+    private String columnas[] = {"Código", "Número", "Fecha", "Código de Empleado", "Tipo Codigo", "Importe", "Referencia", "Estado"};
+private Object fila[] = new Object[columnas.length];
     private Iterator<Movimiento> iterador;
     private Movimiento movimiento;
 

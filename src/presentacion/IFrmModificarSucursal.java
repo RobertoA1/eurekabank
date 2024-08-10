@@ -243,7 +243,7 @@ public class IFrmModificarSucursal extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Se actualizo correctamente.", CORRECTO_TITULO, JOptionPane.INFORMATION_MESSAGE);
             
         } catch (SQLException ex) {
-            Logger.getLogger(IFrmModificarTransaccion.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(IFrmModificarTransaccion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
     

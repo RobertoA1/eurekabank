@@ -4,6 +4,8 @@
  */
 package presentacion.login;
 
+import presentacion.empleados.FrmEmpleado;
+import presentacion.clientes.registro.Registro;
 import entidades.Usuario;
 import java.awt.Cursor;
 import java.awt.Image;
@@ -253,7 +255,7 @@ public class Login extends javax.swing.JFrame {
 
     private void label_RegistrateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_RegistrateMouseClicked
         this.setVisible(false);
-        Registro reg = Registro.getInstance();
+        Registro reg = Registro.getInstance("login");
         reg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_label_RegistrateMouseClicked
