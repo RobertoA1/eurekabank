@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package presentacion;
+package presentacion.empleados.opciones;
 
+import presentacion.empleados.opciones.IFrmConsultarMovimientos;
+import presentacion.empleados.FrmEmpleado;
 import entidades.Cuenta;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -43,6 +45,8 @@ public class IFrmCuentas extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
         btnTransaccion = new javax.swing.JButton();
+
+        setClosable(true);
 
         jPanel1.setBackground(new java.awt.Color(229, 229, 229));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

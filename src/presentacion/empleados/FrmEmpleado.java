@@ -2,10 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package presentacion;
+package presentacion.empleados;
 
 import javax.swing.JInternalFrame;
-import presentacion.login.Login;
+import presentacion.FrmPrincipal;
+import presentacion.clientes.registro.Registro;
+import presentacion.empleados.opciones.*;
 
 /**
  *
@@ -33,6 +35,17 @@ public class FrmEmpleado extends javax.swing.JFrame {
 
         dspFondo = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
+        menuBuscar = new javax.swing.JMenu();
+        mi_verDatosCuenta = new javax.swing.JMenuItem();
+        mi_verDatosCliente = new javax.swing.JMenuItem();
+        mi_verDatosMovimiento = new javax.swing.JMenuItem();
+        menuRegistrar = new javax.swing.JMenu();
+        mi_registrarCliente = new javax.swing.JMenuItem();
+        mi_registrarCuenta = new javax.swing.JMenuItem();
+        mi_registrarMovimiento = new javax.swing.JMenuItem();
+        menuModificar = new javax.swing.JMenu();
+        mi_modificarCliente = new javax.swing.JMenuItem();
+        mi_modificarMovimiento = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -48,12 +61,68 @@ public class FrmEmpleado extends javax.swing.JFrame {
         dspFondo.setLayout(dspFondoLayout);
         dspFondoLayout.setHorizontalGroup(
             dspFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 594, Short.MAX_VALUE)
+            .addGap(0, 1280, Short.MAX_VALUE)
         );
         dspFondoLayout.setVerticalGroup(
             dspFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 422, Short.MAX_VALUE)
+            .addGap(0, 697, Short.MAX_VALUE)
         );
+
+        menuBuscar.setText("Buscar un registro");
+
+        mi_verDatosCuenta.setText("Buscar una cuenta");
+        mi_verDatosCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_verDatosCuentaActionPerformed(evt);
+            }
+        });
+        menuBuscar.add(mi_verDatosCuenta);
+
+        mi_verDatosCliente.setText("Buscar un cliente");
+        mi_verDatosCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_verDatosClienteActionPerformed(evt);
+            }
+        });
+        menuBuscar.add(mi_verDatosCliente);
+
+        mi_verDatosMovimiento.setText("Buscar un movimiento");
+        menuBuscar.add(mi_verDatosMovimiento);
+
+        jMenuBar1.add(menuBuscar);
+
+        menuRegistrar.setText("Crear un nuevo registro");
+
+        mi_registrarCliente.setText("Registrar un nuevo cliente");
+        mi_registrarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_registrarClienteActionPerformed(evt);
+            }
+        });
+        menuRegistrar.add(mi_registrarCliente);
+
+        mi_registrarCuenta.setText("Registrar una nueva cuenta");
+        menuRegistrar.add(mi_registrarCuenta);
+
+        mi_registrarMovimiento.setText("Registrar un nuevo movimiento");
+        menuRegistrar.add(mi_registrarMovimiento);
+
+        jMenuBar1.add(menuRegistrar);
+
+        menuModificar.setText("Modificar un registro existente");
+
+        mi_modificarCliente.setText("Modificar los datos de un cliente");
+        mi_modificarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_modificarClienteActionPerformed(evt);
+            }
+        });
+        menuModificar.add(mi_modificarCliente);
+
+        mi_modificarMovimiento.setText("Modificar los datos de un movimiento");
+        menuModificar.add(mi_modificarMovimiento);
+
+        jMenuBar1.add(menuModificar);
 
         jMenu1.setText("Mantenedores");
 
@@ -130,6 +199,25 @@ public class FrmEmpleado extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void mi_registrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_registrarClienteActionPerformed
+        Registro r = Registro.getInstance("empleados");
+        r.setVisible(true);
+    }//GEN-LAST:event_mi_registrarClienteActionPerformed
+
+    private void mi_verDatosClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_verDatosClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mi_verDatosClienteActionPerformed
+
+    private void mi_modificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_modificarClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mi_modificarClienteActionPerformed
+
+    private void mi_verDatosCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_verDatosCuentaActionPerformed
+        //IFrmConsultarDatosCuenta form = new IFrmConsultarDatosCuenta();
+        //centrarInternalFrame(form);
+        /* Es una futura adición */
+    }//GEN-LAST:event_mi_verDatosCuentaActionPerformed
+
     
     public static FrmEmpleado getInstance(){
         /* Set the Nimbus look and feel */
@@ -171,5 +259,16 @@ public class FrmEmpleado extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenu menuBuscar;
+    private javax.swing.JMenu menuModificar;
+    private javax.swing.JMenu menuRegistrar;
+    private javax.swing.JMenuItem mi_modificarCliente;
+    private javax.swing.JMenuItem mi_modificarMovimiento;
+    private javax.swing.JMenuItem mi_registrarCliente;
+    private javax.swing.JMenuItem mi_registrarCuenta;
+    private javax.swing.JMenuItem mi_registrarMovimiento;
+    private javax.swing.JMenuItem mi_verDatosCliente;
+    private javax.swing.JMenuItem mi_verDatosCuenta;
+    private javax.swing.JMenuItem mi_verDatosMovimiento;
     // End of variables declaration//GEN-END:variables
 }

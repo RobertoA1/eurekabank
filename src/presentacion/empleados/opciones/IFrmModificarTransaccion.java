@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package presentacion;
+package presentacion.empleados.opciones;
 
 import entidades.Movimiento;
 import java.sql.SQLException;
@@ -82,6 +82,8 @@ public class IFrmModificarTransaccion extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("USUARIO:");
+
+        setClosable(true);
 
         jPanel1.setBackground(new java.awt.Color(229, 229, 229));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
