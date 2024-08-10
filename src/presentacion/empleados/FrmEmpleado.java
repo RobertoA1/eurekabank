@@ -108,9 +108,19 @@ public class FrmEmpleado extends javax.swing.JFrame {
         menuRegistrar.add(mi_registrarCliente);
 
         mi_registrarCuenta.setText("Registrar una nueva cuenta");
+        mi_registrarCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_registrarCuentaActionPerformed(evt);
+            }
+        });
         menuRegistrar.add(mi_registrarCuenta);
 
         mi_registrarMovimiento.setText("Registrar un nuevo movimiento");
+        mi_registrarMovimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_registrarMovimientoActionPerformed(evt);
+            }
+        });
         menuRegistrar.add(mi_registrarMovimiento);
 
         jMenuBar1.add(menuRegistrar);
@@ -199,7 +209,9 @@ public class FrmEmpleado extends javax.swing.JFrame {
         }        
     }
     
-    
+    public static void centrarInternalFrameExterno(JInternalFrame interna) {
+        centrarInternalFrame(interna);
+    }
     
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         IFrmCuentas i = new IFrmCuentas();
@@ -239,6 +251,14 @@ public class FrmEmpleado extends javax.swing.JFrame {
         IFrmSucursales i = new IFrmSucursales();
         centrarInternalFrame(i);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void mi_registrarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_registrarCuentaActionPerformed
+        
+    }//GEN-LAST:event_mi_registrarCuentaActionPerformed
+
+    private void mi_registrarMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_registrarMovimientoActionPerformed
+        
+    }//GEN-LAST:event_mi_registrarMovimientoActionPerformed
 
     public static FrmEmpleado getInstance(){
         /* Set the Nimbus look and feel */

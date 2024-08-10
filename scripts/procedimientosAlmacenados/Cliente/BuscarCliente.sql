@@ -1,5 +1,4 @@
-DELIMITER //
-CREATE DEFINER=`admin`@`%` PROCEDURE `sp_BuscarCliente_`(IN codigo CHAR(5))
+CREATE DEFINER=`admin`@`%` PROCEDURE `sp_Buscar_cliente`(IN codigo CHAR(5))
 BEGIN
-	SELECT * FROM CLIENTE WHERE cliecodigo = codigo;
+	SELECT * FROM cliente WHERE cliecodigo = codigo;
 END

@@ -4,6 +4,14 @@
  */
 package presentacion.empleados.opciones;
 
+import entidades.Cliente;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import presentacion.empleados.FrmEmpleado;
+import validaciones.Clientes;
+
 /**
  *
  * @author LUCANO
@@ -32,8 +40,8 @@ public class IFrmConsultarDatosCliente extends javax.swing.JInternalFrame {
         tituloPanel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtDNI1 = new javax.swing.JTextField();
-        btnPaso3 = new javax.swing.JButton();
+        txtCodigo = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
 
         btnPaso2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnPaso2.setText("¡Quiero mi nueva cuenta!");
@@ -76,11 +84,11 @@ public class IFrmConsultarDatosCliente extends javax.swing.JInternalFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Por favor, introduce tu codigo de cliente:");
 
-        btnPaso3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        btnPaso3.setText("Buscar");
-        btnPaso3.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPaso3ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -92,9 +100,9 @@ public class IFrmConsultarDatosCliente extends javax.swing.JInternalFrame {
                 .addContainerGap(99, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(48, 48, 48)
-                .addComponent(txtDNI1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
-                .addComponent(btnPaso3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
         );
         jPanel2Layout.setVerticalGroup(
@@ -103,8 +111,8 @@ public class IFrmConsultarDatosCliente extends javax.swing.JInternalFrame {
                 .addGap(68, 68, 68)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtDNI1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPaso3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(224, Short.MAX_VALUE))
         );
 
@@ -117,19 +125,41 @@ public class IFrmConsultarDatosCliente extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnPaso2ActionPerformed
 
-    private void btnPaso3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaso3ActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        String codigo = txtCodigo.getText();
+        try {
+            if(Clientes.buscar(codigo)){
+                cliente = Clientes.obtener(codigo);
+                setCliente(cliente);
+                IFrmDatosClienteObtenidos i = new IFrmDatosClienteObtenidos();
+                FrmEmpleado.centrarInternalFrameExterno(i);
+            }else{
+                JOptionPane.showMessageDialog(this, "El cliente no se encuentra registrado", "Resultado", 1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(IFrmConsultarDatosCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-    }//GEN-LAST:event_btnPaso3ActionPerformed
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
+    public static Cliente getCliente() {
+        return cliente;
+    }
 
+    public static void setCliente(Cliente cliente) {
+        IFrmConsultarDatosCliente.cliente = cliente;
+    }
+    
+    
+    private static Cliente cliente;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnPaso2;
-    private javax.swing.JButton btnPaso3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel tituloPanel;
+    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDNI;
-    private javax.swing.JTextField txtDNI1;
     // End of variables declaration//GEN-END:variables
 }

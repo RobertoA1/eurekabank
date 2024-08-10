@@ -54,7 +54,7 @@ public class DBCliente{
     }
 
     public static Cliente obtener(String codigo) throws SQLException{
-        CallableStatement cs = db.prepareCall("CALL sp_BuscarCliente(?)");
+        CallableStatement cs = db.prepareCall("CALL sp_Buscar_cliente(?)");
         cs.setString(1, codigo);
 
         ResultSet rs = cs.executeQuery();
@@ -172,7 +172,7 @@ public class DBCliente{
     }
     
     public static boolean buscar(String codigo) throws SQLException {
-        String sql = "{call sp_buscar_cliente(?)}";
+        String sql = "{call sp_Buscar_cliente(?)}";
         CallableStatement cs = db.prepareCall(sql);
         cs.setString(1, codigo);
         ResultSet rs = cs.executeQuery();
