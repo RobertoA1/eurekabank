@@ -24,6 +24,8 @@ public class Movimiento {
         this.importe = importe;
         this.cuenReferencia = cuenReferencia;
     }
+    
+    
 
     public Movimiento(String cuencodigo, Date fecha, String emplcodigo, String tipoCodigo, float importe,
             String cuenReferencia) {

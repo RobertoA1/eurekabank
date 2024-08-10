@@ -85,7 +85,7 @@ public class DBMovimiento {
                 rs.getString(4),   
                 rs.getString(5), 
                 rs.getFloat(6),    
-                rs.getString(7) 
+                rs.getString(7)
             ));
         }
 

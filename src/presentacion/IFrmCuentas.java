@@ -153,6 +153,8 @@ public class IFrmCuentas extends javax.swing.JInternalFrame {
                 txtUser.setText(cuenta.getCodigoUsuario());
                 txtCodigo.setEnabled(false);
                 activar(true);
+                userValue = txtUser.getText();
+                cuenValue = txtCodigo.getText();
             } else {
                 JOptionPane.showMessageDialog(this, "El código no existe", "Resultado", 1);
                 limpiar();
@@ -187,8 +189,19 @@ public class IFrmCuentas extends javax.swing.JInternalFrame {
     private void limpiar() {
         txtCodigo.setText(null);
     }
+
+    public static String getUserValue() {
+        return userValue;
+    }
+
+    public static String getCuenValue() {
+        return cuenValue;
+    }
+
     
-    private String userValue;
+    
+    private static String userValue = null;
+    private static String cuenValue = null;
     private Cuenta cuenta = null;
     private String codigo = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
