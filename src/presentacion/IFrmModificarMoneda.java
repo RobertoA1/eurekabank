@@ -4,7 +4,6 @@
  */
 package presentacion;
 
-import entidades.InteresMensual;
 import entidades.Moneda;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -43,7 +42,6 @@ public class IFrmModificarMoneda extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
         txtInteres = new javax.swing.JTextField();
-        btnNuevo = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
@@ -89,19 +87,6 @@ public class IFrmModificarMoneda extends javax.swing.JInternalFrame {
 
         txtInteres.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 320, 170, -1));
-
-        btnNuevo.setBackground(new java.awt.Color(255, 255, 255));
-        btnNuevo.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        btnNuevo.setForeground(new java.awt.Color(0, 0, 0));
-        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/add_file.gif"))); // NOI18N
-        btnNuevo.setMnemonic('N');
-        btnNuevo.setText("Nuevo");
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 400, -1, -1));
 
         btnActualizar.setBackground(new java.awt.Color(255, 255, 255));
         btnActualizar.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
@@ -172,30 +157,25 @@ public class IFrmModificarMoneda extends javax.swing.JInternalFrame {
         Moneda moneda = null;
         try {
             moneda = Monedas.obtener(codigo);
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(IFrmModificarTransaccion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(IFrmModificarTransaccion.class.getName()).log(Level.SEVERE, null, ex);
         } 
         if(moneda != null) {
             if(moneda.getCodigo().compareTo("00") != 0) {
-                codigo = moneda.getCodigo();
                 txtMM.setText(String.valueOf(moneda.getMontoMax()));
                 txtCargo.setText(String.valueOf(moneda.getCargoMantenimiento()));
                 txtCosto.setText(String.valueOf(moneda.getCostoMovimiento()));
                 txtInteres.setText(String.valueOf(moneda.getInteresMensual()));
-                btnBuscar.setEnabled(false);
+                activar(true);
             } else {
                 JOptionPane.showMessageDialog(this, "El código no existe", "Resultado", 1);
                 limpiar();
                 activar(false);
-                btnNuevo.requestFocus();
             }
         } else {
             JOptionPane.showMessageDialog(this, "El código no es valido", "Resultado", 0);
             limpiar();
             activar(false);
-            btnNuevo.requestFocus();
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -208,7 +188,6 @@ public class IFrmModificarMoneda extends javax.swing.JInternalFrame {
         txtInteres.setEnabled(estado);
         btnBuscar.setEnabled(!estado);
         btnActualizar.setEnabled(estado);
-        btnNuevo.setEnabled(!estado);
     }
     
     private void limpiar() {
@@ -222,23 +201,18 @@ public class IFrmModificarMoneda extends javax.swing.JInternalFrame {
     
     
     
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-
-    }//GEN-LAST:event_btnNuevoActionPerformed
-
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        this.dispose();
+        
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel5;

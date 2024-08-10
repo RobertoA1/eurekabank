@@ -35,11 +35,11 @@ public class IFrmCuentas extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        txtUser = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        lbl5 = new javax.swing.JLabel();
+        txtUser = new javax.swing.JTextField();
         btnMovimientos = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
-        btnInteres = new javax.swing.JButton();
+        btnMoneda = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
         btnTransaccion = new javax.swing.JButton();
@@ -62,19 +62,20 @@ public class IFrmCuentas extends javax.swing.JInternalFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 330));
 
-        txtUser.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
-        txtUser.setForeground(new java.awt.Color(0, 0, 0));
-        txtUser.setText("USUARIO:");
-        jPanel1.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 189, 34));
+        lbl5.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
+        lbl5.setForeground(new java.awt.Color(0, 0, 0));
+        lbl5.setText("USUARIO:");
+        jPanel1.add(lbl5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 80, 34));
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setEnabled(false);
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 170, -1));
+        txtUser.setEditable(false);
+        txtUser.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 170, -1));
 
         btnMovimientos.setBackground(new java.awt.Color(255, 255, 255));
         btnMovimientos.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         btnMovimientos.setForeground(new java.awt.Color(0, 0, 0));
         btnMovimientos.setText("Consultar Movimientos");
+        btnMovimientos.setEnabled(false);
         btnMovimientos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMovimientosActionPerformed(evt);
@@ -94,16 +95,17 @@ public class IFrmCuentas extends javax.swing.JInternalFrame {
         });
         jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, 100, 30));
 
-        btnInteres.setBackground(new java.awt.Color(255, 255, 255));
-        btnInteres.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        btnInteres.setForeground(new java.awt.Color(0, 0, 0));
-        btnInteres.setText("Modificar Moneda");
-        btnInteres.addActionListener(new java.awt.event.ActionListener() {
+        btnMoneda.setBackground(new java.awt.Color(255, 255, 255));
+        btnMoneda.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        btnMoneda.setForeground(new java.awt.Color(0, 0, 0));
+        btnMoneda.setText("Modificar Moneda");
+        btnMoneda.setEnabled(false);
+        btnMoneda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInteresActionPerformed(evt);
+                btnMonedaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 190, 40));
+        jPanel1.add(btnMoneda, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 190, 40));
 
         jLabel2.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -117,6 +119,7 @@ public class IFrmCuentas extends javax.swing.JInternalFrame {
         btnTransaccion.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         btnTransaccion.setForeground(new java.awt.Color(0, 0, 0));
         btnTransaccion.setText("Modifcar Transaccion");
+        btnTransaccion.setEnabled(false);
         btnTransaccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTransaccionActionPerformed(evt);
@@ -128,7 +131,7 @@ public class IFrmCuentas extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,31 +150,28 @@ public class IFrmCuentas extends javax.swing.JInternalFrame {
         }
         if(cuenta != null) {
             if(cuenta.getCodigo().compareTo("00000000") != 0) {
-                codigo = cuenta.getCodigo();
                 txtUser.setText(cuenta.getCodigoUsuario());
                 txtCodigo.setEnabled(false);
-                btnBuscar.setEnabled(false);
+                activar(true);
             } else {
                 JOptionPane.showMessageDialog(this, "El código no existe", "Resultado", 1);
                 limpiar();
-                activar(false);
             }
         } else {
             JOptionPane.showMessageDialog(this, "El código no es valido", "Resultado", 0);
             limpiar();
-            activar(false);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnTransaccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransaccionActionPerformed
-        IFrmModificarTransaccion i = new IFrmModificarTransaccion();
-        FrmEmpleado.centrarInternalFrame(i);
+        IFrmModificarTransaccion i = new IFrmModificarTransaccion(txtUser.getText());
+        i.setVisible(true);
     }//GEN-LAST:event_btnTransaccionActionPerformed
 
-    private void btnInteresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInteresActionPerformed
+    private void btnMonedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonedaActionPerformed
         IFrmModificarMoneda i = new IFrmModificarMoneda();
         FrmEmpleado.centrarInternalFrame(i);
-    }//GEN-LAST:event_btnInteresActionPerformed
+    }//GEN-LAST:event_btnMonedaActionPerformed
 
     private void btnMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMovimientosActionPerformed
         IFrmConsultarMovimientos i = new IFrmConsultarMovimientos();
@@ -179,28 +179,28 @@ public class IFrmCuentas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnMovimientosActionPerformed
 
     private void activar(boolean estado) {
-        btnBuscar.setEnabled(!estado);
-        btnInteres.setEnabled(!estado);
-        btnMovimientos.setEnabled(!estado);
+        btnTransaccion.setEnabled(estado);
+        btnMoneda.setEnabled(estado);
+        btnMovimientos.setEnabled(estado);
     }
     
     private void limpiar() {
         txtCodigo.setText(null);
     }
     
-    
-    private Cuenta cuenta;
-    private String codigo;
+    private String userValue;
+    private Cuenta cuenta = null;
+    private String codigo = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnInteres;
+    private javax.swing.JButton btnMoneda;
     private javax.swing.JButton btnMovimientos;
     private javax.swing.JButton btnTransaccion;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lbl5;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JLabel txtUser;
+    public javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }

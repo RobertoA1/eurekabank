@@ -4,13 +4,11 @@
  */
 package presentacion;
 
-import entidades.Cliente;
 import entidades.Movimiento;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import validaciones.Clientes;
 import validaciones.Movimientos;
 
 /**
@@ -22,8 +20,10 @@ public class IFrmModificarTransaccion extends javax.swing.JInternalFrame {
     /**
      * Creates new form IFrmRealizarTransaccion
      */
-    public IFrmModificarTransaccion() {
-        initComponents();
+    private String userValue;
+
+    public IFrmModificarTransaccion(String userValue) {
+        this.userValue = userValue;
     }
 
     /**
@@ -54,11 +54,10 @@ public class IFrmModificarTransaccion extends javax.swing.JInternalFrame {
         txtCodigo = new javax.swing.JTextField();
         txtImporte = new javax.swing.JTextField();
         txtReferencia = new javax.swing.JTextField();
-        btnNuevo = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        cbxAño = new javax.swing.JComboBox<>();
         cbxDia = new javax.swing.JComboBox<>();
+        cbxAño = new javax.swing.JComboBox<>();
         cbxMes = new javax.swing.JComboBox<>();
 
         jLabel2.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
@@ -137,23 +136,10 @@ public class IFrmModificarTransaccion extends javax.swing.JInternalFrame {
         jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 170, -1));
 
         txtImporte.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(txtImporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, 170, -1));
+        jPanel1.add(txtImporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, 170, -1));
 
         txtReferencia.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtReferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 170, -1));
-
-        btnNuevo.setBackground(new java.awt.Color(255, 255, 255));
-        btnNuevo.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        btnNuevo.setForeground(new java.awt.Color(0, 0, 0));
-        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/add_file.gif"))); // NOI18N
-        btnNuevo.setMnemonic('N');
-        btnNuevo.setText("Nuevo");
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, -1, -1));
 
         btnActualizar.setBackground(new java.awt.Color(255, 255, 255));
         btnActualizar.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
@@ -166,7 +152,7 @@ public class IFrmModificarTransaccion extends javax.swing.JInternalFrame {
                 btnActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 410, -1, -1));
+        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 390, -1, -1));
 
         btnSalir.setBackground(new java.awt.Color(255, 255, 255));
         btnSalir.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
@@ -179,16 +165,30 @@ public class IFrmModificarTransaccion extends javax.swing.JInternalFrame {
                 btnSalirActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 410, -1, -1));
+        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 390, -1, -1));
 
-        cbxAño.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxAño, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 160, -1, -1));
+        cbxDia.setBackground(new java.awt.Color(255, 255, 255));
+        cbxDia.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        cbxDia.setForeground(new java.awt.Color(0, 0, 0));
+        cbxDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DD", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        jPanel1.add(cbxDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, -1, -1));
 
-        cbxDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, -1, -1));
+        cbxAño.setBackground(new java.awt.Color(255, 255, 255));
+        cbxAño.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        cbxAño.setForeground(new java.awt.Color(0, 0, 0));
+        cbxAño.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AAAA", "2010", "2011", "2012", "2013", "2014", "2015", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026" }));
+        cbxAño.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxAñoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cbxAño, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, -1, -1));
 
-        cbxMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 160, -1, -1));
+        cbxMes.setBackground(new java.awt.Color(255, 255, 255));
+        cbxMes.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        cbxMes.setForeground(new java.awt.Color(0, 0, 0));
+        cbxMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MM", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        jPanel1.add(cbxMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -213,37 +213,37 @@ public class IFrmModificarTransaccion extends javax.swing.JInternalFrame {
         Movimiento movimiento = null;
         try {
             movimiento = Movimientos.obtener(numero);
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(IFrmModificarTransaccion.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        }  catch (SQLException ex) {
             Logger.getLogger(IFrmModificarTransaccion.class.getName()).log(Level.SEVERE, null, ex);
         }
         if(movimiento != null) {
-            if(movimiento.getMovinumero() != 0) {
-                numero= movimiento.getMovinumero();
-                txtCodigo.setEnabled(false);
-                
-                txtImporte.setText(String.valueOf(movimiento.getImporte()));
-                txtReferencia.setText(movimiento.getCuenReferencia());
-                txtEstado.setText(String.valueOf(movimiento.getEstado()));
-                int dia = movimiento.getFecha().getDate();
-                cbxDia.setSelectedItem(String.valueOf(dia));
-                int mes = movimiento.getFecha().getMonth() + 1; 
-                cbxDia.setSelectedItem(String.valueOf(mes));
-                int año = movimiento.getFecha().getYear() ;
-                cbxDia.setSelectedItem(String.valueOf(año));
-                btnBuscar.setEnabled(false);
+            if (movimiento.getCuencodigo().equals(userValue)){
+                if(movimiento.getMovinumero() != 0) {
+                    txtCodigo.setEnabled(false);
+
+                    txtImporte.setText(String.valueOf(movimiento.getImporte()));
+                    txtReferencia.setText(movimiento.getCuenReferencia());
+                    txtEstado.setText(String.valueOf(movimiento.getEstado()));
+                    int dia = movimiento.getFecha().getDate();
+                    cbxDia.setSelectedItem(String.valueOf(dia));
+                    int mes = movimiento.getFecha().getMonth() + 1; 
+                    cbxMes.setSelectedItem(String.valueOf(mes));
+                    int año = movimiento.getFecha().getYear() + 1900 ;
+                    cbxAño.setSelectedItem(String.valueOf(año));
+                    activar(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "El número no existe", "Resultado", 1);
+                    limpiar();
+                    activar(false);
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "El código no existe", "Resultado", 1);
-                limpiar();
-                activar(false);
-                btnNuevo.requestFocus();
-            }
+    JOptionPane.showMessageDialog(this, "El código de cuenta no coincide con el usuario.", "Resultado", 0);
+}
+            
         } else {
-            JOptionPane.showMessageDialog(this, "El código no es valido", "Resultado", 0);
+            JOptionPane.showMessageDialog(this, "El número no es valido", "Resultado", 0);
             limpiar();
             activar(false);
-            btnNuevo.requestFocus();
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -258,7 +258,6 @@ public class IFrmModificarTransaccion extends javax.swing.JInternalFrame {
         txtCodigo.setEnabled(!estado);
         btnBuscar.setEnabled(!estado);
         btnActualizar.setEnabled(estado);
-        btnNuevo.setEnabled(!estado);
     }
 
     
@@ -275,23 +274,26 @@ public class IFrmModificarTransaccion extends javax.swing.JInternalFrame {
     
     
     
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        
-    }//GEN-LAST:event_btnNuevoActionPerformed
-
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        this.dispose();
+        try {
+            Movimientos.modificarImporte(Integer.parseInt(txtCodigo.getText()), Float.parseFloat(txtImporte.getText()));
+        } catch (SQLException ex) {
+            Logger.getLogger(IFrmModificarTransaccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void cbxAñoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxAñoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxAñoActionPerformed
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cbxAño;
     private javax.swing.JComboBox<String> cbxDia;
