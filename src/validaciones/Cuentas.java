@@ -37,7 +37,6 @@ public class Cuentas {
         } else {
             throw new IllegalArgumentException(errMsg + "El tipo de validación solicitada no existe.");
         }
-
     }
 
     public static boolean existe(String codigoCuenta) throws IllegalArgumentException, SQLException{

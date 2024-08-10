@@ -37,7 +37,6 @@ public class DBCuentas {
         cs.setDate(7, cuenta.getFechaCreacion());
         cs.setInt(8, cuenta.getCantidadMovimientos());
         cs.setString(9, cuenta.getClaveCuenta());
-
         cs.executeUpdate();
     }
 

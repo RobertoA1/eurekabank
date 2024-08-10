@@ -84,6 +84,7 @@ CREATE TABLE cuenta (
     cantidadmovimientos INT(11),
     clave CHAR(56),
     estado TINYINT,
+
     FOREIGN KEY (monecodigo) REFERENCES moneda(monecodigo),
     FOREIGN KEY (sucucodigo) REFERENCES sucursal(succodigo),
     FOREIGN KEY (cliecodigo) REFERENCES cliente(cliecodigo),
