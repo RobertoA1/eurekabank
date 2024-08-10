@@ -39,6 +39,8 @@ CREATE TABLE asignado (
 CREATE TABLE usuario (
     codigo CHAR(8),
     clave CHAR(56),
+    permisos TINYINT DEFAULT 1,
+    estado TINYINT DEFAULT 1,
     PRIMARY KEY (codigo)
 );
 
@@ -74,22 +76,21 @@ CREATE TABLE moneda (
 
 -- Creación de la tabla cuenta
 CREATE TABLE cuenta (
-    cuencodigo CHAR(8) PRIMARY KEY,
+    codigo CHAR(8) PRIMARY KEY,
     monecodigo CHAR(2),
-    succodigo CHAR(3),
-    cliecódigo CHAR(5),
-    emplecódigo CHAR(4),
-    cuesaldo DECIMAL(12,2),
-    cuefechacreacion DATE,
-    cuestado VARCHAR(15),
-    cuencontrmov INT(11),
-    cuenclave CHAR(56),
-    codigousuario CHAR(8),
-    FOREIGN KEY (codigousuario) REFERENCES usuario(codigo),
+    sucucodigo CHAR(3),
+    cliecodigo CHAR(5),
+    usurcodigo CHAR(8),
+    saldo DECIMAL(12,2),
+    fechacreacion DATE,
+    cantidadmovimientos INT(11),
+    clave CHAR(56),
+    estado TINYINT,
+
     FOREIGN KEY (monecodigo) REFERENCES moneda(monecodigo),
-    FOREIGN KEY (succodigo) REFERENCES sucursal(succodigo),
-    FOREIGN KEY (cliecódigo) REFERENCES cliente(cliecodigo),
-    FOREIGN KEY (emplecódigo) REFERENCES empleado(emplcodigo)
+    FOREIGN KEY (sucucodigo) REFERENCES sucursal(succodigo),
+    FOREIGN KEY (cliecodigo) REFERENCES cliente(cliecodigo),
+    FOREIGN KEY (usurcodigo) REFERENCES usuario(codigo)
 );
 
 -- Creación de la tabla tipomovimiento
@@ -110,7 +111,7 @@ CREATE TABLE movimiento (
     movimporte DECIMAL(12,2),
     cuenreferencia CHAR(8),
     estado TINYINT,
-    FOREIGN KEY (cuencodigo) REFERENCES cuenta(cuencodigo),
+    FOREIGN KEY (cuencodigo) REFERENCES cuenta(codigo),
     FOREIGN KEY (emplecodigo) REFERENCES empleado(emplcodigo),
     FOREIGN KEY (tipocodigo) REFERENCES tipomovimiento(tipocodigo)
 );

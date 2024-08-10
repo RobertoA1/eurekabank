@@ -7,6 +7,7 @@ public class Cuenta {
     private final String codigoMoneda;
     private final String codigoSucursal;
     private final String codigoCliente;
+    private final String codigoUsuario;
     private final float saldo;
     private final Date fechaCreacion;
     private final int cantidadMovimientos;
@@ -17,6 +18,7 @@ public class Cuenta {
         this.codigoMoneda = builder.codigoMoneda;
         this.codigoSucursal = builder.codigoSucursal;
         this.codigoCliente = builder.codigoCliente;
+        this.codigoUsuario = builder.codigoUsuario;
         this.saldo = builder.saldo;
         this.fechaCreacion = builder.fechaCreacion;
         this.cantidadMovimientos = builder.cantidadMovimientos;
@@ -37,6 +39,10 @@ public class Cuenta {
 
     public String getCodigoCliente() {
         return codigoCliente;
+    }
+
+    public String getCodigoUsuario(){
+        return codigoUsuario;
     }
 
     public float getSaldo() {
@@ -64,6 +70,7 @@ public class Cuenta {
         private String codigoMoneda;
         private String codigoSucursal;
         private String codigoCliente;
+        private String codigoUsuario;
         private float saldo;
         private Date fechaCreacion;
         private int cantidadMovimientos;
@@ -86,6 +93,11 @@ public class Cuenta {
 
         public CuentaBuilder codigoCliente(String codigoCliente){
             this.codigoCliente = codigoCliente;
+            return this;
+        }
+
+        public CuentaBuilder codigoUsuario(String codigoUsuario){
+            this.codigoUsuario = codigoUsuario;
             return this;
         }
 
