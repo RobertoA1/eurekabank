@@ -39,6 +39,8 @@ CREATE TABLE asignado (
 CREATE TABLE usuario (
     codigo CHAR(8),
     clave CHAR(56),
+    permisos TINYINT DEFAULT 1,
+    estado TINYINT DEFAULT 1,
     PRIMARY KEY (codigo)
 );
 
@@ -88,7 +90,7 @@ CREATE TABLE cuenta (
     FOREIGN KEY (monecodigo) REFERENCES moneda(monecodigo),
     FOREIGN KEY (sucucodigo) REFERENCES sucursal(succodigo),
     FOREIGN KEY (cliecodigo) REFERENCES cliente(cliecodigo),
-    FOREIGN KEY (usurcodigo) REFERENCES usuario(codigo),
+    FOREIGN KEY (usurcodigo) REFERENCES usuario(codigo)
 );
 
 -- Creación de la tabla tipomovimiento
@@ -109,7 +111,7 @@ CREATE TABLE movimiento (
     movimporte DECIMAL(12,2),
     cuenreferencia CHAR(8),
     estado TINYINT,
-    FOREIGN KEY (cuencodigo) REFERENCES cuenta(cuencodigo),
+    FOREIGN KEY (cuencodigo) REFERENCES cuenta(codigo),
     FOREIGN KEY (emplecodigo) REFERENCES empleado(emplcodigo),
     FOREIGN KEY (tipocodigo) REFERENCES tipomovimiento(tipocodigo)
 );

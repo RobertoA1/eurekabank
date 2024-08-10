@@ -20,12 +20,9 @@ public class Usuarios {
         return DBUsuario.existe(codigo);
     }
 
-    public static void insertarUsuario(String codigo, String clave) throws IllegalArgumentException, SQLException{
+    public static void insertarUsuario(String codigo, String clave, int nivelPermisos) throws IllegalArgumentException, SQLException{
         validarCodigo(codigo);
-        // String err = errMsg + "Creación | ";
-        // if(buscarUsuario(codigo)) throw new IllegalArgumentException(err + "El codigo ya existe en otro usuario.");
-
-        DBUsuario.insertarUsuario(new Usuario(codigo,clave));
+        DBUsuario.insertarUsuario(new Usuario(codigo, clave, nivelPermisos));
     }
 
     public static boolean buscarUsuario(String codigo) throws SQLException {

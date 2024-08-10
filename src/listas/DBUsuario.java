@@ -5,7 +5,6 @@ import conexion.ConexionDB;
 import entidades.Usuario;
 import java.util.*;
 
-
 public class DBUsuario {
     private static Connection db = ConexionDB.obtenerDB();
 
@@ -21,10 +20,11 @@ public class DBUsuario {
     }
 
     public static void insertarUsuario(Usuario usuario) throws SQLException{
-        String sql = "{call sp_insertar_usuario(?,?)}";
+        String sql = "call sp_insertar_usuario(?, ?, ?)";
         CallableStatement cs = db.prepareCall(sql);
         cs.setString(1,usuario.getCodigo());
         cs.setString(2,usuario.getClave());
+        cs.setInt(3, usuario.getNivelPermisos());
         cs.executeUpdate();
     }
 
@@ -47,6 +47,7 @@ public class DBUsuario {
             Usuario usuario = new Usuario();
             usuario.setCodigo(rs.getString(1));
             usuario.setClave(rs.getString(2));
+            usuario.setNivelPermisos(rs.getInt(3));
             return usuario;
         }
         return null;
@@ -65,7 +66,7 @@ public class DBUsuario {
         ResultSet rs = cs.executeQuery(sql);
         if (rs.next()) {
             ArrayList<Usuario> usuarios = new ArrayList<>();
-            usuarios.add(new Usuario(rs.getString(1), rs.getString(2)));
+            usuarios.add(new Usuario(rs.getString(1), rs.getString(2), rs.getInt(3)));
             return usuarios;
         }
         return null;

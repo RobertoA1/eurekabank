@@ -4,6 +4,7 @@
  */
 package presentacion.login;
 
+import entidades.Usuario;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.net.URL;
@@ -13,7 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import java.sql.SQLException;
-import presentacion.FrmPrincipal;
+import presentacion.*;
 
 import seguridad.Autenticacion;
 
@@ -221,9 +222,23 @@ public class Login extends javax.swing.JFrame {
         
         try {
             Autenticacion.iniciarSesion(nombreUsuario, pass);
+            
+            Usuario user = Autenticacion.obtenerUsuario();
             this.setVisible(false);
-            FrmPrincipal menuPrincipal = FrmPrincipal.getInstance();
-            menuPrincipal.setVisible(true);
+            if (user.getNivelPermisos() == 1){
+                /* Si el nivel de permisos es 1, quiere decir que es un cliente */
+                /* Por ende, llamamos FrmPrincipal, que es la de clientes */
+                FrmPrincipal menu = FrmPrincipal.getInstance();
+                menu.setVisible(true);
+            }
+            
+            if (user.getNivelPermisos() == 10){
+                /* Si el nivel de permisos es 10, quiere decir que es un empleado */
+                /* Por ende, llamamos FrmSecundario, que es de empleados */
+                FrmSecundario menu = FrmSecundario.getInstance();
+                menu.setVisible(true);
+            }
+            
             this.dispose();
         } catch (InvalidKeySpecException | NoSuchAlgorithmException | NullPointerException e){
             JOptionPane.showMessageDialog(this, "Autenticación: Ha ocurrido un problema grave. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
