@@ -48,6 +48,10 @@ public class Clientes {
         validarCodigo(codigo);
         return DBCliente.obtener(codigo);
     }
+    public static Cliente obtenerClientePorUsuario(String usuario) throws IllegalArgumentException, SQLException{
+        //validarCodigo(codigo);
+        return DBCliente.obtenerClientePorNombreUsuario(usuario);
+    }
     
     public static Cliente obtenerPorIdUsuario(String usuario) throws SQLException{
         return DBCliente.obtenerPorIdUsuario(usuario);
