@@ -10,8 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import presentacion.empleados.FrmEmpleado;
-import static presentacion.empleados.opciones.IFrmConsultarDatosCliente.setCliente;
-import validaciones.Clientes;
+import static presentacion.empleados.opciones.IFrmModificarDatosCliente.form;
+import seguridad.Autenticacion;
 import validaciones.Movimientos;
 
 /**
@@ -25,6 +25,15 @@ public class IFrmConsultarDatosMovimiento extends javax.swing.JInternalFrame {
      */
     public IFrmConsultarDatosMovimiento() {
         initComponents();
+        try {
+            tipEmpleado.setText(Autenticacion.obtenerUsuario().getCodigo());
+        } catch (IllegalStateException e){
+            JOptionPane.showMessageDialog(this, "Autenticación | No se puede continuar: No existe una sesión iniciada.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(this, "Datos de una Cuenta | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -42,6 +51,8 @@ public class IFrmConsultarDatosMovimiento extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         txtNumero = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        tipEmpleado = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         tituloPanel1 = new javax.swing.JLabel();
 
@@ -88,6 +99,12 @@ public class IFrmConsultarDatosMovimiento extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Esta es una acción de empleado autorizada para:");
+
+        tipEmpleado.setForeground(new java.awt.Color(0, 0, 0));
+        tipEmpleado.setText("usuarioPlaceholder");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -100,19 +117,29 @@ public class IFrmConsultarDatosMovimiento extends javax.swing.JInternalFrame {
                 .addGap(36, 36, 36)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tipEmpleado)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(68, 68, 68)
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tipEmpleado)
+                    .addComponent(jLabel10))
+                .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 840, 330));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 840, 200));
 
         jPanel3.setBackground(new java.awt.Color(20, 45, 68));
 
@@ -145,26 +172,23 @@ public class IFrmConsultarDatosMovimiento extends javax.swing.JInternalFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         int numero = Integer.parseInt(txtNumero.getText());
-        try {
-            if(Movimientos.buscar(numero)){
-                movimiento = Movimientos.obtener(numero);
-                setMovimiento(movimiento);
-                if(FrmEmpleado.getOpciones() == 1){
-                    IFrmDatosMovimientoObtenidos i = new IFrmDatosMovimientoObtenidos();
-                    FrmEmpleado.centrarInternalFrameExterno(i);
-                    this.dispose();
-                }
-                if(FrmEmpleado.getOpciones() == 2){
-                    IFrmModificarDatosMovimiento i = new IFrmModificarDatosMovimiento();
-                    FrmEmpleado.centrarInternalFrameExterno(i);
-                    this.dispose();
-                }
-            }else{
-                JOptionPane.showMessageDialog(this, "El movimiento no existe", "Resultado", 1);
+        
+        try{
+            if(FrmEmpleado.getOpciones()==1){
+                IFrmDatosMovimientoObtenidos form = IFrmDatosMovimientoObtenidos.getInstance(Movimientos.obtener(numero));
+                FrmEmpleado.centrarInternalFrame(form);
             }
+            if(FrmEmpleado.getOpciones() == 2){
+                IFrmModificarDatosMovimiento form = IFrmModificarDatosMovimiento.getInstance(Movimientos.obtener(numero));
+                FrmEmpleado.centrarInternalFrame(form);
+            }
+            
+        } catch (IllegalArgumentException e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
         } catch (SQLException ex) {
-            Logger.getLogger(IFrmConsultarDatosCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            Logger.getLogger(IFrmConsultarDatosMovimiento.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     public static Movimiento getMovimiento() {
@@ -180,9 +204,11 @@ public class IFrmConsultarDatosMovimiento extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel tipEmpleado;
     private javax.swing.JLabel tituloPanel;
     private javax.swing.JLabel tituloPanel1;
     private javax.swing.JTextField txtNumero;

@@ -6,10 +6,10 @@ package presentacion.empleados.opciones;
 
 import entidades.Cliente;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import presentacion.empleados.FrmEmpleado;
+import static presentacion.empleados.opciones.IFrmModificarDatosCliente.form;
+import seguridad.Autenticacion;
 import validaciones.Clientes;
 
 /**
@@ -23,6 +23,15 @@ public class IFrmConsultarDatosCliente extends javax.swing.JInternalFrame {
      */
     public IFrmConsultarDatosCliente() {
         initComponents();
+        try {
+            tipEmpleado.setText(Autenticacion.obtenerUsuario().getCodigo());
+        } catch (IllegalStateException e){
+            JOptionPane.showMessageDialog(this, "Autenticación | No se puede continuar: No existe una sesión iniciada.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(this, "Datos de una Cuenta | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -42,6 +51,8 @@ public class IFrmConsultarDatosCliente extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        tipEmpleado = new javax.swing.JLabel();
 
         btnPaso2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnPaso2.setText("¡Quiero mi nueva cuenta!");
@@ -96,6 +107,12 @@ public class IFrmConsultarDatosCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Esta es una acción de empleado autorizada para:");
+
+        tipEmpleado.setForeground(new java.awt.Color(0, 0, 0));
+        tipEmpleado.setText("usuarioPlaceholder");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -108,11 +125,21 @@ public class IFrmConsultarDatosCliente extends javax.swing.JInternalFrame {
                 .addGap(36, 36, 36)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(74, 74, 74)
+                .addComponent(jLabel2)
+                .addGap(37, 37, 37)
+                .addComponent(tipEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(68, 68, 68)
+                .addGap(24, 24, 24)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(tipEmpleado))
+                .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -131,47 +158,35 @@ public class IFrmConsultarDatosCliente extends javax.swing.JInternalFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String codigo = txtCodigo.getText();
-        try {
-            if(Clientes.buscar(codigo)){
-                cliente = Clientes.obtener(codigo);
-                setCliente(cliente);
-                if(FrmEmpleado.getOpciones() == 1){
-                    IFrmDatosClienteObtenidos i = new IFrmDatosClienteObtenidos();
-                    FrmEmpleado.centrarInternalFrameExterno(i);
-                    this.dispose();
-                }
-                if(FrmEmpleado.getOpciones() == 2){
-                    IFrmModificarDatosCliente i = new IFrmModificarDatosCliente();
-                    FrmEmpleado.centrarInternalFrameExterno(i);
-                    this.dispose();
-                }
-                
-                
-            }else{
-                JOptionPane.showMessageDialog(this, "El cliente no se encuentra registrado", "Resultado", 1);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(IFrmConsultarDatosCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
+        try{
+            if(FrmEmpleado.getOpciones()==1){
+                IFrmDatosClienteObtenidos form = IFrmDatosClienteObtenidos.getInstance(Clientes.obtener(codigo));
+                FrmEmpleado.centrarInternalFrame(form);
+            }
+            if(FrmEmpleado.getOpciones() == 2){
+                IFrmModificarDatosCliente form = IFrmModificarDatosCliente.getInstance(Clientes.obtener(codigo));
+                FrmEmpleado.centrarInternalFrame(form);
+            }
+            
+        } catch (IllegalArgumentException e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(this, "Datos de una Cuenta | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    public static Cliente getCliente() {
-        return cliente;
-    }
-
-    public static void setCliente(Cliente cliente) {
-        IFrmConsultarDatosCliente.cliente = cliente;
-    }
     
-    
-    private static Cliente cliente;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnPaso2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel tipEmpleado;
     private javax.swing.JLabel tituloPanel;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDNI;

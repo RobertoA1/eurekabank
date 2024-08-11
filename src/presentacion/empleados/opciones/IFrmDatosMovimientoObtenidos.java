@@ -5,6 +5,9 @@
 package presentacion.empleados.opciones;
 
 import entidades.Movimiento;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import seguridad.Autenticacion;
 
 /**
  *
@@ -15,11 +18,20 @@ public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
     /**
      * Creates new form IFrmDatosMovimientoObtenidos
      */
-    private Movimiento movimiento;
+    
+     public static IFrmDatosMovimientoObtenidos form = null;
     
     public IFrmDatosMovimientoObtenidos() {
-        this.movimiento = IFrmConsultarDatosMovimiento.getMovimiento();
         initComponents();
+        try {
+            tipEmpleado.setText(Autenticacion.obtenerUsuario().getCodigo());
+        } catch (IllegalStateException e){
+            JOptionPane.showMessageDialog(this, "Autenticación | No se puede continuar: No existe una sesión iniciada.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(this, "Datos de una Cuenta | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -49,8 +61,9 @@ public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
         labelCodigo3 = new javax.swing.JLabel();
         labelCodigo4 = new javax.swing.JLabel();
         labelCodigo5 = new javax.swing.JLabel();
-        btnRegistrar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        tipAccion = new javax.swing.JLabel();
+        tipEmpleado = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -104,6 +117,8 @@ public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
 
         jPanel2.setBackground(new java.awt.Color(229, 229, 229));
 
+        txtImporte.setEnabled(false);
+
         labelCodigo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelCodigo.setForeground(new java.awt.Color(0, 0, 0));
         labelCodigo.setText("Código de la cuenta:");
@@ -116,21 +131,32 @@ public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
         cbxDia.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         cbxDia.setForeground(new java.awt.Color(0, 0, 0));
         cbxDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DD", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        cbxDia.setEnabled(false);
 
         cbxMes.setBackground(new java.awt.Color(255, 255, 255));
         cbxMes.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         cbxMes.setForeground(new java.awt.Color(0, 0, 0));
         cbxMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MM", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        cbxMes.setEnabled(false);
 
         cbxAño.setBackground(new java.awt.Color(255, 255, 255));
         cbxAño.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         cbxAño.setForeground(new java.awt.Color(0, 0, 0));
         cbxAño.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AAAA", "2010", "2011", "2012", "2013", "2014", "2015", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026" }));
+        cbxAño.setEnabled(false);
         cbxAño.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxAñoActionPerformed(evt);
             }
         });
+
+        txtCode.setEnabled(false);
+
+        txtEstado.setEnabled(false);
+
+        txtReferencia.setEnabled(false);
+
+        txtNum.setEnabled(false);
 
         labelCodigo2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelCodigo2.setForeground(new java.awt.Color(0, 0, 0));
@@ -148,14 +174,15 @@ public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
         labelCodigo5.setForeground(new java.awt.Color(0, 0, 0));
         labelCodigo5.setText("Referencia:");
 
-        btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/save.gif"))); // NOI18N
-        btnRegistrar.setMnemonic('R');
-        btnRegistrar.setText("Registrar");
-        btnRegistrar.setEnabled(false);
-
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/x.gif"))); // NOI18N
         btnSalir.setMnemonic('S');
         btnSalir.setText("Salir");
+
+        tipAccion.setForeground(new java.awt.Color(0, 0, 0));
+        tipAccion.setText("Esta es una acción de empleado autorizada para:");
+
+        tipEmpleado.setForeground(new java.awt.Color(0, 0, 0));
+        tipEmpleado.setText("usuarioPlaceholder");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -196,16 +223,25 @@ public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
                         .addComponent(txtEstado)))
                 .addGap(102, 102, 102))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(207, 207, 207)
-                .addComponent(btnRegistrar)
-                .addGap(105, 105, 105)
-                .addComponent(btnSalir)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(281, 281, 281)
+                        .addComponent(btnSalir))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(tipAccion, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(tipEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addGap(15, 15, 15)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tipAccion)
+                    .addComponent(tipEmpleado))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelCodigo)
                     .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -232,11 +268,9 @@ public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelCodigo4))
-                .addGap(47, 47, 47)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalir)
-                    .addComponent(btnRegistrar))
-                .addGap(90, 90, 90))
+                .addGap(42, 42, 42)
+                .addComponent(btnSalir)
+                .addGap(95, 95, 95))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 700, 510));
@@ -249,22 +283,38 @@ public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxAñoActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        txtCode.setText(movimiento.getCuencodigo());
-        txtNum.setText(String.valueOf(movimiento.getMovinumero()));
-        txtImporte.setText(String.valueOf(movimiento.getImporte()));
-        txtReferencia.setText(movimiento.getCuenReferencia());
-        txtEstado.setText(String.valueOf(movimiento.getEstado()));
-        int dia = movimiento.getFecha().getDate();
-        cbxDia.setSelectedItem(String.valueOf(dia));
-        int mes = movimiento.getFecha().getMonth() + 1; 
-        cbxMes.setSelectedItem(String.valueOf(mes));
-        int año = movimiento.getFecha().getYear() + 1900 ;
-        cbxAño.setSelectedItem(String.valueOf(año));
+        
     }//GEN-LAST:event_formInternalFrameOpened
 
+    
+    public static IFrmDatosMovimientoObtenidos getInstance(Movimiento movimiento){
+        form = new IFrmDatosMovimientoObtenidos();
+        form.rellenarInformacion(movimiento);
+        return form;
+    }
+    
+    private void rellenarInformacion(Movimiento movimiento){
+        try {
+            txtCode.setText(movimiento.getCuencodigo());
+            txtNum.setText(String.valueOf(movimiento.getMovinumero()));
+            txtImporte.setText(String.valueOf(movimiento.getImporte()));
+            txtReferencia.setText(movimiento.getCuenReferencia());
+            txtEstado.setText(String.valueOf(movimiento.getEstado()));
+            int dia = movimiento.getFecha().getDate();
+            cbxDia.setSelectedItem(String.valueOf(dia));
+            int mes = movimiento.getFecha().getMonth() + 1; 
+            cbxMes.setSelectedItem(String.valueOf(mes));
+            int año = movimiento.getFecha().getYear() + 1900 ;
+            cbxAño.setSelectedItem(String.valueOf(año));
+        } catch (IllegalArgumentException e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        } 
+
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cbxAño;
     private javax.swing.JComboBox<String> cbxDia;
@@ -278,6 +328,8 @@ public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel labelCodigo3;
     private javax.swing.JLabel labelCodigo4;
     private javax.swing.JLabel labelCodigo5;
+    private javax.swing.JLabel tipAccion;
+    private javax.swing.JLabel tipEmpleado;
     private javax.swing.JLabel tituloPanel1;
     private javax.swing.JTextField txtCode;
     private javax.swing.JTextField txtEstado;

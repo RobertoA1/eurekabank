@@ -5,6 +5,9 @@
 package presentacion.empleados.opciones;
 
 import entidades.Cliente;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import seguridad.Autenticacion;
 
 /**
  *
@@ -16,11 +19,19 @@ public class IFrmDatosClienteObtenidos extends javax.swing.JInternalFrame {
      * Creates new form IFrmDatosClienteObtenidos
      */
     
-    private Cliente cliente;
+    public static IFrmDatosClienteObtenidos form = null;
     
     public IFrmDatosClienteObtenidos() {
-        this.cliente = IFrmConsultarDatosCliente.getCliente();
         initComponents();
+        try {
+            tipEmpleado.setText(Autenticacion.obtenerUsuario().getCodigo());
+        } catch (IllegalStateException e){
+            JOptionPane.showMessageDialog(this, "Autenticación | No se puede continuar: No existe una sesión iniciada.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(this, "Datos de una Cuenta | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -55,6 +66,8 @@ public class IFrmDatosClienteObtenidos extends javax.swing.JInternalFrame {
         txtT = new javax.swing.JTextField();
         txtE = new javax.swing.JTextField();
         txtI = new javax.swing.JTextField();
+        tipAccion = new javax.swing.JLabel();
+        tipEmpleado = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -106,6 +119,14 @@ public class IFrmDatosClienteObtenidos extends javax.swing.JInternalFrame {
 
         jPanel2.setBackground(new java.awt.Color(229, 229, 229));
 
+        txtN.setEnabled(false);
+
+        txtCodigo.setEnabled(false);
+
+        txtAP.setEnabled(false);
+
+        txtAM.setEnabled(false);
+
         jLabel1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Codigo:");
@@ -146,11 +167,28 @@ public class IFrmDatosClienteObtenidos extends javax.swing.JInternalFrame {
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Id de Usuario:");
 
+        txtC.setEnabled(false);
+
+        txtDni.setEnabled(false);
+
+        txtDir.setEnabled(false);
+
+        txtT.setEnabled(false);
+
+        txtE.setEnabled(false);
+
+        txtI.setEnabled(false);
         txtI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIActionPerformed(evt);
             }
         });
+
+        tipAccion.setForeground(new java.awt.Color(0, 0, 0));
+        tipAccion.setText("Esta es una acción de empleado autorizada para:");
+
+        tipEmpleado.setForeground(new java.awt.Color(0, 0, 0));
+        tipEmpleado.setText("usuarioPlaceholder");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -158,6 +196,10 @@ public class IFrmDatosClienteObtenidos extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(tipAccion, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(tipEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtAP, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel2Layout.createSequentialGroup()
@@ -195,7 +237,11 @@ public class IFrmDatosClienteObtenidos extends javax.swing.JInternalFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addGap(22, 22, 22)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tipAccion)
+                    .addComponent(tipEmpleado))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -222,7 +268,7 @@ public class IFrmDatosClienteObtenidos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(txtC, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtDir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -230,7 +276,7 @@ public class IFrmDatosClienteObtenidos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txtE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -238,7 +284,7 @@ public class IFrmDatosClienteObtenidos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(txtI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 620, 550));
@@ -250,17 +296,41 @@ public class IFrmDatosClienteObtenidos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIActionPerformed
 
+    
+    public static IFrmDatosClienteObtenidos getInstance(Cliente cliente){
+        form = new IFrmDatosClienteObtenidos();
+        form.rellenarInformacion(cliente);
+        return form;
+    }
+    
+    private void rellenarInformacion(Cliente cliente){
+        try {
+            txtCodigo.setText(cliente.getCodigo());
+            txtAP.setText(cliente.getApellidoPaterno());
+            txtAM.setText(cliente.getApellidoMaterno());
+            txtN.setText(cliente.getNombre());
+            txtDni.setText(cliente.getDni());
+            txtC.setText(cliente.getCiudad());
+            txtDir.setText(cliente.getDireccion());
+            txtT.setText(cliente.getTelefono());
+            txtE.setText(cliente.getEmail());
+            txtI.setText(cliente.getIdUsuario());
+        } catch (IllegalArgumentException e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        } 
+
+        
+    }
+    
+    
+    
+    
+    
+    
+    
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        txtCodigo.setText(cliente.getCodigo());
-        txtAP.setText(cliente.getApellidoPaterno());
-        txtAM.setText(cliente.getApellidoMaterno());
-        txtN.setText(cliente.getNombre());
-        txtDni.setText(cliente.getDni());
-        txtC.setText(cliente.getCiudad());
-        txtDir.setText(cliente.getDireccion());
-        txtT.setText(cliente.getTelefono());
-        txtE.setText(cliente.getEmail());
-        txtI.setText(cliente.getIdUsuario());
+        
     }//GEN-LAST:event_formInternalFrameOpened
 
 
@@ -277,6 +347,8 @@ public class IFrmDatosClienteObtenidos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel tipAccion;
+    private javax.swing.JLabel tipEmpleado;
     private javax.swing.JLabel tituloPanel1;
     private javax.swing.JTextField txtAM;
     private javax.swing.JTextField txtAP;

@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import seguridad.Autenticacion;
 import validaciones.Movimientos;
 
 /**
@@ -22,11 +23,19 @@ public class IFrmModificarDatosMovimiento extends javax.swing.JInternalFrame {
      * Creates new form IFrmModificarDatosMovimiento
      */
     
-    private Movimiento movimiento;
+    public static IFrmModificarDatosMovimiento form = null;
     
     public IFrmModificarDatosMovimiento() {
-        this.movimiento = IFrmConsultarDatosMovimiento.getMovimiento();
         initComponents();
+        try {
+            tipEmpleado.setText(Autenticacion.obtenerUsuario().getCodigo());
+        } catch (IllegalStateException e){
+            JOptionPane.showMessageDialog(this, "Autenticación | No se puede continuar: No existe una sesión iniciada.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(this, "Datos de una Cuenta | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -51,6 +60,8 @@ public class IFrmModificarDatosMovimiento extends javax.swing.JInternalFrame {
         labelCodigo5 = new javax.swing.JLabel();
         btnActualizar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        tipEmpleado = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -159,6 +170,12 @@ public class IFrmModificarDatosMovimiento extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Esta es una acción de empleado autorizada para:");
+
+        tipEmpleado.setForeground(new java.awt.Color(0, 0, 0));
+        tipEmpleado.setText("usuarioPlaceholder");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -186,16 +203,27 @@ public class IFrmModificarDatosMovimiento extends javax.swing.JInternalFrame {
                                 .addGap(21, 21, 21)))))
                 .addGap(102, 102, 102))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(244, 244, 244)
-                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86)
-                .addComponent(btnSalir)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addComponent(jLabel10)
+                        .addGap(37, 37, 37)
+                        .addComponent(tipEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(248, 248, 248)
+                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(79, 79, 79)
+                        .addComponent(btnSalir)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(tipEmpleado))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,11 +237,11 @@ public class IFrmModificarDatosMovimiento extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelCodigo5))
-                .addGap(112, 112, 112)
+                .addGap(64, 64, 64)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnActualizar)
                     .addComponent(btnSalir))
-                .addGap(81, 81, 81))
+                .addGap(129, 129, 129))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-60, 70, 790, 400));
@@ -226,8 +254,43 @@ public class IFrmModificarDatosMovimiento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxAñoActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        form.actualizarInformacion();
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
-        long numero = movimiento.getMovinumero();
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        
+    }//GEN-LAST:event_formInternalFrameOpened
+
+    public static IFrmModificarDatosMovimiento getInstance(Movimiento movimiento){
+        form = new IFrmModificarDatosMovimiento();
+        form.rellenarInformacion(movimiento);
+        numero = movimiento.getMovinumero();
+        return form;
+    }
+    
+    private void rellenarInformacion(Movimiento movimiento){
+        try {
+            txtImporte.setText(String.valueOf(movimiento.getImporte()));
+        txtReferencia.setText(movimiento.getCuenReferencia());
+        int dia = movimiento.getFecha().getDate();
+        cbxDia.setSelectedItem(String.valueOf(dia));
+        int mes = movimiento.getFecha().getMonth() + 1; 
+        cbxMes.setSelectedItem(String.valueOf(mes));
+        int año = movimiento.getFecha().getYear() + 1900 ;
+        cbxAño.setSelectedItem(String.valueOf(año));
+        } catch (IllegalArgumentException e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        } 
+
+    }
+    
+    private void actualizarInformacion(){
+   
         try {
             Movimientos.modificarImporte(numero, Float.parseFloat(txtImporte.getText()));
 
@@ -239,45 +302,30 @@ public class IFrmModificarDatosMovimiento extends javax.swing.JInternalFrame {
             Movimientos.modificarFecha(numero, fecha);
             Movimientos.modificarCuenReferencia(numero, txtReferencia.getText());
 
-            JOptionPane.showMessageDialog(this, "Datos actualizados correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(IFrmModificarDatosCliente.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "Error: Formato de número inválido.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Datos del cliente actualizados correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (SQLException ex) {
             Logger.getLogger(IFrmModificarDatosCliente.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "Error al actualizar en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al actualizar los datos en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnActualizarActionPerformed
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnSalirActionPerformed
-
-    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        txtImporte.setText(String.valueOf(movimiento.getImporte()));
-        txtReferencia.setText(movimiento.getCuenReferencia());
-        int dia = movimiento.getFecha().getDate();
-        cbxDia.setSelectedItem(String.valueOf(dia));
-        int mes = movimiento.getFecha().getMonth() + 1; 
-        cbxMes.setSelectedItem(String.valueOf(mes));
-        int año = movimiento.getFecha().getYear() + 1900 ;
-        cbxAño.setSelectedItem(String.valueOf(año));
-    }//GEN-LAST:event_formInternalFrameOpened
-
-
+    }
+    
+    
+    
+    private static long numero;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cbxAño;
     private javax.swing.JComboBox<String> cbxDia;
     private javax.swing.JComboBox<String> cbxMes;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel labelCodigo2;
     private javax.swing.JLabel labelCodigo3;
     private javax.swing.JLabel labelCodigo5;
+    private javax.swing.JLabel tipEmpleado;
     private javax.swing.JLabel tituloPanel1;
     private javax.swing.JTextField txtImporte;
     private javax.swing.JTextField txtReferencia;

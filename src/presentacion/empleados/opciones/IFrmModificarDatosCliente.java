@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import seguridad.Autenticacion;
 import validaciones.Clientes;
 
 /**
@@ -21,11 +22,19 @@ public class IFrmModificarDatosCliente extends javax.swing.JInternalFrame {
      * Creates new form IFrmModificarDatosCliente
      */
     
-    private Cliente cliente;
+    public static IFrmModificarDatosCliente form = null;
     
     public IFrmModificarDatosCliente() {
-        this.cliente = IFrmConsultarDatosCliente.getCliente();
         initComponents();
+        try {
+            tipEmpleado.setText(Autenticacion.obtenerUsuario().getCodigo());
+        } catch (IllegalStateException e){
+            JOptionPane.showMessageDialog(this, "Autenticación | No se puede continuar: No existe una sesión iniciada.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(this, "Datos de una Cuenta | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -58,6 +67,8 @@ public class IFrmModificarDatosCliente extends javax.swing.JInternalFrame {
         txtAP = new javax.swing.JTextField();
         btnActualizar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        tipEmpleado = new javax.swing.JLabel();
 
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
@@ -161,6 +172,12 @@ public class IFrmModificarDatosCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Esta es una acción de empleado autorizada para:");
+
+        tipEmpleado.setForeground(new java.awt.Color(0, 0, 0));
+        tipEmpleado.setText("usuarioPlaceholder");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -172,9 +189,7 @@ public class IFrmModificarDatosCliente extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtAP, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtAM, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtAM, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel9)
@@ -197,13 +212,22 @@ public class IFrmModificarDatosCliente extends javax.swing.JInternalFrame {
                         .addGap(145, 145, 145)
                         .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(86, 86, 86)
-                        .addComponent(btnSalir)))
-                .addContainerGap(127, Short.MAX_VALUE))
+                        .addComponent(btnSalir))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel10)
+                        .addGap(37, 37, 37)
+                        .addComponent(tipEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(10, 10, 10)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(tipEmpleado))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtAP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -251,18 +275,33 @@ public class IFrmModificarDatosCliente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        
-        String code = cliente.getCodigo();
+       form.actualizarInformacion();
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
     
+    public static IFrmModificarDatosCliente getInstance(Cliente cliente){
+        form = new IFrmModificarDatosCliente();
+        form.rellenarInformacion(cliente);
+        codigo = cliente.getCodigo();
+        return form;
+    }
+    
+    
+    private void actualizarInformacion(){
+   
         try {
-            Clientes.modificarApellidoPaterno(code, txtAP.getText());
-            Clientes.modificarApellidoMaterno(code, txtAM.getText());
-            Clientes.modificarNombre(code, txtN.getText());
-            Clientes.modificarDni(code, txtDni.getText());
-            Clientes.modificarCiudad(code, txtC.getText());
-            Clientes.modificarDireccion(code, txtDir.getText());
-            Clientes.modificarTelefono(code, txtT.getText());
-            Clientes.modificarEmail(code, txtE.getText());
+            Clientes.modificarApellidoPaterno(codigo, txtAP.getText());
+            Clientes.modificarApellidoMaterno(codigo, txtAM.getText());
+            Clientes.modificarNombre(codigo, txtN.getText());
+            Clientes.modificarDni(codigo, txtDni.getText());
+            Clientes.modificarCiudad(codigo, txtC.getText());
+            Clientes.modificarDireccion(codigo, txtDir.getText());
+            Clientes.modificarTelefono(codigo, txtT.getText());
+            Clientes.modificarEmail(codigo, txtE.getText());
 
             JOptionPane.showMessageDialog(this, "Datos del cliente actualizados correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
@@ -270,28 +309,35 @@ public class IFrmModificarDatosCliente extends javax.swing.JInternalFrame {
             Logger.getLogger(IFrmModificarDatosCliente.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Error al actualizar los datos en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-    }//GEN-LAST:event_btnActualizarActionPerformed
+    }
+    
+    
+    private void rellenarInformacion(Cliente cliente){
+        try {
+            txtAP.setText(cliente.getApellidoPaterno());
+            txtAM.setText(cliente.getApellidoMaterno());
+            txtN.setText(cliente.getNombre());
+            txtDni.setText(cliente.getDni());
+            txtC.setText(cliente.getCiudad());
+            txtDir.setText(cliente.getDireccion());
+            txtT.setText(cliente.getTelefono());
+            txtE.setText(cliente.getEmail());
+        } catch (IllegalArgumentException e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        } 
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnSalirActionPerformed
-
+    }
+    
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        txtAP.setText(cliente.getApellidoPaterno());
-        txtAM.setText(cliente.getApellidoMaterno());
-        txtN.setText(cliente.getNombre());
-        txtDni.setText(cliente.getDni());
-        txtC.setText(cliente.getCiudad());
-        txtDir.setText(cliente.getDireccion());
-        txtT.setText(cliente.getTelefono());
-        txtE.setText(cliente.getEmail());
+        
     }//GEN-LAST:event_formInternalFrameOpened
 
-
+    private static String codigo = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -302,6 +348,7 @@ public class IFrmModificarDatosCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel tipEmpleado;
     private javax.swing.JLabel tituloPanel1;
     private javax.swing.JTextField txtAM;
     private javax.swing.JTextField txtAP;

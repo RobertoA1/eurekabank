@@ -4,19 +4,33 @@
  */
 package presentacion.empleados.opciones;
 
+import entidades.Cuenta;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import seguridad.Autenticacion;
 import validaciones.Cuentas;
+import validaciones.Monedas;
 
-/**
- *
- * @author LUCANO
- */
+
 public class IFrmRegistrarCuenta extends javax.swing.JInternalFrame {
 
+    
+    public static IFrmRegistrarCuenta form = null;
+    
     /**
      * Creates new form IFrmRegistrarCliente
      */
     public IFrmRegistrarCuenta() {
         initComponents();
+        try {
+            tipEmpleado.setText(Autenticacion.obtenerUsuario().getCodigo());
+        } catch (IllegalStateException e){
+            JOptionPane.showMessageDialog(this, "Autenticación | No se puede continuar: No existe una sesión iniciada.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(this, "Datos de una Cuenta | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -36,17 +50,17 @@ public class IFrmRegistrarCuenta extends javax.swing.JInternalFrame {
         labelCodigo = new javax.swing.JLabel();
         txtClave = new javax.swing.JTextField();
         labelMoneda = new javax.swing.JLabel();
-        txtSucursal = new javax.swing.JTextField();
         btnRegistrar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         labelMoneda1 = new javax.swing.JLabel();
-        txtMoneda = new javax.swing.JTextField();
         labelMoneda2 = new javax.swing.JLabel();
         labelMoneda3 = new javax.swing.JLabel();
         txtCodigoCuenta = new javax.swing.JTextField();
         txtCodigoCliente = new javax.swing.JTextField();
         labelMoneda4 = new javax.swing.JLabel();
         txtCodigoUser = new javax.swing.JTextField();
+        cbxMoneda = new javax.swing.JComboBox<>();
+        cbxSucursal = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -65,17 +79,17 @@ public class IFrmRegistrarCuenta extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(359, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(194, 194, 194)
                 .addComponent(tituloPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(337, 337, 337))
+                .addContainerGap(502, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(14, 14, 14)
                 .addComponent(tituloPanel1)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 60));
@@ -97,15 +111,12 @@ public class IFrmRegistrarCuenta extends javax.swing.JInternalFrame {
         jPanel2.add(labelCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, -1));
 
         txtClave.setEnabled(false);
-        jPanel2.add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 250, 172, -1));
+        jPanel2.add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 140, 172, -1));
 
         labelMoneda.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelMoneda.setForeground(new java.awt.Color(0, 0, 0));
         labelMoneda.setText("Codigo de Cliente:");
-        jPanel2.add(labelMoneda, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 60, -1, -1));
-
-        txtSucursal.setEnabled(false);
-        jPanel2.add(txtSucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, 172, -1));
+        jPanel2.add(labelMoneda, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, -1, -1));
 
         btnRegistrar.setBackground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
@@ -118,7 +129,7 @@ public class IFrmRegistrarCuenta extends javax.swing.JInternalFrame {
                 btnRegistrarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 330, -1, -1));
+        jPanel2.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, -1, -1));
 
         btnSalir.setBackground(new java.awt.Color(255, 255, 255));
         btnSalir.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
@@ -131,63 +142,84 @@ public class IFrmRegistrarCuenta extends javax.swing.JInternalFrame {
                 btnSalirActionPerformed(evt);
             }
         });
-        jPanel2.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 340, -1, -1));
+        jPanel2.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 250, -1, 30));
 
         labelMoneda1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelMoneda1.setForeground(new java.awt.Color(0, 0, 0));
         labelMoneda1.setText("Clave:");
-        jPanel2.add(labelMoneda1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, 70, -1));
-
-        txtMoneda.setEnabled(false);
-        jPanel2.add(txtMoneda, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, 172, -1));
+        jPanel2.add(labelMoneda1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, 70, -1));
 
         labelMoneda2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelMoneda2.setForeground(new java.awt.Color(0, 0, 0));
         labelMoneda2.setText("Sucursal:");
-        jPanel2.add(labelMoneda2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
+        jPanel2.add(labelMoneda2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, -1, -1));
 
         labelMoneda3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelMoneda3.setForeground(new java.awt.Color(0, 0, 0));
         labelMoneda3.setText("Moneda:");
-        jPanel2.add(labelMoneda3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 60, -1));
+        jPanel2.add(labelMoneda3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 60, -1));
 
         txtCodigoCuenta.setEnabled(false);
-        jPanel2.add(txtCodigoCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 172, -1));
+        jPanel2.add(txtCodigoCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 80, -1));
 
         txtCodigoCliente.setEnabled(false);
-        jPanel2.add(txtCodigoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 172, -1));
+        jPanel2.add(txtCodigoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, 172, -1));
 
         labelMoneda4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelMoneda4.setForeground(new java.awt.Color(0, 0, 0));
         labelMoneda4.setText("Código Usuario:");
-        jPanel2.add(labelMoneda4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 130, 120, -1));
+        jPanel2.add(labelMoneda4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, 120, -1));
 
         txtCodigoUser.setEnabled(false);
-        jPanel2.add(txtCodigoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, 172, -1));
+        jPanel2.add(txtCodigoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 90, 172, -1));
+
+        cbxMoneda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel2.add(cbxMoneda, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, -1, -1));
+
+        cbxSucursal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel2.add(cbxSucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, -1, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 900, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public static IFrmRegistrarCuenta getInstance(Cuenta cuenta){
+        form = new IFrmRegistrarCuenta();
+        return form;
+    }
+    
+     private void registrarInformacion(){
+   
+        //try {
+         //   Cuentas.agregar(txtCodigoCuenta.getText(), Monedas. cbxMoneda.getSelectedItem());
+
+           // JOptionPane.showMessageDialog(this, "Datos del cliente registrados correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+        //} catch (SQLException ex) {
+          //  Logger.getLogger(IFrmModificarDatosCliente.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error al registrar los datos en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+        //}
+    }
+    
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         
-        //No se que hacer pipipi
         
-        // Cuentas.agregar(txtCodigoCuenta.getText(), txtMoneda.getText(), txtSucursal.getText(), 
-        //       txtCodigoCliente.getText(), txtCodigoUser.getText(), txtClave.getText());
+        //Cuentas.agregar(txtCodigoCuenta.getText(), txtMoneda.getText(), txtSucursal.getText(), txtCodigoCliente.getText(), txtCodigoUser.getText(), txtClave.getText());
+        
+        //Monedas.obtener()
+        
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizar;
-    private javax.swing.JButton btnActualizar1;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JComboBox<String> cbxMoneda;
+    private javax.swing.JComboBox<String> cbxSucursal;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel labelCodigo;
@@ -203,7 +235,5 @@ public class IFrmRegistrarCuenta extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCodigoCliente;
     private javax.swing.JTextField txtCodigoCuenta;
     private javax.swing.JTextField txtCodigoUser;
-    private javax.swing.JTextField txtMoneda;
-    private javax.swing.JTextField txtSucursal;
     // End of variables declaration//GEN-END:variables
 }

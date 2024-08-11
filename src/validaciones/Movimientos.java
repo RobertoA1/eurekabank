@@ -13,7 +13,7 @@ public class Movimientos {
         if (numero <= 0) throw new IllegalArgumentException(errMsg + "El número debe ser mayor que cero.");
     }
 
-    public static void agregar(String cuencodigo, int movinumero, Date fecha, String emplcodigo, String tipoCodigo, float importe, String cuenReferencia) throws IllegalArgumentException, SQLException {
+    public static void agregar(String cuencodigo, long movinumero, Date fecha, String emplcodigo, String tipoCodigo, float importe, String cuenReferencia) throws IllegalArgumentException, SQLException {
         validarMovNumero(movinumero);
         String err = errMsg + "Creación | ";
 

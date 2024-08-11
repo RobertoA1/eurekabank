@@ -223,9 +223,6 @@ public class FrmEmpleado extends javax.swing.JFrame {
         }        
     }
     
-    public static void centrarInternalFrameExterno(JInternalFrame interna) {
-        centrarInternalFrame(interna);
-    }
     
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         
@@ -274,7 +271,8 @@ public class FrmEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_mi_registrarCuentaActionPerformed
 
     private void mi_registrarMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_registrarMovimientoActionPerformed
-        
+        IFrmRegistrarMovimiento i = new IFrmRegistrarMovimiento();
+        centrarInternalFrame(i);
     }//GEN-LAST:event_mi_registrarMovimientoActionPerformed
 
     private void mi_modificarMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_modificarMovimientoActionPerformed
