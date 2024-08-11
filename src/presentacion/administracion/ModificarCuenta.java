@@ -4,6 +4,16 @@
  */
 package presentacion.administracion;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.sql.SQLException;
+import validaciones.*;
+import entidades.*;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import seguridad.Autenticacion;
+
 /**
  *
  * @author USER
@@ -94,6 +104,11 @@ public class ModificarCuenta extends javax.swing.JInternalFrame {
         });
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -172,8 +187,33 @@ public class ModificarCuenta extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEliminarCuentaActionPerformed
 
     private void btnCambiarClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarClaveActionPerformed
-        // TODO add your handling code here:
+        String claveActual = new String(pswClaveActual.getPassword());
+        String claveNueva = new String(pswClaveNueva.getPassword());
+        String codigoCuenta = txtCodigo.getText();
+        
+        try{
+            Cuentas.modificar_claveActual(codigoCuenta, claveActual, claveNueva);
+            javax.swing.JOptionPane.showMessageDialog(this, "Clave modificada satisfactoriamente.");
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(ModificarCuenta.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ModificarCuenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnCambiarClaveActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        String codigoCuenta = txtCodigo.getText();
+        try {
+            boolean existe = Cuentas.existe(codigoCuenta);
+            if (existe) {
+                javax.swing.JOptionPane.showMessageDialog(this, "La cuenta ha sido encontrada, ingrese su clave actual.");
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "La cuenta no existe, vuelve a ingresar el codigo.");
+            }
+        } catch (SQLException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al validar la cuenta: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

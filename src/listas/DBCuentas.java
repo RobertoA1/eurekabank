@@ -54,4 +54,12 @@ public class DBCuentas {
 
         cs.executeUpdate();
     }
+    
+    public static void modificar_clave(String codigoCuenta, String claveNueva) throws SQLException{
+        CallableStatement cs = db.prepareCall("CALL sp_modificarClave(?, ?)");
+        cs.setString(1, codigoCuenta);
+        cs.setString(2, claveNueva);
+
+        cs.executeUpdate();
+    }
 }

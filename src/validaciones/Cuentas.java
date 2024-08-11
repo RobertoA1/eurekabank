@@ -57,7 +57,7 @@ public class Cuentas {
 
         if (clave.length() != 6) throw new IllegalArgumentException(errMsg + "La clave tiene que ser de seis dígitos.");
 
-        String key = Contrasenas.generarKey(clave);
+        //String key = Contrasenas.generarKey(clave);
 
         Cuenta cuenta = Cuenta.builder()
                     .codigo(codigo)
@@ -68,7 +68,7 @@ public class Cuentas {
                     .saldo(saldoDb)
                     .fechaCreacion(new Date(System.currentTimeMillis()))
                     .cantidadMovimientos(0)
-                    .clave(key)
+                    .clave(clave)
                     .build();
 
         DBCuentas.agregar(cuenta);
@@ -82,5 +82,17 @@ public class Cuentas {
     public static void modificar_fechaCreacion(String codigoCuenta, Date fechaCreacion) throws SQLException{
         validarCodigoExistente(codigoCuenta, "cuenta");
         DBCuentas.modificar_fechaCreacion(codigoCuenta, fechaCreacion);
+    }
+    
+    public static void modificar_claveActual(String codigoCuenta, String claveActual, String claveNueva)throws IllegalArgumentException, SQLException{
+        if(!existe(codigoCuenta))throw new IllegalArgumentException(errMsg + "La cuenta no existe, verifique por favor.");
+        //validar la clve actual, si corresponde a la cuenta, utilizo clave actual y codigo de cuenta    
+        DBCuentas.modificar_clave(codigoCuenta, claveNueva);
+    }
+    
+    public static boolean existeClaveActual(String codigoCuenta, String claveActual) throws IllegalArgumentException, SQLException{
+        if (!esCodigoValido(codigoCuenta)) return false;
+        if (!DBCuentas.existe(codigoCuenta)) return false; //crear un sp y un metodo en DBCuentas
+        return true;
     }
 }
