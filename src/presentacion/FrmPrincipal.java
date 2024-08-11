@@ -5,7 +5,7 @@
 package presentacion;
 
 import javax.swing.*;
-import presentacion.administracion.AdministracionCuentas;
+import presentacion.cuenta.JifCuenta;
 
 /**
  *
@@ -45,6 +45,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnuiListadoEmplMov = new javax.swing.JMenuItem();
         mnuiSucursales = new javax.swing.JMenuItem();
         mnuiListaCuentas = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("..:: EUREKABANK ::..");
@@ -161,6 +162,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(mnuiListaCuentas);
 
+        jMenuItem1.setText("Operaciones");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -220,11 +229,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_mnuiListaCuentasActionPerformed
 
-    private void mnuiAdministrarCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuiAdministrarCuentasActionPerformed
-        AdministracionCuentas administracionCuentas = new AdministracionCuentas();
-        dspFondo.add(administracionCuentas);
-        administracionCuentas.setVisible(true);
-    }//GEN-LAST:event_mnuiAdministrarCuentasActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        presentacion.cuenta.JifCuenta jC = new JifCuenta();
+        centrarInternalFrame(jC);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     public static void centrarInternalFrameExterno(JInternalFrame interna) {
         centrarInternalFrame(interna);
@@ -308,6 +316,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private static javax.swing.JDesktopPane dspFondo;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu mnuMantenedor;
     private javax.swing.JMenuItem mnuiAdministrarCuentas;

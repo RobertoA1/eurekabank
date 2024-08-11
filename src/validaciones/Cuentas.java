@@ -98,4 +98,9 @@ public class Cuentas {
         if (!DBCuentas.existe(codigoCuenta)) return false; //crear un sp y un metodo en DBCuentas
         return true;
     }
+
+    public static Cuenta obtener(String codigo) throws SQLException{
+        validarCodigoExistente(codigo, "cuenta");
+        return DBCuentas.obtener(codigo);
+    }
 }
