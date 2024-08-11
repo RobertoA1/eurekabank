@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package presentacion.clientes.registro;
+package presentacion.login;
 
 import entidades.Cliente;
 import java.security.NoSuchAlgorithmException;
@@ -10,7 +10,6 @@ import java.security.spec.InvalidKeySpecException;
 import validaciones.Usuarios;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import presentacion.login.Login;
 import seguridad.Autenticacion;
 import validaciones.Clientes;
 
@@ -21,7 +20,6 @@ import validaciones.Clientes;
 public class RegistroPaso2 extends javax.swing.JFrame {
     private static RegistroPaso2 form = null;
     private static Cliente resultadosPaso1 = null;
-    private String fuente = "login";
     /**
      * Creates new form RegistroPaso2
      */
@@ -33,15 +31,10 @@ public class RegistroPaso2 extends javax.swing.JFrame {
         this.resultadosPaso1 = resultados;
     }
     
-    public static RegistroPaso2 getInstance(Cliente resultadosPaso1, String fuente){
+    public static RegistroPaso2 getInstance(Cliente resultadosPaso1){
         if (form == null) form = new RegistroPaso2();
         form.setResultadosPaso1(resultadosPaso1);
-        form.setFuente(fuente);
         return form;
-    }
-    
-    private void setFuente(String fuente){
-        this.fuente = fuente;
     }
     
 
@@ -245,18 +238,10 @@ public class RegistroPaso2 extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
         
-        if (fuente.equalsIgnoreCase("login")){
-            Login login = Login.getInstance();
-            this.setVisible(false);
-            login.setVisible(true);
-            this.dispose();
-        } else if (fuente.equalsIgnoreCase("empleados")){
-            this.setVisible(false);
-            this.dispose();
-        }
-
-       JOptionPane.showMessageDialog(this, "Paso 2 del Registro | Error del desarrollador: La fuente de llamada al menú de Registro es incorrecta.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
-       this.dispose();
+        Login login = Login.getInstance();
+        this.setVisible(false);
+        login.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCrearCuentaActionPerformed
 
     private boolean verificarRestricciones(){
