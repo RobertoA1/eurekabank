@@ -75,6 +75,28 @@ public class DBCliente{
         }
         return null;
     }
+    
+    public static Cliente obtenerClientePorNombreUsuario(String usuario) throws SQLException{
+        CallableStatement cs = db.prepareCall("CALL sp_BuscarCodigoPorUsuario(?)");
+        cs.setString(1, usuario);
+
+        ResultSet rs = cs.executeQuery();
+        if (rs.next()){
+            Cliente c = new Cliente();
+            c.setCodigo(rs.getString(1));
+            c.setApellidoPaterno(rs.getString(2));
+            c.setApellidoMaterno(rs.getString(3));
+            c.setNombre(rs.getString(4));
+            c.setDni(rs.getString(5));
+            c.setCiudad(rs.getString(6));
+            c.setDireccion(rs.getString(7));
+            c.setTelefono(rs.getString(8));
+            c.setEmail(rs.getString(9));
+            c.setIdUsuario(rs.getString(10));
+            return c;
+        }
+        return null;
+    }
 
     public static void modificarNombre(String codigo, String nuevoNombre) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_modCliente_nombre(?, ?)");
@@ -161,10 +183,10 @@ public class DBCliente{
                 .codigoMoneda(rs.getString(2))
                 .codigoSucursal(rs.getString(3))
                 .codigoCliente(rs.getString(4))
-                .saldo(rs.getFloat(5))
-                .fechaCreacion(rs.getDate(6))
-                .cantidadMovimientos(rs.getInt(7))
-                .clave(rs.getString(8))
+                .saldo(rs.getFloat(6))
+                .fechaCreacion(rs.getDate(7))
+                .cantidadMovimientos(rs.getInt(8))
+                .clave(rs.getString(9))
                 .build();
                 arr.add(cuenta);
         }

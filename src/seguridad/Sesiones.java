@@ -70,22 +70,22 @@ public class Sesiones {
 }
 
 class Sesion {
-    private String tokenAcceso = null;
-    private String userCodigo = null;
+        private String tokenAcceso = null;
+        private String userCodigo = null;
 
-    public String getTokenAcceso() {
+        public String getTokenAcceso() {
         return tokenAcceso;
-    }
+        }
 
-    public void setTokenAcceso(String tokenAcceso) {
-        this.tokenAcceso = tokenAcceso;
-    }
+        public void setTokenAcceso(String tokenAcceso) {
+            this.tokenAcceso = tokenAcceso;
+        }
 
-    public String getUserCodigo() {
-        return userCodigo;
-    }
+        public String getUserCodigo() {
+            return userCodigo;
+        }
 
-    public void setUserCodigo(String userCodigo) {
-        this.userCodigo = userCodigo;
+        public void setUserCodigo(String userCodigo) {
+            this.userCodigo = userCodigo;
+        }
     }
-}

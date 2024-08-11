@@ -13,6 +13,16 @@ public class Movimientos {
         if (numero <= 0) throw new IllegalArgumentException(errMsg + "El número debe ser mayor que cero.");
     }
 
+    private static boolean validarSaldo(String cuencodigo,float moviimporte, String tipocodigo) throws IllegalArgumentException, SQLException{
+        float cuensaldo = DBCuentas.obtenerSaldo(cuencodigo);
+        if(tipocodigo.equalsIgnoreCase("002") || tipocodigo.equalsIgnoreCase("004") ||
+        tipocodigo.equalsIgnoreCase("006") || tipocodigo.equalsIgnoreCase("007") ||
+        tipocodigo.equalsIgnoreCase("009") || tipocodigo.equalsIgnoreCase("010")  ){
+            if(cuensaldo<moviimporte) throw new IllegalArgumentException("No hay suficiente saldo en la cuenta para realizar el movimiento");
+        } 
+        return true;
+    }
+
     public static void agregar(String cuencodigo, int movinumero, Date fecha, String emplcodigo, String tipoCodigo, float importe, String cuenReferencia) throws IllegalArgumentException, SQLException {
         validarMovNumero(movinumero);
         String err = errMsg + "Creación | ";
@@ -29,12 +39,18 @@ public class Movimientos {
         if (cuenReferencia.length() > 8) throw new IllegalArgumentException(errMsg + "La referencia de cuenta es demasiado larga (máx. 8 caracteres).");
         if (cuenReferencia.isBlank()) throw new IllegalArgumentException(errMsg + "La referencia de cuenta no puede estar vacía.");
 
-        DBMovimiento.agregar(new Movimiento(cuencodigo, movinumero, fecha, emplcodigo, tipoCodigo, importe, cuenReferencia));
+        if(validarSaldo(cuencodigo, importe, tipoCodigo))
+            DBMovimiento.agregar(new Movimiento(cuencodigo, movinumero, fecha, emplcodigo, tipoCodigo, importe, cuenReferencia));
+        
     }
 
     public static Movimiento obtener(int numero) throws IllegalArgumentException, SQLException{
         validarMovNumero(numero);
         return DBMovimiento.obtener(numero);
+    }
+    
+    public static ArrayList<Movimiento> obtenerMovPorNumCuenta(String cuencodigo) throws IllegalArgumentException, SQLException{
+        return DBMovimiento.obtenerMovPorNumCuenta(cuencodigo);
     }
 
     public static void modificarImporte(int moviNumero, float nuevoImporte) throws IllegalArgumentException, SQLException{

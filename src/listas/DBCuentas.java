@@ -8,6 +8,7 @@ import java.sql.Date;
 
 import conexion.ConexionDB;
 import entidades.Cuenta;
+import java.util.ArrayList;
 
 public class DBCuentas {
     private static Connection db = ConexionDB.obtenerDB();
@@ -77,5 +78,39 @@ public class DBCuentas {
         cs.executeUpdate();
     }
     
+    public static void modificar_clave(String codigoCuenta, String claveNueva) throws SQLException{
+        CallableStatement cs = db.prepareCall("CALL sp_modificarClave(?, ?)");
+        cs.setString(1, codigoCuenta);
+        cs.setString(2, claveNueva);
+
+        cs.executeUpdate();
+    }
     
+    public static boolean validarClaveActual(String codigoCuenta, String claveActual) throws SQLException{
+        CallableStatement cs = db.prepareCall("CALL sp_validarClaveActual(?, ?)");
+        cs.setString(1, codigoCuenta);
+        cs.setString(2, claveActual);
+
+        ResultSet rs = cs.executeQuery();
+
+        if (rs.next()){
+            int valida = rs.getInt("valida");
+            return valida == 1;
+        }
+
+        return false;
+    }
+    
+    public static float obtenerSaldo(String codigoCuenta) throws SQLException {
+        CallableStatement cs = db.prepareCall("CALL sp_cuenta_obtenerSaldo(?)");
+        cs.setString(1, codigoCuenta);
+
+        ResultSet rs = cs.executeQuery();
+
+        if (rs.next()) {
+            return rs.getFloat("saldo");
+        }
+
+        throw new SQLException("No se pudo obtener el saldo de la cuenta.");
+    }
 }

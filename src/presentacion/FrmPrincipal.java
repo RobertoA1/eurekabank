@@ -5,6 +5,7 @@
 package presentacion;
 
 import javax.swing.*;
+import presentacion.administracion.AdministracionCuentas;
 
 /**
  *
@@ -36,6 +37,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnuiRegistrarMovimiento = new javax.swing.JMenuItem();
         mnuiSucursal = new javax.swing.JMenuItem();
         mnuiAsignar = new javax.swing.JMenuItem();
+        mnuiAdministrarCuentas = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mnuiSalir = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -43,6 +45,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnuiListadoEmplMov = new javax.swing.JMenuItem();
         mnuiSucursales = new javax.swing.JMenuItem();
         mnuiListaCuentas = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("..:: EUREKABANK ::..");
@@ -102,6 +105,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         mnuMantenedor.add(mnuiAsignar);
+
+        mnuiAdministrarCuentas.setText("Administrar Cuentas");
+        mnuiAdministrarCuentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuiAdministrarCuentasActionPerformed(evt);
+            }
+        });
+        mnuMantenedor.add(mnuiAdministrarCuentas);
         mnuMantenedor.add(jSeparator1);
 
         mnuiSalir.setMnemonic('S');
@@ -150,6 +161,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(mnuiListaCuentas);
+
+        jMenuItem1.setText("Operaciones");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
 
         jMenuBar1.add(jMenu2);
 
@@ -209,6 +228,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void mnuiListaCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuiListaCuentasActionPerformed
         
     }//GEN-LAST:event_mnuiListaCuentasActionPerformed
+
+    private void mnuiAdministrarCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuiAdministrarCuentasActionPerformed
+        AdministracionCuentas administracionCuentas = new AdministracionCuentas();
+        dspFondo.add(administracionCuentas);
+        administracionCuentas.setVisible(true);
+    }//GEN-LAST:event_mnuiAdministrarCuentasActionPerformed
 
     public static void centrarInternalFrameExterno(JInternalFrame interna) {
         centrarInternalFrame(interna);
@@ -292,8 +317,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private static javax.swing.JDesktopPane dspFondo;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu mnuMantenedor;
+    private javax.swing.JMenuItem mnuiAdministrarCuentas;
     private javax.swing.JMenuItem mnuiAsignar;
     private javax.swing.JMenuItem mnuiEmpleado;
     private javax.swing.JMenuItem mnuiListaCuentas;
