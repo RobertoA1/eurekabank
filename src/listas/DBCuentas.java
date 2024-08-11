@@ -64,17 +64,30 @@ public class DBCuentas {
     }
     
     public static boolean validarClaveActual(String codigoCuenta, String claveActual) throws SQLException{
-    CallableStatement cs = db.prepareCall("CALL sp_validarClaveActual(?, ?)");
-    cs.setString(1, codigoCuenta);
-    cs.setString(2, claveActual);
+        CallableStatement cs = db.prepareCall("CALL sp_validarClaveActual(?, ?)");
+        cs.setString(1, codigoCuenta);
+        cs.setString(2, claveActual);
 
-    ResultSet rs = cs.executeQuery();
+        ResultSet rs = cs.executeQuery();
 
-    if (rs.next()){
-        int valida = rs.getInt("valida");
-        return valida == 1;
+        if (rs.next()){
+            int valida = rs.getInt("valida");
+            return valida == 1;
+        }
+
+        return false;
     }
+    
+    public static float obtenerSaldo(String codigoCuenta) throws SQLException {
+        CallableStatement cs = db.prepareCall("CALL sp_cuenta_obtenerSaldo(?)");
+        cs.setString(1, codigoCuenta);
 
-    return false;
-}
+        ResultSet rs = cs.executeQuery();
+
+        if (rs.next()) {
+            return rs.getFloat("saldo");
+        }
+
+        throw new SQLException("No se pudo obtener el saldo de la cuenta.");
+    }
 }

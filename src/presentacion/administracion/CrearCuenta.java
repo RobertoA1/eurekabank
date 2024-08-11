@@ -81,12 +81,16 @@ public class CrearCuenta extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel2.setText("Es hora de crear tu cuenta bancaria");
 
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel3.setText("Código de cuenta");
 
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel4.setText("Tipo de moneda");
 
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel5.setText("Sucursal");
 
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel6.setText("Saldo");
 
         boxTipoMoneda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -99,6 +103,7 @@ public class CrearCuenta extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel7.setText("Clave");
 
         btnValidar.setText("Validar");
@@ -142,7 +147,7 @@ public class CrearCuenta extends javax.swing.JInternalFrame {
                                     .addComponent(boxSucursal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtSaldo)
                                     .addComponent(pswClave))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                                 .addComponent(btnValidar)))))
                 .addGap(76, 76, 76))
         );
@@ -214,35 +219,42 @@ public class CrearCuenta extends javax.swing.JInternalFrame {
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         
-        String codigoCuenta = txtCodigoCuenta.getText();
-        Integer codigoMoneda = boxTipoMoneda.getSelectedIndex();
-        String codigoMonedaDb = Integer.toString(codigoMoneda + 1);
+    String codigoCuenta = txtCodigoCuenta.getText();
+    Integer codigoMoneda = boxTipoMoneda.getSelectedIndex();
+    String codigoMonedaDb = Integer.toString(codigoMoneda + 1);
     
-        Integer codigoSucursal = boxSucursal.getSelectedIndex();
-        String codigoSucursalDb = Integer.toString(codigoSucursal + 1);
-        System.out.print("Esta es mi sucursal: " + codigoSucursalDb);
+    Integer codigoSucursal = boxSucursal.getSelectedIndex();
+    String codigoSucursalDb = Integer.toString(codigoSucursal + 1);
     
-        String clave = new String(pswClave.getPassword());
+    String clave = new String(pswClave.getPassword());
+    
+    float saldoDb = 0;
+    String saldo = txtSaldo.getText();
+    try {
+        saldoDb = Float.parseFloat(saldo);
+    } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "El saldo ingresado no es válido.");
+        return; // Salir del método si el saldo no es válido
+    }
+    
+    try {
+        Usuario usuarioActivo = Autenticacion.obtenerUsuario(); // Obtener el usuario activo
+        String codigoCliente = usuarioActivo.getCodigo(); // Obtener el código del cliente (usuario activo)
+        String codClienteDb = "";
+        var c = Clientes.obtenerClientePorUsuario(codigoCliente);
+        codClienteDb = (String) c.getCodigo();
         
-        float saldoDb=0;
-        String saldo=txtSaldo.getText();
-        saldoDb=Float.parseFloat(saldo);
-        
-        try {
-            Usuario usuarioActivo = Autenticacion.obtenerUsuario(); // Obtener el usuario activo
-            String codigoCliente = usuarioActivo.getCodigo(); // Obtener el código del cliente (usuario activo)
-            String codClienteDb="";
-            var c=Clientes.obtenerClientePorUsuario(codigoCliente);
-            codClienteDb=(String) c.getCodigo();
         // Crear la cuenta llamando al método agregar de la clase Cuentas
-            Cuentas.agregar(codigoCuenta, '0'+codigoMonedaDb, '0'+codigoSucursalDb, codClienteDb, usuarioActivo.getCodigo(),saldoDb, clave);
-            javax.swing.JOptionPane.showMessageDialog(this, "Cuenta creada exitosamente.");
+        Cuentas.agregar(codigoCuenta, '0' + codigoMonedaDb, '0' + codigoSucursalDb, codClienteDb, usuarioActivo.getCodigo(), saldoDb, clave);
+        javax.swing.JOptionPane.showMessageDialog(this, "Cuenta creada exitosamente.");
         
-            limpiarFormulario();
+        limpiarFormulario();
         
-        } catch (SQLException | NoSuchAlgorithmException | InvalidKeySpecException e) {
+    } catch (SQLException | NoSuchAlgorithmException | InvalidKeySpecException e) {
         javax.swing.JOptionPane.showMessageDialog(this, "Error al crear la cuenta: " + e.getMessage());
-        }
+    } catch (IllegalArgumentException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Error al crear la cuenta: " + e.getMessage());
+    }
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void cargarMonedas() {
