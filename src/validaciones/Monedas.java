@@ -25,6 +25,11 @@ public class Monedas {
         validarEstado(codigo);
         return DBMonedas.obtener(codigo);
     }
+    
+    public static Moneda obtenerPorDescripcion(String descripcion) throws IllegalArgumentException, SQLException {
+        return DBMonedas.obtenerPorDescripcion(descripcion);
+    }
+    
 
     public static void actualizarDescripcion(String codigo, String descripcion) throws IllegalArgumentException, SQLException {
         validarCodigo(codigo);

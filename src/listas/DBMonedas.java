@@ -46,6 +46,24 @@ public class DBMonedas {
         return null;
     }
 
+    public static Moneda obtenerPorDescripcion(String descripcion) throws SQLException {
+    CallableStatement cs = db.prepareCall("CALL sp_buscar_moneda_por_descripcion(?)");
+    cs.setString(1, descripcion);
+
+    ResultSet rs = cs.executeQuery();
+    if (rs.next()) {
+        Moneda moneda = new Moneda();
+        moneda.setCodigo(rs.getString(1));
+        moneda.setDescripcion(rs.getString(2));
+        moneda.setEstado(rs.getInt(3));
+        return moneda;
+    }
+
+    return null;
+}
+    
+    
+    
     public static void actualizarDescripcion(String codigo, String nuevaDescripcion) throws SQLException {
         CallableStatement cs = db.prepareCall("CALL sp_actualizar_moneda_descripcion(?, ?)");
         cs.setString(1, codigo);

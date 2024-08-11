@@ -191,15 +191,15 @@ public class IFrmRegistrarCuenta extends javax.swing.JInternalFrame {
     
      private void registrarInformacion(){
    
-        //try {
-         //   Cuentas.agregar(txtCodigoCuenta.getText(), Monedas. cbxMoneda.getSelectedItem());
+        try {
+           Cuentas.agregar(txtCodigoCuenta.getText(), Monedas. cbxMoneda.getSelectedItem());
 
-           // JOptionPane.showMessageDialog(this, "Datos del cliente registrados correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+         JOptionPane.showMessageDialog(this, "Datos del cliente registrados correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-        //} catch (SQLException ex) {
-          //  Logger.getLogger(IFrmModificarDatosCliente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+          Logger.getLogger(IFrmModificarDatosCliente.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Error al registrar los datos en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
-        //}
+        }
     }
     
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
