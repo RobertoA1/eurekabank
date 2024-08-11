@@ -4,15 +4,11 @@
  */
 package presentacion.administracion;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 import validaciones.*;
-import entidades.*;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import seguridad.Autenticacion;
+import listas.DBCuentas;
 
 /**
  *
@@ -75,10 +71,13 @@ public class ModificarCuenta extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel2.setText("Código de cuenta");
 
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel3.setText("Clave actual");
 
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel4.setText("Clave nueva");
 
         txtCodigo.addActionListener(new java.awt.event.ActionListener() {
@@ -94,6 +93,7 @@ public class ModificarCuenta extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel5.setText("Eliminar mi cuenta");
 
         btnEliminarCuenta.setText("Eliminar");
@@ -183,7 +183,29 @@ public class ModificarCuenta extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void btnEliminarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCuentaActionPerformed
-        // TODO add your handling code here:
+        String codigoCuenta = txtCodigo.getText();
+
+        try {
+            // Verificar si la cuenta existe antes de intentar eliminarla
+            if (!Cuentas.existe(codigoCuenta)) {
+                javax.swing.JOptionPane.showMessageDialog(this, "La cuenta no existe.");
+            return;
+            }
+        
+            // Obtener el saldo de la cuenta
+            float saldo = DBCuentas.obtenerSaldo(codigoCuenta);
+
+            // Verificar si el saldo es 0
+            if (saldo == 0) {
+                // Eliminar la cuenta
+                Cuentas.remover(codigoCuenta);
+                javax.swing.JOptionPane.showMessageDialog(this, "La cuenta ha sido eliminada satisfactoriamente.");
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "No se puede eliminar la cuenta porque tiene saldo disponible.");
+            }
+        } catch (SQLException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al eliminar la cuenta: " + e.getMessage());
+        }
     }//GEN-LAST:event_btnEliminarCuentaActionPerformed
 
     private void btnCambiarClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarClaveActionPerformed
@@ -191,13 +213,13 @@ public class ModificarCuenta extends javax.swing.JInternalFrame {
         String claveNueva = new String(pswClaveNueva.getPassword());
         String codigoCuenta = txtCodigo.getText();
         
-        try{
+        try {
             Cuentas.modificar_claveActual(codigoCuenta, claveActual, claveNueva);
             javax.swing.JOptionPane.showMessageDialog(this, "Clave modificada satisfactoriamente.");
         } catch (IllegalArgumentException ex) {
-            Logger.getLogger(ModificarCuenta.class.getName()).log(Level.SEVERE, null, ex);
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         } catch (SQLException ex) {
-            Logger.getLogger(ModificarCuenta.class.getName()).log(Level.SEVERE, null, ex);
+            javax.swing.JOptionPane.showMessageDialog(this, "Error en la base de datos: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCambiarClaveActionPerformed
 

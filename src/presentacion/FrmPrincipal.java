@@ -6,6 +6,7 @@ package presentacion;
 
 import javax.swing.*;
 import presentacion.cuenta.JifCuenta;
+import presentacion.administracion.AdministracionCuentas;
 
 /**
  *
@@ -233,6 +234,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         presentacion.cuenta.JifCuenta jC = new JifCuenta();
         centrarInternalFrame(jC);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void mnuiAdministrarCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuiAdministrarCuentasActionPerformed
+        AdministracionCuentas administracionCuentas = new AdministracionCuentas();
+        dspFondo.add(administracionCuentas);
+        administracionCuentas.setVisible(true);
+    }//GEN-LAST:event_mnuiAdministrarCuentasActionPerformed
 
     public static void centrarInternalFrameExterno(JInternalFrame interna) {
         centrarInternalFrame(interna);

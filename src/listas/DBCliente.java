@@ -184,10 +184,10 @@ public class DBCliente{
                 .codigoMoneda(rs.getString(2))
                 .codigoSucursal(rs.getString(3))
                 .codigoCliente(rs.getString(4))
-                .saldo(rs.getFloat(5))
-                .fechaCreacion(rs.getDate(6))
-                .cantidadMovimientos(rs.getInt(7))
-                .clave(rs.getString(8))
+                .saldo(rs.getFloat(6))
+                .fechaCreacion(rs.getDate(7))
+                .cantidadMovimientos(rs.getInt(8))
+                .clave(rs.getString(9))
                 .build();
                 arr.add(cuenta);
         }

@@ -4,10 +4,9 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.Date;
 import java.sql.SQLException;
-
+import javax.swing.JOptionPane;
 import entidades.Cuenta;
 import listas.DBCuentas;
-import seguridad.Contrasenas;
 
 public class Cuentas {
     private static String errMsg = "Error en Cuentas: ";
@@ -85,11 +84,14 @@ public class Cuentas {
     }
     
     public static void modificar_claveActual(String codigoCuenta, String claveActual, String claveNueva)throws IllegalArgumentException, SQLException{
-        if(!existe(codigoCuenta))throw new IllegalArgumentException(errMsg + "La cuenta no existe, verifique por favor.");
-        //validar la clve actual, si corresponde a la cuenta, utilizo clave actual y codigo de cuenta   
-        if(!DBCuentas.validarClaveActual(codigoCuenta, claveActual)) {
+        if (!existe(codigoCuenta)) {
+            throw new IllegalArgumentException(errMsg + "La cuenta no existe, verifique por favor.");
+        }
+    
+        if (!DBCuentas.validarClaveActual(codigoCuenta, claveActual)) {
             throw new IllegalArgumentException("La clave actual no es correcta.");
         }
+        
         DBCuentas.modificar_clave(codigoCuenta, claveNueva);
     }
     
