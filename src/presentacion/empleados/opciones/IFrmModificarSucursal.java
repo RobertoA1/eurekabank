@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package presentacion;
+package presentacion.empleados.opciones;
 
 import entidades.Sucursal;
 import java.sql.SQLException;
@@ -243,7 +243,7 @@ public class IFrmModificarSucursal extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Se actualizo correctamente.", CORRECTO_TITULO, JOptionPane.INFORMATION_MESSAGE);
             
         } catch (SQLException ex) {
-            //Logger.getLogger(IFrmModificarTransaccion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(IFrmModificarSucursal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
     

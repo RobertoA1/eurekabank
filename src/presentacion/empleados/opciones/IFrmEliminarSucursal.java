@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package presentacion;
+package presentacion.empleados.opciones;
 
 import entidades.Sucursal;
 import java.sql.SQLException;
@@ -135,7 +135,7 @@ public class IFrmEliminarSucursal extends javax.swing.JInternalFrame {
             Sucursales.eliminar(codigo);
             
         } catch (SQLException ex) {
-            Logger.getLogger(IFrmModificarSucursal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(IFrmEliminarSucursal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 

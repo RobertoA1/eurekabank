@@ -6,7 +6,7 @@ package presentacion.empleados;
 
 import javax.swing.JInternalFrame;
 import presentacion.FrmPrincipal;
-import presentacion.IFrmSucursales;
+import presentacion.empleados.opciones.IFrmSucursales;
 import presentacion.clientes.registro.Registro;
 import presentacion.empleados.opciones.*;
 
@@ -108,9 +108,19 @@ public class FrmEmpleado extends javax.swing.JFrame {
         menuRegistrar.add(mi_registrarCliente);
 
         mi_registrarCuenta.setText("Registrar una nueva cuenta");
+        mi_registrarCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_registrarCuentaActionPerformed(evt);
+            }
+        });
         menuRegistrar.add(mi_registrarCuenta);
 
         mi_registrarMovimiento.setText("Registrar un nuevo movimiento");
+        mi_registrarMovimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_registrarMovimientoActionPerformed(evt);
+            }
+        });
         menuRegistrar.add(mi_registrarMovimiento);
 
         jMenuBar1.add(menuRegistrar);
@@ -126,6 +136,11 @@ public class FrmEmpleado extends javax.swing.JFrame {
         menuModificar.add(mi_modificarCliente);
 
         mi_modificarMovimiento.setText("Modificar los datos de un movimiento");
+        mi_modificarMovimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_modificarMovimientoActionPerformed(evt);
+            }
+        });
         menuModificar.add(mi_modificarMovimiento);
 
         jMenuBar1.add(menuModificar);
@@ -238,6 +253,18 @@ public class FrmEmpleado extends javax.swing.JFrame {
         IFrmSucursales i = new IFrmSucursales();
         centrarInternalFrame(i);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void mi_registrarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_registrarCuentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mi_registrarCuentaActionPerformed
+
+    private void mi_registrarMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_registrarMovimientoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mi_registrarMovimientoActionPerformed
+
+    private void mi_modificarMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_modificarMovimientoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mi_modificarMovimientoActionPerformed
 
     public static FrmEmpleado getInstance(){
         /* Set the Nimbus look and feel */
