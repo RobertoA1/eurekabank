@@ -44,6 +44,14 @@ CREATE TABLE usuario (
     PRIMARY KEY (codigo)
 );
 
+-- Creacion de la tabla Administrador
+CREATE TABLE administrador (
+	idadministrador CHAR(8),
+    idUsuario CHAR(8),
+    PRIMARY KEY (idadministrador),
+    FOREIGN KEY (idUsuario) REFERENCES empleado(idUsuario)
+);
+
 -- Creación de la tabla cliente
 CREATE TABLE cliente (
     cliecodigo CHAR(5) PRIMARY KEY,
