@@ -6,6 +6,7 @@ package presentacion.cuenta;
 
 import entidades.Cliente;
 import entidades.Cuenta;
+import entidades.Empleado;
 import entidades.Movimiento;
 import entidades.Usuario;
 import java.sql.SQLException;
@@ -16,6 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
+import listas.DBEmpleado;
 import validaciones.Clientes;
 import validaciones.Cuentas;
 import validaciones.Movimientos;
@@ -51,6 +53,7 @@ public class JifCuenta extends javax.swing.JInternalFrame {
         cbxCuentas = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        separator = new javax.swing.JSeparator();
 
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
@@ -107,19 +110,14 @@ public class JifCuenta extends javax.swing.JInternalFrame {
                 treeFiltrarMouseClicked(evt);
             }
         });
-        treeFiltrar.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
-            public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
-                treeFiltrarValueChanged(evt);
-            }
-        });
         jScrollPane1.setViewportView(treeFiltrar);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 220, 310));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 220, 310));
 
         lblDatos.setFont(new java.awt.Font("Ebrima", 1, 24)); // NOI18N
         lblDatos.setForeground(new java.awt.Color(255, 204, 0));
         lblDatos.setText("DETALLES DE LA OPERACIÓN");
-        jPanel1.add(lblDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 360, 30));
+        jPanel1.add(lblDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, 360, 30));
 
         tblDatos.setBackground(new java.awt.Color(255, 204, 51));
         tblDatos.setModel(new javax.swing.table.DefaultTableModel(
@@ -135,118 +133,138 @@ public class JifCuenta extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(tblDatos);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 510, 270));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 510, 270));
 
         cbxCuentas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CUENTA" }));
+        cbxCuentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxCuentasActionPerformed(evt);
+            }
+        });
         jPanel1.add(cbxCuentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, 100, -1));
 
+        jLabel1.setFont(new java.awt.Font("Microsoft YaHei", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("CÓDIGO DE CUENTA:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, -1, -1));
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("FILTRAR POR:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+        jPanel1.add(separator, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 770, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 460));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void treeFiltrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_treeFiltrarMouseClicked
+        int row = treeFiltrar.getRowForLocation(evt.getX(), evt.getY());
+        if (row != -1) {
+            DefaultMutableTreeNode clickedNode = (DefaultMutableTreeNode) treeFiltrar.getPathForRow(row).getLastPathComponent();
+            
+            
+            String nodo = String.valueOf(clickedNode.getUserObject());
         
-    }//GEN-LAST:event_treeFiltrarMouseClicked
-
-    private void treeFiltrarValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_treeFiltrarValueChanged
-        if (evt.isAddedPath()) {
-            DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) treeFiltrar.getLastSelectedPathComponent();
-            if (selectedNode == null) {
-                return;
+            if (nodo.equalsIgnoreCase("Apertura de cuenta")) {
+                try {
+                    listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
+                    llenarTabla("001");
+                } catch (IllegalArgumentException | SQLException ex) {
+                    Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-            String nodo = String.valueOf(selectedNode.getUserObject());
-        
-        if (nodo.equalsIgnoreCase("Apertura de cuenta")) {
-            try {
-                listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
-                llenarTabla("001");
-            } catch (IllegalArgumentException | SQLException ex) {
-                Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+            if (nodo.equalsIgnoreCase("Cancelar cuenta")) {
+                try {
+                    listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
+                    llenarTabla("002");
+                } catch (IllegalArgumentException | SQLException ex) {
+                    Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }
-        if (nodo.equalsIgnoreCase("Cancelar cuenta")) {
-            try {
-                listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
-                llenarTabla("002");
-            } catch (IllegalArgumentException | SQLException ex) {
-                Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+            if (nodo.equalsIgnoreCase("Depósito")) {
+                try {
+                    listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
+                    llenarTabla("003");
+                } catch (IllegalArgumentException | SQLException ex) {
+                    Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }
-        if (nodo.equalsIgnoreCase("Depósito")) {
-            try {
-                listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
-                llenarTabla("003");
-            } catch (IllegalArgumentException | SQLException ex) {
-                Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+            if (nodo.equalsIgnoreCase("Retiro")) {
+                try {
+                    listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
+                    llenarTabla("004");
+                } catch (IllegalArgumentException | SQLException ex) {
+                    Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }
-        if (nodo.equalsIgnoreCase("Retiro")) {
-            try {
-                listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
-                llenarTabla("004");
-            } catch (IllegalArgumentException | SQLException ex) {
-                Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+            if (nodo.equalsIgnoreCase("Interes")) {
+                try {
+                    listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
+                    llenarTabla("005");
+                } catch (IllegalArgumentException | SQLException ex) {
+                    Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }
-        if (nodo.equalsIgnoreCase("Interes")) {
-            try {
-                listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
-                llenarTabla("005");
-            } catch (IllegalArgumentException | SQLException ex) {
-                Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+            if (nodo.equalsIgnoreCase("Mantenimiento")) {
+                try {
+                    listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
+                    llenarTabla("006");
+                } catch (IllegalArgumentException | SQLException ex) {
+                    Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }
-        if (nodo.equalsIgnoreCase("Mantenimiento")) {
-            try {
-                listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
-                llenarTabla("006");
-            } catch (IllegalArgumentException | SQLException ex) {
-                Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+            if (nodo.equalsIgnoreCase("ITF")) {
+                try {
+                    listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
+                    llenarTabla("007");
+                } catch (IllegalArgumentException | SQLException ex) {
+                    Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }
-        if (nodo.equalsIgnoreCase("ITF")) {
-            try {
-                listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
-                llenarTabla("007");
-            } catch (IllegalArgumentException | SQLException ex) {
-                Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        if (nodo.equalsIgnoreCase("Transferencia")) {
-            try {
+            if (nodo.equalsIgnoreCase("Transferencia")) {
+                try {
                 listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
                 llenarTabla("008");
-            } catch (IllegalArgumentException | SQLException ex) {
-                Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalArgumentException | SQLException ex) {
+                    Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }
-        if (nodo.equalsIgnoreCase("Transferencia.")) {
-            try {
-                listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
-                llenarTabla("009");
-            } catch (IllegalArgumentException | SQLException ex) {
-                Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+            if (nodo.equalsIgnoreCase("Transferencia.")) {
+                try {
+                    listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
+                    llenarTabla("009");
+                } catch (IllegalArgumentException | SQLException ex) {
+                    Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }
-        if (nodo.equalsIgnoreCase("Cargo por mantenimiento")) {
-            try {
-                listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
-                llenarTabla("010");
-            } catch (IllegalArgumentException | SQLException ex) {
-                Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+            if (nodo.equalsIgnoreCase("Cargo por mantenimiento")) {
+                try {
+                    listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
+                    llenarTabla("010");
+                } catch (IllegalArgumentException | SQLException ex) {
+                    Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+            if (nodo.equalsIgnoreCase("Ingresos")) {
+                try {
+                    listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
+                    llenarTabla1();
+                } catch (IllegalArgumentException | SQLException ex) {
+                    Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (nodo.equalsIgnoreCase("Salidas")) {
+                try {
+                    listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
+                    llenarTabla2();
+                } catch (IllegalArgumentException | SQLException ex) {
+                    Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+               
         }
-        }
-    }//GEN-LAST:event_treeFiltrarValueChanged
+    }//GEN-LAST:event_treeFiltrarMouseClicked
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         try {
@@ -261,6 +279,15 @@ public class JifCuenta extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_formInternalFrameOpened
 
+    private void cbxCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCuentasActionPerformed
+        try {
+            listaMov = Movimientos.obtenerMovPorNumCuenta(String.valueOf(cbxCuentas.getSelectedItem()));
+            llenarTabla();
+        } catch (IllegalArgumentException | SQLException ex) {
+            Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cbxCuentasActionPerformed
+
     
     private void llenarTabla(String tipoMov) throws IllegalArgumentException, SQLException {
         modelo = new DefaultTableModel();
@@ -268,23 +295,31 @@ public class JifCuenta extends javax.swing.JInternalFrame {
         if(listaMov!=null){
             iterador = listaMov.iterator();
             while(iterador.hasNext()) {
-            movimiento = iterador.next();
-            fila[0] = movimiento.getMovinumero();
-            fila[1] = movimiento.getFecha();
-            fila[2] = movimiento.getEmplcodigo();
-            if(tipoMov.equalsIgnoreCase("002") || tipoMov.equalsIgnoreCase("004") ||  tipoMov.equalsIgnoreCase("006") || tipoMov.equalsIgnoreCase("007"))
-                fila[3] = "-" + movimiento.getImporte();
-            else   
-                fila[3] = movimiento.getImporte();
-            fila[4] = movimiento.getCuenReferencia();
-                if(tipoMov.equalsIgnoreCase(movimiento.getTipoCodigo())){
-                    modelo.addRow(fila);
-                    confirmador++;
-                }
+                movimiento = iterador.next();
+                fila[0] = movimiento.getMovinumero();
+                fila[1] = movimiento.getFecha();
+                fila[2] = retornarEmpleado(movimiento.getEmplcodigo());
+                if(tipoMov.equalsIgnoreCase("002") || tipoMov.equalsIgnoreCase("004") ||  tipoMov.equalsIgnoreCase("006") || tipoMov.equalsIgnoreCase("007"))
+                    fila[3] = "-" + movimiento.getImporte();
+                else   
+                    fila[3] = movimiento.getImporte();
+                fila[4] = movimiento.getCuenReferencia();
+                    if(tipoMov.equalsIgnoreCase(movimiento.getTipoCodigo())){
+                        modelo.addRow(fila);
+                        confirmador++;
+                    }
             }
             if(confirmador!=0){
                 tblDatos.setModel(modelo);
                 confirmador=0;
+            } else {
+                fila[0] = "---";
+                fila[1] = "---";
+                fila[2] = "---";
+                fila[3] = "---";
+                fila[4] = "---";
+                modelo.addRow(fila);
+                tblDatos.setModel(modelo);
             }
         } else {
             fila[0] = "---";
@@ -297,24 +332,23 @@ public class JifCuenta extends javax.swing.JInternalFrame {
         }
     }
     
-    private void llenarTabla(){
-        String columnas1[] = {"N° OP", "Fecha","Encargado","Operacion","Importe","Destinatario"};
-        Object fila1[] = new Object[columnas1.length];
-        modelo = new DefaultTableModel();
-        modelo.setColumnIdentifiers(columnas1);
+    private void llenarTabla() throws SQLException{
+        
+        modelo2 = new DefaultTableModel();
+        modelo2.setColumnIdentifiers(columnas1);
         if(listaMov!=null){
-        iterador = listaMov.iterator();
-        while(iterador.hasNext()) {
-            movimiento = iterador.next();
+        iterador2 = listaMov.iterator();
+        while(iterador2.hasNext()) {
+            movimiento = iterador2.next();
             fila1[0] = movimiento.getMovinumero();
             fila1[1] = movimiento.getFecha();
-            fila1[2] = movimiento.getEmplcodigo();
+            fila1[2] = retornarEmpleado(movimiento.getEmplcodigo());
             fila1[3] = retornarDescripcion(movimiento.getTipoCodigo());
             fila1[4] = movimiento.getImporte();
             fila1[5] = movimiento.getCuenReferencia();
-            modelo.addRow(fila1);
+            modelo2.addRow(fila1);
+            tblDatos.setModel(modelo2);
         }
-        tblDatos.setModel(modelo);
         } else {
             fila1[0] = "---";
             fila1[1] = "---";
@@ -322,13 +356,108 @@ public class JifCuenta extends javax.swing.JInternalFrame {
             fila1[3] = "---";
             fila1[4] = "---";
             fila1[5] = "---";
-            modelo.addRow(fila1);
-            tblDatos.setModel(modelo);
+            modelo2.addRow(fila1);
+            tblDatos.setModel(modelo2);
         }
             
     }
     
+    private void llenarTabla1() throws SQLException{
+        modelo2 = new DefaultTableModel();
+        modelo2.setColumnIdentifiers(columnas1);
+        if(listaMov!=null){
+        iterador2 = listaMov.iterator();
+        while(iterador2.hasNext()) {
+            movimiento = iterador2.next();
+            fila1[0] = movimiento.getMovinumero();
+            fila1[1] = movimiento.getFecha();
+            fila1[2] = retornarEmpleado(movimiento.getEmplcodigo());
+            fila1[3] = retornarDescripcion(movimiento.getTipoCodigo());
+            fila1[4] = movimiento.getImporte();
+            fila1[5] = movimiento.getCuenReferencia();
+            String c = movimiento.getTipoCodigo();
+            if(c.equalsIgnoreCase("001") || c.equalsIgnoreCase("003") ||
+                    c.equalsIgnoreCase("005") || c.equalsIgnoreCase("007") || c.equalsIgnoreCase("008")){
+                modelo2.addRow(fila1);
+                confirmador++;
+            }  
+        } if(confirmador!=0){
+            tblDatos.setModel(modelo2);
+            confirmador=0;
+        } else {
+            fila1[0] = "---";
+            fila1[1] = "---";
+            fila1[2] = "---";
+            fila1[3] = "---";
+            fila1[4] = "---";
+            fila1[5] = "---";
+            modelo2.addRow(fila1);
+            tblDatos.setModel(modelo2);
+        }
+        
+        } else {
+            fila1[0] = "---";
+            fila1[1] = "---";
+            fila1[2] = "---";
+            fila1[3] = "---";
+            fila1[4] = "---";
+            fila1[5] = "---";
+            modelo2.addRow(fila1);
+            tblDatos.setModel(modelo2);
+        }
+    }
+    
+    private void llenarTabla2() throws SQLException{
+        modelo2 = new DefaultTableModel();
+        modelo2.setColumnIdentifiers(columnas1);
+        if(listaMov!=null){
+        iterador2 = listaMov.iterator();
+        while(iterador2.hasNext()) {
+            movimiento = iterador2.next();
+            fila1[0] = movimiento.getMovinumero();
+            fila1[1] = movimiento.getFecha();
+            fila1[2] = retornarEmpleado(movimiento.getEmplcodigo());
+            fila1[3] = retornarDescripcion(movimiento.getTipoCodigo());
+            fila1[4] = movimiento.getImporte();
+            fila1[5] = movimiento.getCuenReferencia();
+            String c = movimiento.getTipoCodigo();
+            if(c.equalsIgnoreCase("002") || c.equalsIgnoreCase("004") ||
+                    c.equalsIgnoreCase("006") || c.equalsIgnoreCase("009") || c.equalsIgnoreCase("010")){
+                modelo2.addRow(fila1);
+                confirmador++;
+            }
+            
+        } 
+            if(confirmador!=0){
+                tblDatos.setModel(modelo2);
+                confirmador=0;
+            }else {
+                fila1[0] = "---";
+            fila1[1] = "---";
+            fila1[2] = "---";
+            fila1[3] = "---";
+            fila1[4] = "---";
+            fila1[5] = "---";
+            modelo2.addRow(fila1);
+            tblDatos.setModel(modelo2);
+            }
+        
+        }else {
+            fila1[0] = "---";
+            fila1[1] = "---";
+            fila1[2] = "---";
+            fila1[3] = "---";
+            fila1[4] = "---";
+            fila1[5] = "---";
+            modelo2.addRow(fila1);
+            tblDatos.setModel(modelo2);
+        }
+    }
+        
+    
+    
     private String retornarDescripcion(String tipoMov){
+        //Se podria hacer PA de TipoMovimiento y hacer un getDescripcion() pero me da pereza :/
         String descripcion=" ";
         switch(tipoMov){
             case "001":
@@ -336,7 +465,7 @@ public class JifCuenta extends javax.swing.JInternalFrame {
             case "002":
                 descripcion= "Cancelar cuenta"; break;
             case "003":
-                descripcion= "Deposito"; break;
+                descripcion= "Depósito"; break;
             case "004":
                 descripcion= "Retiro"; break;
             case "005":
@@ -370,6 +499,11 @@ public class JifCuenta extends javax.swing.JInternalFrame {
         
     }
     
+    private String retornarEmpleado(String codEmpl) throws SQLException{
+        Empleado e = DBEmpleado.obtener(codEmpl);
+        return e.getApellidoPaterno() + " " + e.getNombre();
+    }
+    
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -380,18 +514,23 @@ public class JifCuenta extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblDatos;
+    private javax.swing.JSeparator separator;
     private javax.swing.JTable tblDatos;
     private javax.swing.JTree treeFiltrar;
     // End of variables declaration//GEN-END:variables
     private DefaultTableModel modelo;
+    private DefaultTableModel modelo2;
     DefaultComboBoxModel<String> modeloC;
     private static ArrayList<Movimiento> listaMov;
     private Movimiento movimiento;
     private ArrayList<Cuenta> listaC;
     private Iterator<Cuenta> iteradorC;
     private Cuenta c;
-    private String columnas[] = {"N° OP", "Fecha","Encargado","Importe","Destinatario"};
-    private Object fila[] = new Object[columnas.length];
+    private final String columnas[] = {"N° OP", "Fecha","Encargado","Importe","Destinatario"};
+    private final Object fila[] = new Object[columnas.length];
+    String columnas1[] = {"N° OP", "Fecha","Encargado","Operacion","Importe","Destinatario"};
+    Object fila1[] = new Object[columnas1.length];
     private Iterator<Movimiento> iterador;
+    private Iterator<Movimiento> iterador2;
     private int confirmador = 0;
 }
