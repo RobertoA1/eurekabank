@@ -76,10 +76,9 @@ public class DBCliente{
         return null;
     }
     
-    public static Cliente obtenerClientePorNombreUsuario(String usuario) throws SQLException{
-        CallableStatement cs = db.prepareCall("CALL sp_BuscarCodigoPorUsuario(?)");
+    public static Cliente obtenerPorIdUsuario(String usuario) throws SQLException{
+        CallableStatement cs = db.prepareCall("CALL sp_obtener_clientePorIdUsuario(?)");
         cs.setString(1, usuario);
-
         ResultSet rs = cs.executeQuery();
         if (rs.next()){
             Cliente c = new Cliente();

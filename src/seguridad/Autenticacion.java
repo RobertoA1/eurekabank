@@ -38,7 +38,7 @@ public class Autenticacion {
         return Usuarios.obtenerUsuario(s.getUserCodigo());
     }
 
-    public static boolean esContrasenaValida(String user, String pass) throws InvalidKeySpecException, NoSuchAlgorithmException, NullPointerException, IllegalArgumentException, SQLException{
+    private static boolean esContrasenaValida(String user, String pass) throws InvalidKeySpecException, NoSuchAlgorithmException, NullPointerException, IllegalArgumentException, SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_usuario_obtenerKey(?)");
         cs.setString(1, user);
         ResultSet rs = cs.executeQuery();
