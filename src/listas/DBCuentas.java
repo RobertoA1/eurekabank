@@ -62,4 +62,19 @@ public class DBCuentas {
 
         cs.executeUpdate();
     }
+    
+    public static boolean validarClaveActual(String codigoCuenta, String claveActual) throws SQLException{
+    CallableStatement cs = db.prepareCall("CALL sp_validarClaveActual(?, ?)");
+    cs.setString(1, codigoCuenta);
+    cs.setString(2, claveActual);
+
+    ResultSet rs = cs.executeQuery();
+
+    if (rs.next()){
+        int valida = rs.getInt("valida");
+        return valida == 1;
+    }
+
+    return false;
+}
 }

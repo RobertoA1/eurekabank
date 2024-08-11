@@ -86,7 +86,10 @@ public class Cuentas {
     
     public static void modificar_claveActual(String codigoCuenta, String claveActual, String claveNueva)throws IllegalArgumentException, SQLException{
         if(!existe(codigoCuenta))throw new IllegalArgumentException(errMsg + "La cuenta no existe, verifique por favor.");
-        //validar la clve actual, si corresponde a la cuenta, utilizo clave actual y codigo de cuenta    
+        //validar la clve actual, si corresponde a la cuenta, utilizo clave actual y codigo de cuenta   
+        if(!DBCuentas.validarClaveActual(codigoCuenta, claveActual)) {
+            throw new IllegalArgumentException("La clave actual no es correcta.");
+        }
         DBCuentas.modificar_clave(codigoCuenta, claveNueva);
     }
     
