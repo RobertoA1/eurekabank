@@ -45,6 +45,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnuiListadoEmplMov = new javax.swing.JMenuItem();
         mnuiSucursales = new javax.swing.JMenuItem();
         mnuiListaCuentas = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("..:: EUREKABANK ::..");
@@ -160,6 +161,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(mnuiListaCuentas);
+
+        jMenuItem1.setText("Operaciones");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
 
         jMenuBar1.add(jMenu2);
 
@@ -308,6 +317,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private static javax.swing.JDesktopPane dspFondo;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu mnuMantenedor;
     private javax.swing.JMenuItem mnuiAdministrarCuentas;
