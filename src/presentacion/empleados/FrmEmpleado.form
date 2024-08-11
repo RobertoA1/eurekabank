@@ -58,7 +58,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mi_registrarMovimiento">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Registrar un nuevo movimiento"/>
+                <Property name="text" type="java.lang.String" value="Registrar un nuevo movimiento (deshabilitado)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mi_registrarMovimientoActionPerformed"/>
@@ -81,7 +81,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mi_modificarMovimiento">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Modificar los datos de un movimiento"/>
+                <Property name="text" type="java.lang.String" value="Modificar los datos de un movimiento (deshabilitado)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mi_modificarMovimientoActionPerformed"/>
@@ -91,7 +91,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Mantenedores"/>
+            <Property name="text" type="java.lang.String" value="Mantenedores (ser&#xe1; removido)"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
@@ -114,7 +114,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Sucursales"/>
+                <Property name="text" type="java.lang.String" value="Sucursales (ser&#xe1; removido)"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem4ActionPerformed"/>
@@ -129,7 +129,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Listados"/>
+            <Property name="text" type="java.lang.String" value="Listados (ser&#xe1; removido)"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">

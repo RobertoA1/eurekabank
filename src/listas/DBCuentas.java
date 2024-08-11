@@ -13,6 +13,23 @@ import java.util.ArrayList;
 public class DBCuentas {
     private static Connection db = ConexionDB.obtenerDB();
 
+    public static String generarCodigo() throws SQLException{
+        int siguienteId = 0;
+        CallableStatement cs = db.prepareCall("CALL sp_cantidad_cuentas()");
+        ResultSet rs = cs.executeQuery();
+        if (rs.next()) siguienteId = rs.getInt(1) + 1;
+        
+        StringBuilder codigoBuilder = new StringBuilder();
+        String tempCodigo = String.valueOf(siguienteId);
+        for (int i = tempCodigo.length(); i < 8; i++){
+            codigoBuilder.append("0");
+        }
+        
+        codigoBuilder.append(tempCodigo);
+        return codigoBuilder.toString();
+    }
+    
+ 
     public static boolean existe(String codigoCuenta) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_cuenta_existe(?)");
         cs.setString(1, codigoCuenta);

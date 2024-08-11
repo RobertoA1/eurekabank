@@ -54,7 +54,7 @@ public class DBCliente{
     }
 
     public static Cliente obtener(String codigo) throws SQLException{
-        CallableStatement cs = db.prepareCall("CALL sp_BuscarCliente(?)");
+        CallableStatement cs = db.prepareCall("CALL sp_cliente_buscar(?)");
         cs.setString(1, codigo);
 
         ResultSet rs = cs.executeQuery();

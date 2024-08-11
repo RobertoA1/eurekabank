@@ -4,11 +4,16 @@
  */
 package presentacion.empleados;
 
+import presentacion.empleados.opciones.consultas.IFrmConsultarDatosCuenta;
+import presentacion.empleados.opciones.consultas.IFrmConsultarDatosCliente;
 import javax.swing.JInternalFrame;
 import presentacion.FrmPrincipal;
 import presentacion.empleados.opciones.IFrmSucursales;
 import presentacion.clientes.registro.Registro;
 import presentacion.empleados.opciones.*;
+import presentacion.empleados.opciones.consultas.IFrmConsultarDatosMovimiento;
+import presentacion.empleados.opciones.ediciones.IFrmModificarCliente;
+import presentacion.empleados.opciones.registros.IFrmRegistrarCuenta;
 
 /**
  *
@@ -115,7 +120,7 @@ public class FrmEmpleado extends javax.swing.JFrame {
         });
         menuRegistrar.add(mi_registrarCuenta);
 
-        mi_registrarMovimiento.setText("Registrar un nuevo movimiento");
+        mi_registrarMovimiento.setText("Registrar un nuevo movimiento (deshabilitado)");
         mi_registrarMovimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mi_registrarMovimientoActionPerformed(evt);
@@ -135,7 +140,7 @@ public class FrmEmpleado extends javax.swing.JFrame {
         });
         menuModificar.add(mi_modificarCliente);
 
-        mi_modificarMovimiento.setText("Modificar los datos de un movimiento");
+        mi_modificarMovimiento.setText("Modificar los datos de un movimiento (deshabilitado)");
         mi_modificarMovimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mi_modificarMovimientoActionPerformed(evt);
@@ -145,7 +150,7 @@ public class FrmEmpleado extends javax.swing.JFrame {
 
         jMenuBar1.add(menuModificar);
 
-        jMenu1.setText("Mantenedores");
+        jMenu1.setText("Mantenedores (será removido)");
 
         jMenuItem1.setText("Empleado");
         jMenu1.add(jMenuItem1);
@@ -161,7 +166,7 @@ public class FrmEmpleado extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
-        jMenuItem4.setText("Sucursales");
+        jMenuItem4.setText("Sucursales (será removido)");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -174,7 +179,7 @@ public class FrmEmpleado extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Listados");
+        jMenu2.setText("Listados (será removido)");
 
         jMenuItem6.setText("Historial de Actividades");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
@@ -236,7 +241,8 @@ public class FrmEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_mi_verDatosClienteActionPerformed
 
     private void mi_modificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_modificarClienteActionPerformed
-        // TODO add your handling code here:
+        IFrmModificarCliente form = new IFrmModificarCliente();
+        centrarInternalFrame(form);
     }//GEN-LAST:event_mi_modificarClienteActionPerformed
 
     private void mi_verDatosCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_verDatosCuentaActionPerformed
@@ -255,15 +261,16 @@ public class FrmEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void mi_registrarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_registrarCuentaActionPerformed
-        // TODO add your handling code here:
+        IFrmRegistrarCuenta form = IFrmRegistrarCuenta.getInstance();
+        centrarInternalFrame(form);
     }//GEN-LAST:event_mi_registrarCuentaActionPerformed
 
     private void mi_registrarMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_registrarMovimientoActionPerformed
-        // TODO add your handling code here:
+        /* Esperando clase Transacciones */
     }//GEN-LAST:event_mi_registrarMovimientoActionPerformed
 
     private void mi_modificarMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_modificarMovimientoActionPerformed
-        // TODO add your handling code here:
+        /* Esperando clase Transacciones */
     }//GEN-LAST:event_mi_modificarMovimientoActionPerformed
 
     public static FrmEmpleado getInstance(){

@@ -11,6 +11,9 @@ import listas.DBCuentas;
 public class Cuentas {
     private static String errMsg = "Error en Cuentas: ";
 
+    public static String generarCodigo() throws SQLException{
+        return DBCuentas.generarCodigo();
+    }
     private static boolean esCodigoValido(String codigoCuenta) throws SQLException{
         if (codigoCuenta == null) return false;
         if (codigoCuenta.isBlank()) return false;

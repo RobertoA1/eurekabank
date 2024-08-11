@@ -4,9 +4,9 @@ public class TipoMovimiento {
     private String codigo = null;
     private String descripcion = null;
     private String accion = null; 
-    private String estado = null; 
+    private int estado = 1;
 
-    public TipoMovimiento(String codigo, String descripcion, String accion, String estado) {
+    public TipoMovimiento(String codigo, String descripcion, String accion, int estado) {
         this.codigo = codigo;
         this.descripcion = descripcion;
         this.accion = accion;
@@ -16,7 +16,7 @@ public class TipoMovimiento {
     public TipoMovimiento() {
     }
 
-    public TipoMovimiento(String descripcion, String accion, String estado) {
+    public TipoMovimiento(String descripcion, String accion, int estado) {
         this.descripcion = descripcion;
         this.accion = accion;
         this.estado = estado;
@@ -46,11 +46,11 @@ public class TipoMovimiento {
         this.accion = accion;
     }
 
-    public String getEstado() {
+    public int getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(int estado) {
         this.estado = estado;
     }
 }

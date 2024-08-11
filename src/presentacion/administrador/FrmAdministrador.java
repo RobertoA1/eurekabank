@@ -1,5 +1,6 @@
 package presentacion.administrador;
 
+import presentacion.empleados.opciones.consultas.IFrmConsultarDatosCuenta;
 import javax.swing.JInternalFrame;
 import presentacion.administrador.opciones.IFrmEliminarEmpleado;
 import presentacion.administrador.opciones.IFrmModificarEmpleados;
@@ -7,6 +8,8 @@ import presentacion.administrador.opciones.IFrmRegistrarEmpleados;
 import presentacion.clientes.registro.Registro;
 import static presentacion.empleados.FrmEmpleado.centrarInternalFrame;
 import presentacion.empleados.opciones.*;
+import presentacion.empleados.opciones.consultas.IFrmConsultarDatosCliente;
+import presentacion.empleados.opciones.consultas.IFrmConsultarDatosMovimiento;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

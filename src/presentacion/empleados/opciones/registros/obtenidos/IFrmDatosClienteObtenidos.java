@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package presentacion.empleados.opciones;
+package presentacion.empleados.opciones.registros.obtenidos;
 
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -17,12 +17,12 @@ import seguridad.Autenticacion;
  *
  * @author Roberto
  */
-public class IFrmDatosCuentaObtenidos extends javax.swing.JInternalFrame {
-    public static IFrmDatosCuentaObtenidos form = null;
+public class IFrmDatosClienteObtenidos extends javax.swing.JInternalFrame {
+    public static IFrmDatosClienteObtenidos form = null;
     /**
      * Creates new form FrmDatosCuentaObtenidos
      */
-    private IFrmDatosCuentaObtenidos() {
+    private IFrmDatosClienteObtenidos() {
         initComponents();
         try {
             tipEmpleado.setText(Autenticacion.obtenerUsuario().getCodigo());
@@ -49,20 +49,7 @@ public class IFrmDatosCuentaObtenidos extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         tipAccion = new javax.swing.JLabel();
         tipEmpleado = new javax.swing.JLabel();
-        labelCodigo = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
-        labelMoneda = new javax.swing.JLabel();
-        txtMoneda = new javax.swing.JTextField();
-        labelSucursal = new javax.swing.JLabel();
-        txtSucursal = new javax.swing.JTextField();
         labelDNI = new javax.swing.JLabel();
-        labelTituloCliente = new javax.swing.JLabel();
-        labelSaldo = new javax.swing.JLabel();
-        txtSaldo = new javax.swing.JTextField();
-        labelFechaCreacion = new javax.swing.JLabel();
-        txtFechaCreacion = new javax.swing.JTextField();
-        labelCantidadMovimientos = new javax.swing.JLabel();
-        txtCantidadMovimientos = new javax.swing.JTextField();
         labelCodigoCliente = new javax.swing.JLabel();
         labelNombres = new javax.swing.JLabel();
         labelApellidoPaterno = new javax.swing.JLabel();
@@ -83,6 +70,8 @@ public class IFrmDatosCuentaObtenidos extends javax.swing.JInternalFrame {
         txtEmail = new javax.swing.JTextField();
         txtNombreUsuario = new javax.swing.JTextField();
 
+        setClosable(true);
+        setPreferredSize(new java.awt.Dimension(914, 420));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(20, 45, 68));
@@ -90,7 +79,7 @@ public class IFrmDatosCuentaObtenidos extends javax.swing.JInternalFrame {
         tituloPanel.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         tituloPanel.setForeground(new java.awt.Color(229, 229, 229));
         tituloPanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        tituloPanel.setText("Estás observando los datos de una cuenta");
+        tituloPanel.setText("Estás observando los datos de un cliente");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -115,167 +104,104 @@ public class IFrmDatosCuentaObtenidos extends javax.swing.JInternalFrame {
         jPanel2.add(tipAccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         tipEmpleado.setForeground(new java.awt.Color(0, 0, 0));
+        tipEmpleado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tipEmpleado.setText("usuarioPlaceholder");
-        jPanel2.add(tipEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, 164, -1));
-
-        labelCodigo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        labelCodigo.setForeground(new java.awt.Color(0, 0, 0));
-        labelCodigo.setText("Código:");
-        jPanel2.add(labelCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, -1));
-
-        txtCodigo.setEnabled(false);
-        jPanel2.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 172, -1));
-
-        labelMoneda.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        labelMoneda.setForeground(new java.awt.Color(0, 0, 0));
-        labelMoneda.setText("Moneda:");
-        jPanel2.add(labelMoneda, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, -1, -1));
-
-        txtMoneda.setEnabled(false);
-        jPanel2.add(txtMoneda, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, 172, -1));
-
-        labelSucursal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        labelSucursal.setForeground(new java.awt.Color(0, 0, 0));
-        labelSucursal.setText("Sucursal:");
-        jPanel2.add(labelSucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, -1, -1));
-
-        txtSucursal.setEnabled(false);
-        jPanel2.add(txtSucursal, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, 172, -1));
+        jPanel2.add(tipEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 164, -1));
 
         labelDNI.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelDNI.setForeground(new java.awt.Color(0, 0, 0));
         labelDNI.setText("DNI:");
-        jPanel2.add(labelDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, -1, -1));
-
-        labelTituloCliente.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        labelTituloCliente.setForeground(new java.awt.Color(0, 0, 0));
-        labelTituloCliente.setText("Datos del Cliente");
-        jPanel2.add(labelTituloCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 220, -1, -1));
-
-        labelSaldo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        labelSaldo.setForeground(new java.awt.Color(0, 0, 0));
-        labelSaldo.setText("Saldo:");
-        jPanel2.add(labelSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, -1, -1));
-
-        txtSaldo.setEnabled(false);
-        jPanel2.add(txtSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, 172, -1));
-
-        labelFechaCreacion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        labelFechaCreacion.setForeground(new java.awt.Color(0, 0, 0));
-        labelFechaCreacion.setText("Fecha de Creación:");
-        jPanel2.add(labelFechaCreacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 60, -1, -1));
-
-        txtFechaCreacion.setEnabled(false);
-        jPanel2.add(txtFechaCreacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 90, 172, -1));
-
-        labelCantidadMovimientos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        labelCantidadMovimientos.setForeground(new java.awt.Color(0, 0, 0));
-        labelCantidadMovimientos.setText("Cantidad de Movimientos:");
-        jPanel2.add(labelCantidadMovimientos, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 130, -1, -1));
-
-        txtCantidadMovimientos.setEnabled(false);
-        jPanel2.add(txtCantidadMovimientos, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 160, 172, -1));
+        jPanel2.add(labelDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, -1));
 
         labelCodigoCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelCodigoCliente.setForeground(new java.awt.Color(0, 0, 0));
         labelCodigoCliente.setText("Código de Cliente:");
-        jPanel2.add(labelCodigoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, -1, -1));
+        jPanel2.add(labelCodigoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, -1, -1));
 
         labelNombres.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelNombres.setForeground(new java.awt.Color(0, 0, 0));
         labelNombres.setText("Nombres:");
-        jPanel2.add(labelNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, -1, -1));
+        jPanel2.add(labelNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, -1, -1));
 
         labelApellidoPaterno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelApellidoPaterno.setForeground(new java.awt.Color(0, 0, 0));
         labelApellidoPaterno.setText("Apellido paterno:");
-        jPanel2.add(labelApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, -1, -1));
+        jPanel2.add(labelApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, -1, -1));
 
         labelApellidoMaterno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelApellidoMaterno.setForeground(new java.awt.Color(0, 0, 0));
         labelApellidoMaterno.setText("Apellido materno:");
-        jPanel2.add(labelApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 430, -1, -1));
+        jPanel2.add(labelApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, -1, -1));
 
         labelCiudad.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelCiudad.setForeground(new java.awt.Color(0, 0, 0));
         labelCiudad.setText("Ciudad:");
-        jPanel2.add(labelCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 270, -1, -1));
+        jPanel2.add(labelCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 80, -1, -1));
 
         labelDireccion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelDireccion.setForeground(new java.awt.Color(0, 0, 0));
         labelDireccion.setText("Dirección:");
-        jPanel2.add(labelDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 310, -1, -1));
+        jPanel2.add(labelDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 120, -1, -1));
 
         labelTelefono.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelTelefono.setForeground(new java.awt.Color(0, 0, 0));
         labelTelefono.setText("Teléfono:");
-        jPanel2.add(labelTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 350, -1, -1));
+        jPanel2.add(labelTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, -1, -1));
 
         labelEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelEmail.setForeground(new java.awt.Color(0, 0, 0));
         labelEmail.setText("Email:");
-        jPanel2.add(labelEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 390, -1, -1));
+        jPanel2.add(labelEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, -1, -1));
 
         labelNombreUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelNombreUsuario.setForeground(new java.awt.Color(0, 0, 0));
         labelNombreUsuario.setText("Nombre de Usuario:");
-        jPanel2.add(labelNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 430, -1, -1));
+        jPanel2.add(labelNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 240, -1, -1));
 
         txtApellidoMaterno.setEnabled(false);
-        jPanel2.add(txtApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 430, 210, -1));
+        jPanel2.add(txtApellidoMaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 240, 210, -1));
 
         txtCodigoCliente.setEnabled(false);
-        jPanel2.add(txtCodigoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 270, 210, -1));
+        jPanel2.add(txtCodigoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 210, -1));
 
         txtDNI.setEnabled(false);
-        jPanel2.add(txtDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, 210, -1));
+        jPanel2.add(txtDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 210, -1));
 
         txtNombres.setEnabled(false);
-        jPanel2.add(txtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 350, 210, -1));
+        jPanel2.add(txtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 210, -1));
 
         txtApellidoPaterno.setEnabled(false);
-        jPanel2.add(txtApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, 210, -1));
+        jPanel2.add(txtApellidoPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 210, -1));
 
         txtCiudad.setEnabled(false);
-        jPanel2.add(txtCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 270, 210, -1));
+        jPanel2.add(txtCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 80, 210, -1));
 
         txtDireccion.setEnabled(false);
-        jPanel2.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 310, 210, -1));
+        jPanel2.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 120, 210, -1));
 
         txtTelefono.setEnabled(false);
-        jPanel2.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 350, 210, -1));
+        jPanel2.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, 210, -1));
 
         txtEmail.setEnabled(false);
-        jPanel2.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 390, 210, -1));
+        jPanel2.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 200, 210, -1));
 
         txtNombreUsuario.setEnabled(false);
-        jPanel2.add(txtNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 430, 210, -1));
+        jPanel2.add(txtNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 240, 210, -1));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 900, 500));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 900, 320));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    public static IFrmDatosCuentaObtenidos getInstance(Cuenta cuenta){
-        form = new IFrmDatosCuentaObtenidos();
-        form.rellenarInformacion(cuenta);
+    public static IFrmDatosClienteObtenidos getInstance(Cliente cliente){
+        form = new IFrmDatosClienteObtenidos();
+        form.rellenarInformacion(cliente);
         return form;
     }
     
-    private void rellenarInformacion(Cuenta cuenta){
-        try {
-            txtCodigo.setText(cuenta.getCodigo());
-            Sucursal sucursal = Sucursales.obtener(cuenta.getCodigoSucursal());
-            txtSucursal.setText(sucursal.getNombre());
-            
-            Moneda moneda = Monedas.obtener(cuenta.getCodigoMoneda());
-            txtMoneda.setText(moneda.getDescripcion());
-            
-            txtSaldo.setText(String.valueOf(cuenta.getSaldo()));
-            txtCantidadMovimientos.setText(String.valueOf(cuenta.getCantidadMovimientos()));
-            
+    private void rellenarInformacion(Cliente cliente){
+        try {  
             /* Empiezan los datos del Cliente */
-            Cliente cliente = Clientes.obtener(cuenta.getCodigoCliente());
             txtCodigoCliente.setText(cliente.getCodigo());
             txtDNI.setText(cliente.getDni());
             txtNombres.setText(cliente.getNombre());
@@ -285,26 +211,14 @@ public class IFrmDatosCuentaObtenidos extends javax.swing.JInternalFrame {
             txtDireccion.setText(cliente.getDireccion());
             txtTelefono.setText(cliente.getTelefono());
             txtEmail.setText(cliente.getEmail());
-            txtNombreUsuario.setText(cliente.getNombre());
-            
-            /* Convierte la fecha java.sql.Date a String */
-            java.util.Date fecha = new java.util.Date(cuenta.getFechaCreacion().getTime());
-            SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
-            java.util.Date fechaFormateada = formateador.parse(fecha.toString());
-            txtFechaCreacion.setText(DateFormat.getDateInstance().format(fechaFormateada));
-        } catch (ParseException e){
-            // Detecta si el parser falló para la fecha
-            JOptionPane.showMessageDialog(this, "Datos de una Cuenta | No se pudo obtener la fecha correctamente.", "Ocurrió un problema...", JOptionPane.ERROR_MESSAGE);
-            System.out.println(e.getMessage());
+            txtNombreUsuario.setText(Usuarios.obtenerUsuario(cliente.getIdUsuario()).getCodigo());
         } catch (IllegalArgumentException e){
             JOptionPane.showMessageDialog(this, e.getMessage(), "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
             System.out.println(e.getMessage());
         } catch (SQLException e){
-            JOptionPane.showMessageDialog(this, "Datos de una Cuenta | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Datos de un Cliente | Tuvimos un problema conectándonos a la base de datos. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
             System.out.println(e.getMessage());
         }
-
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -312,39 +226,26 @@ public class IFrmDatosCuentaObtenidos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel labelApellidoMaterno;
     private javax.swing.JLabel labelApellidoPaterno;
-    private javax.swing.JLabel labelCantidadMovimientos;
     private javax.swing.JLabel labelCiudad;
-    private javax.swing.JLabel labelCodigo;
     private javax.swing.JLabel labelCodigoCliente;
     private javax.swing.JLabel labelDNI;
     private javax.swing.JLabel labelDireccion;
     private javax.swing.JLabel labelEmail;
-    private javax.swing.JLabel labelFechaCreacion;
-    private javax.swing.JLabel labelMoneda;
     private javax.swing.JLabel labelNombreUsuario;
     private javax.swing.JLabel labelNombres;
-    private javax.swing.JLabel labelSaldo;
-    private javax.swing.JLabel labelSucursal;
     private javax.swing.JLabel labelTelefono;
-    private javax.swing.JLabel labelTituloCliente;
     private javax.swing.JLabel tipAccion;
     private javax.swing.JLabel tipEmpleado;
     private javax.swing.JLabel tituloPanel;
     private javax.swing.JTextField txtApellidoMaterno;
     private javax.swing.JTextField txtApellidoPaterno;
-    private javax.swing.JTextField txtCantidadMovimientos;
     private javax.swing.JTextField txtCiudad;
-    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtCodigoCliente;
     private javax.swing.JTextField txtDNI;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtFechaCreacion;
-    private javax.swing.JTextField txtMoneda;
     private javax.swing.JTextField txtNombreUsuario;
     private javax.swing.JTextField txtNombres;
-    private javax.swing.JTextField txtSaldo;
-    private javax.swing.JTextField txtSucursal;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }

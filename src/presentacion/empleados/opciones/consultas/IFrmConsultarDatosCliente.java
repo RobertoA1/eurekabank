@@ -2,24 +2,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package presentacion.empleados.opciones;
+package presentacion.empleados.opciones.consultas;
 
+import presentacion.empleados.opciones.registros.obtenidos.IFrmDatosClienteObtenidos;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import presentacion.empleados.FrmEmpleado;
-import validaciones.Cuentas;
 import seguridad.Autenticacion;
+import validaciones.Clientes;
 
 /**
  *
  * @author Roberto
  */
-public class IFrmConsultarDatosCuenta extends javax.swing.JInternalFrame {
+public class IFrmConsultarDatosCliente extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form IFrmConsultarDatosCuenta
      */
-    public IFrmConsultarDatosCuenta() {
+    public IFrmConsultarDatosCliente() {
         initComponents();
         try {
             tipEmpleado.setText(Autenticacion.obtenerUsuario().getCodigo());
@@ -27,7 +28,7 @@ public class IFrmConsultarDatosCuenta extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Autenticación | No se puede continuar: No existe una sesión iniciada.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
             this.dispose();
         } catch (SQLException e){
-            JOptionPane.showMessageDialog(this, "Datos de una Cuenta | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Datos de un Cliente | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
             System.out.println(e.getMessage());
         }
     }
@@ -46,9 +47,9 @@ public class IFrmConsultarDatosCuenta extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         tipAccion = new javax.swing.JLabel();
         tipEmpleado = new javax.swing.JLabel();
-        labelNumeroCuenta = new javax.swing.JLabel();
-        txtNumeroCuenta = new javax.swing.JTextField();
-        btnBuscarCuenta = new javax.swing.JButton();
+        labelNumeroCliente = new javax.swing.JLabel();
+        txtNumeroCliente = new javax.swing.JTextField();
+        btnBuscarCliente = new javax.swing.JButton();
 
         setClosable(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -58,7 +59,7 @@ public class IFrmConsultarDatosCuenta extends javax.swing.JInternalFrame {
         tituloPanel.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         tituloPanel.setForeground(new java.awt.Color(229, 229, 229));
         tituloPanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        tituloPanel.setText("Ver los datos de una cuenta");
+        tituloPanel.setText("Ver los datos de un cliente");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -83,14 +84,14 @@ public class IFrmConsultarDatosCuenta extends javax.swing.JInternalFrame {
         tipEmpleado.setForeground(new java.awt.Color(0, 0, 0));
         tipEmpleado.setText("usuarioPlaceholder");
 
-        labelNumeroCuenta.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        labelNumeroCuenta.setForeground(new java.awt.Color(0, 0, 0));
-        labelNumeroCuenta.setText("Por favor, introduce el número de cuenta:");
+        labelNumeroCliente.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        labelNumeroCliente.setForeground(new java.awt.Color(0, 0, 0));
+        labelNumeroCliente.setText("Por favor, introduce el número de cliente:");
 
-        btnBuscarCuenta.setText("Buscar");
-        btnBuscarCuenta.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarCliente.setText("Buscar");
+        btnBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarCuentaActionPerformed(evt);
+                btnBuscarClienteActionPerformed(evt);
             }
         });
 
@@ -107,12 +108,12 @@ public class IFrmConsultarDatosCuenta extends javax.swing.JInternalFrame {
                         .addComponent(tipEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(51, 51, 51)
-                        .addComponent(labelNumeroCuenta)
+                        .addComponent(labelNumeroCliente)
                         .addGap(18, 18, 18)
-                        .addComponent(txtNumeroCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNumeroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnBuscarCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(65, Short.MAX_VALUE))
+                        .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,9 +124,9 @@ public class IFrmConsultarDatosCuenta extends javax.swing.JInternalFrame {
                     .addComponent(tipEmpleado))
                 .addGap(31, 31, 31)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelNumeroCuenta)
-                    .addComponent(txtNumeroCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelNumeroCliente)
+                    .addComponent(txtNumeroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
@@ -134,30 +135,30 @@ public class IFrmConsultarDatosCuenta extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBuscarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCuentaActionPerformed
-        String codigo = txtNumeroCuenta.getText();
+    private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
+        String codigo = txtNumeroCliente.getText();
         
         try{
-            IFrmDatosCuentaObtenidos form = IFrmDatosCuentaObtenidos.getInstance(Cuentas.obtener(codigo));
+            IFrmDatosClienteObtenidos form = IFrmDatosClienteObtenidos.getInstance(Clientes.obtener(codigo));
             FrmEmpleado.centrarInternalFrame(form);
         } catch (IllegalArgumentException e){
             JOptionPane.showMessageDialog(this, e.getMessage(), "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
             System.out.println(e.getMessage());
         } catch (SQLException e){
-            JOptionPane.showMessageDialog(this, "Datos de una Cuenta | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Datos de un Cliente | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_btnBuscarCuentaActionPerformed
+    }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscarCuenta;
+    private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel labelNumeroCuenta;
+    private javax.swing.JLabel labelNumeroCliente;
     private javax.swing.JLabel tipAccion;
     private javax.swing.JLabel tipEmpleado;
     private javax.swing.JLabel tituloPanel;
-    private javax.swing.JTextField txtNumeroCuenta;
+    private javax.swing.JTextField txtNumeroCliente;
     // End of variables declaration//GEN-END:variables
 }
