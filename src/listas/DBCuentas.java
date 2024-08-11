@@ -8,6 +8,7 @@ import java.sql.Date;
 
 import conexion.ConexionDB;
 import entidades.Cuenta;
+import java.util.ArrayList;
 
 public class DBCuentas {
     private static Connection db = ConexionDB.obtenerDB();
@@ -78,13 +79,8 @@ public class DBCuentas {
     }
 
     public static float obtenerSaldo(String codigo) throws SQLException {
-        float saldo = 0;
-        CallableStatement cs = db.prepareCall("CALL sp_obtener_saldo_cuenta(?, ?)");
-        cs.setString(1, codigo);
-        cs.registerOutParameter(2, java.sql.Types.DECIMAL);
-        cs.execute();
-        saldo = cs.getFloat(2);
-        return saldo;
+        Cuenta c = obtener(codigo);
+        return c.getSaldo();
     }
     
 

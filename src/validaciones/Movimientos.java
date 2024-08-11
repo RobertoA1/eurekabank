@@ -4,6 +4,7 @@ import java.sql.*;
 
 import listas.*;
 import entidades.*;
+import java.util.ArrayList;
 
 public class Movimientos {
     private static String errMsg = "Error en movimiento: ";
@@ -46,6 +47,10 @@ public class Movimientos {
     public static Movimiento obtener(int numero) throws IllegalArgumentException, SQLException{
         validarMovNumero(numero);
         return DBMovimiento.obtener(numero);
+    }
+    
+    public static ArrayList<Movimiento> obtenerMovPorNumCuenta(String cuencodigo) throws IllegalArgumentException, SQLException{
+        return DBMovimiento.obtenerMovPorNumCuenta(cuencodigo);
     }
 
     public static void modificarImporte(int moviNumero, float nuevoImporte) throws IllegalArgumentException, SQLException{
