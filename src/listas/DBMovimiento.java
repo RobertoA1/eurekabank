@@ -4,7 +4,6 @@ import java.sql.*;
 import entidades.Movimiento;
 import conexion.ConexionDB;
 import java.util.ArrayList;
-import java.util.ArrayList;
 
 public class DBMovimiento {
 

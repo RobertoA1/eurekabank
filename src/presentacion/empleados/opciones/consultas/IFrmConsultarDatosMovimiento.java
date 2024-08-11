@@ -4,12 +4,12 @@
  */
 package presentacion.empleados.opciones.consultas;
 
-import presentacion.empleados.opciones.registros.obtenidos.IFrmDatosClienteObtenidos;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import presentacion.empleados.FrmEmpleado;
+import presentacion.empleados.opciones.registros.obtenidos.IFrmDatosMovimientoObtenidos;
 import seguridad.Autenticacion;
-import validaciones.Clientes;
+import validaciones.Movimientos;
 
 /**
  *
@@ -136,10 +136,10 @@ public class IFrmConsultarDatosMovimiento extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarMovimientoActionPerformed
-        String codigo = txtNumeroMovimiento.getText();
+        int numero = Integer.parseInt(txtNumeroMovimiento.getText());
         
         try{
-            IFrmDatosClienteObtenidos form = IFrmDatosClienteObtenidos.getInstance(Clientes.obtener(codigo));
+            IFrmDatosMovimientoObtenidos form = IFrmDatosMovimientoObtenidos.getInstance(Movimientos.obtener(numero));
             FrmEmpleado.centrarInternalFrame(form);
         } catch (IllegalArgumentException e){
             JOptionPane.showMessageDialog(this, e.getMessage(), "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);

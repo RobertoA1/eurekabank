@@ -290,11 +290,12 @@ public class IFrmDatosCuentaObtenidos extends javax.swing.JInternalFrame {
             txtNombreUsuario.setText(cliente.getNombre());
             
             /* Convierte la fecha java.sql.Date a String */
-            java.util.Date fecha = new java.util.Date(cuenta.getFechaCreacion().getTime());
+            java.sql.Date fechaSql = cuenta.getFechaCreacion();
             SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
-            java.util.Date fechaFormateada = formateador.parse(fecha.toString());
-            txtFechaCreacion.setText(DateFormat.getDateInstance().format(fechaFormateada));
-        } catch (NullPointerException | ParseException e){
+            java.util.Date fechaUtil = new java.util.Date(fechaSql.getTime());
+            String fechaFormateada = formateador.format(fechaUtil);
+            txtFechaCreacion.setText(fechaFormateada);
+        } catch (NullPointerException e){
             // Detecta si el parser falló para la fecha
             JOptionPane.showMessageDialog(this, "Datos de una Cuenta | No se pudo obtener la fecha correctamente.", "Ocurrió un problema...", JOptionPane.ERROR_MESSAGE);
             System.out.println(e.getMessage());
