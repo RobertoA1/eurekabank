@@ -213,17 +213,29 @@ public class CrearCuenta extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnValidarActionPerformed
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+        
         String codigoCuenta = txtCodigoCuenta.getText();
-        String codigoMoneda = (String) boxTipoMoneda.getSelectedItem();
-        String codigoSucursal = (String) boxSucursal.getSelectedItem();
+        Integer codigoMoneda = boxTipoMoneda.getSelectedIndex();
+        String codigoMonedaDb = Integer.toString(codigoMoneda + 1);
+    
+        Integer codigoSucursal = boxSucursal.getSelectedIndex();
+        String codigoSucursalDb = Integer.toString(codigoSucursal + 1);
+        System.out.print("Esta es mi sucursal: " + codigoSucursalDb);
+    
         String clave = new String(pswClave.getPassword());
-
+        
+        float saldoDb=0;
+        String saldo=txtSaldo.getText();
+        saldoDb=Float.parseFloat(saldo);
+        
         try {
             Usuario usuarioActivo = Autenticacion.obtenerUsuario(); // Obtener el usuario activo
             String codigoCliente = usuarioActivo.getCodigo(); // Obtener el código del cliente (usuario activo)
-        
+            String codClienteDb="";
+            var c=Clientes.obtenerClientePorUsuario(codigoCliente);
+            codClienteDb=(String) c.getCodigo();
         // Crear la cuenta llamando al método agregar de la clase Cuentas
-            Cuentas.agregar(codigoCuenta, codigoMoneda, codigoSucursal, codigoCliente, usuarioActivo.getCodigo(), clave);
+            Cuentas.agregar(codigoCuenta, '0'+codigoMonedaDb, '0'+codigoSucursalDb, codClienteDb, usuarioActivo.getCodigo(),saldoDb, clave);
             javax.swing.JOptionPane.showMessageDialog(this, "Cuenta creada exitosamente.");
         
             limpiarFormulario();
@@ -240,7 +252,8 @@ public class CrearCuenta extends javax.swing.JInternalFrame {
             boxTipoMoneda.removeAllItems(); // Limpiar el JComboBox antes de agregar nuevos elementos
 
             for (Moneda moneda : monedas) {
-                boxTipoMoneda.addItem(moneda.getCodigo()); // Añadir cada moneda por su código
+                boxTipoMoneda.addItem(moneda.getDescripcion()); // Añadir cada moneda por su código
+                
             }
         } catch (SQLException e) {
             javax.swing.JOptionPane.showMessageDialog(this, "Error al cargar monedas: " + e.getMessage());
@@ -254,7 +267,7 @@ public class CrearCuenta extends javax.swing.JInternalFrame {
             boxSucursal.removeAllItems(); // Limpiar el JComboBox antes de agregar nuevos elementos
 
             for (Sucursal sucursal : sucursales) {
-                boxSucursal.addItem(sucursal.getCodigo()); // Añadir cada sucursal por su código
+                boxSucursal.addItem(sucursal.getNombre()); // Añadir cada sucursal por su código
             }
         } catch (SQLException e) {
             javax.swing.JOptionPane.showMessageDialog(this, "Error al cargar sucursales: " + e.getMessage());

@@ -38,6 +38,7 @@ public class ModificarCuenta extends javax.swing.JInternalFrame {
         btnCambiarClave = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         btnEliminarCuenta = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -92,6 +93,8 @@ public class ModificarCuenta extends javax.swing.JInternalFrame {
             }
         });
 
+        btnBuscar.setText("Buscar");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -111,7 +114,9 @@ public class ModificarCuenta extends javax.swing.JInternalFrame {
                             .addComponent(txtCodigo)
                             .addComponent(pswClaveNueva))
                         .addGap(18, 18, 18)
-                        .addComponent(btnCambiarClave))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCambiarClave)
+                            .addComponent(btnBuscar)))
                     .addComponent(btnEliminarCuenta))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -121,7 +126,8 @@ public class ModificarCuenta extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -135,7 +141,7 @@ public class ModificarCuenta extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(btnEliminarCuenta))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -171,6 +177,7 @@ public class ModificarCuenta extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCambiarClave;
     private javax.swing.JButton btnEliminarCuenta;
     private javax.swing.JLabel jLabel1;
