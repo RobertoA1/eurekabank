@@ -77,34 +77,40 @@ public class DBCuentas {
 
         cs.executeUpdate();
     }
+    
+    public static void modificar_clave(String codigoCuenta, String claveNueva) throws SQLException{
+        CallableStatement cs = db.prepareCall("CALL sp_modificarClave(?, ?)");
+        cs.setString(1, codigoCuenta);
+        cs.setString(2, claveNueva);
 
-    public static float obtenerSaldo(String codigo) throws SQLException {
-        Cuenta c = obtener(codigo);
-        return c.getSaldo();
+        cs.executeUpdate();
     }
     
-
-    public static ArrayList<Cuenta> listar(String codigoCliente) throws SQLException{
-        ArrayList<Cuenta> arr = new ArrayList<>();
-        CallableStatement cs = db.prepareCall("CALL sp_cuenta_listar(?)");
-        cs.setString(1, codigoCliente);
+    public static boolean validarClaveActual(String codigoCuenta, String claveActual) throws SQLException{
+        CallableStatement cs = db.prepareCall("CALL sp_validarClaveActual(?, ?)");
+        cs.setString(1, codigoCuenta);
+        cs.setString(2, claveActual);
 
         ResultSet rs = cs.executeQuery();
 
-        while (rs.next()){
-            Cuenta c = Cuenta.builder()
-                        .codigo(rs.getString(1))
-                        .codigoMoneda(rs.getString(2))
-                        .codigoSucursal(rs.getString(3))
-                        .codigoCliente(rs.getString(4))
-                        .saldo(rs.getFloat(5))
-                        .fechaCreacion(rs.getDate(6))
-                        .cantidadMovimientos(rs.getInt(7))
-                        .clave(rs.getString(8))
-                        .build();
-            arr.add(c);
+        if (rs.next()){
+            int valida = rs.getInt("valida");
+            return valida == 1;
         }
 
-        return arr;
+        return false;
+    }
+    
+    public static float obtenerSaldo(String codigoCuenta) throws SQLException {
+        CallableStatement cs = db.prepareCall("CALL sp_cuenta_obtenerSaldo(?)");
+        cs.setString(1, codigoCuenta);
+
+        ResultSet rs = cs.executeQuery();
+
+        if (rs.next()) {
+            return rs.getFloat("saldo");
+        }
+
+        throw new SQLException("No se pudo obtener el saldo de la cuenta.");
     }
 }
