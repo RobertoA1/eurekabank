@@ -4,9 +4,10 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.Date;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
+
 import entidades.Cuenta;
 import listas.DBCuentas;
+import seguridad.Contrasenas;
 
 public class Cuentas {
     private static String errMsg = "Error en Cuentas: ";
@@ -44,11 +45,9 @@ public class Cuentas {
         return true;
     }
 
-    public static void agregar(String codigo, String codigoMoneda, String codigoSucursal, String codigoCliente,
-            String codigoUsuario,float saldoDb, String clave) throws InvalidKeySpecException, NoSuchAlgorithmException, NullPointerException, SQLException{
+    public static void agregar(String codigo, String codigoMoneda, String codigoSucursal, String codigoCliente, String codigoUsuario, String clave) throws InvalidKeySpecException, NoSuchAlgorithmException, NullPointerException, SQLException{
         String errMsg = "Ocurrió un problema mientras creábamos la cuenta: ";
-        //validarCodigoExistente(codigo, "cuenta");
-        if (!esCodigoValido(codigo)) throw new IllegalArgumentException(errMsg + "El código de la cuenta es inválido.");
+        validarCodigoExistente(codigo, "cuenta");
         validarCodigoExistente(codigoMoneda, "moneda");
         validarCodigoExistente(codigoSucursal, "sucursal");
         validarCodigoExistente(codigoCliente, "cliente");
@@ -56,7 +55,7 @@ public class Cuentas {
 
         if (clave.length() != 6) throw new IllegalArgumentException(errMsg + "La clave tiene que ser de seis dígitos.");
 
-        //String key = Contrasenas.generarKey(clave);
+        String key = Contrasenas.generarKey(clave);
 
         Cuenta cuenta = Cuenta.builder()
                     .codigo(codigo)
@@ -64,10 +63,10 @@ public class Cuentas {
                     .codigoSucursal(codigoSucursal)
                     .codigoCliente(codigoCliente)
                     .codigoUsuario(codigoUsuario)
-                    .saldo(saldoDb)
+                    .saldo(0)
                     .fechaCreacion(new Date(System.currentTimeMillis()))
                     .cantidadMovimientos(0)
-                    .clave(clave)
+                    .clave(key)
                     .build();
 
         DBCuentas.agregar(cuenta);
@@ -82,23 +81,6 @@ public class Cuentas {
         validarCodigoExistente(codigoCuenta, "cuenta");
         DBCuentas.modificar_fechaCreacion(codigoCuenta, fechaCreacion);
     }
-    
-    public static void modificar_claveActual(String codigoCuenta, String claveActual, String claveNueva)throws IllegalArgumentException, SQLException{
-        if (!existe(codigoCuenta)) {
-            throw new IllegalArgumentException(errMsg + "La cuenta no existe, verifique por favor.");
-        }
-    
-        if (!DBCuentas.validarClaveActual(codigoCuenta, claveActual)) {
-            throw new IllegalArgumentException("La clave actual no es correcta.");
-        }
-        
-        DBCuentas.modificar_clave(codigoCuenta, claveNueva);
-    }
-    
-    public static boolean existeClaveActual(String codigoCuenta, String claveActual) throws IllegalArgumentException, SQLException{
-        if (!esCodigoValido(codigoCuenta)) return false;
-        if (!DBCuentas.existe(codigoCuenta)) return false; //crear un sp y un metodo en DBCuentas
-        return true;
 
     public static Cuenta obtener(String codigo) throws SQLException{
         validarCodigoExistente(codigo, "cuenta");

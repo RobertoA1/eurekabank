@@ -25,12 +25,9 @@ public class DBSucursales {
         ResultSet rs = cs.executeQuery();
 
         if (rs.next()) {
-            //if (rs.getInt(3) == 1) return true;
-            //validamos si la columna "1" es igual a string
-            //La columna 1 segun el sp sp_buscar_sucursal es sucucodigo
-            if ("1".equals(rs.getString(1))) return false;
+            if (rs.getInt(3) == 1) return true;
         }
-        return true;
+        return false;
     }   
 
     public static ArrayList<Sucursal> listarSucursales() throws SQLException {

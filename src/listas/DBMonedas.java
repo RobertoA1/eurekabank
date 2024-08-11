@@ -68,7 +68,6 @@ public class DBMonedas {
             Moneda m = new Moneda();
             m.setCodigo(rs.getString(1));
             m.setDescripcion(rs.getString(2));
-            arr.add(m);
         }
         
         return arr;
