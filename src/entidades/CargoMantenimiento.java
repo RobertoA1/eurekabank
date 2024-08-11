@@ -1,19 +1,23 @@
 package entidades;
 
-public class CargoMantenimiento {
+public class CargoMantenimiento implements OperacionFinanciera {
     
     private String codigoMoneda = null;
-    private float montoMaximo = -1;
-    private float importe = -1;
+    private float montoMaximo = -1; // 3500 soles, 1200 dolares
+    private float importe = -1;  //7.00 soles, 2.50 dolares
+    private float cuenSaldo =-1;
     
     public CargoMantenimiento() {
 
-    }
+    }    
+
+   
     
-    public CargoMantenimiento(String codigoMoneda, float montoMaximo, float importe) {
+    public CargoMantenimiento(String codigoMoneda, float montoMaximo, float importe, float cuenSaldo) {
         this.codigoMoneda = codigoMoneda;
         this.montoMaximo = montoMaximo;
         this.importe = importe;
+        this.cuenSaldo = cuenSaldo;
     }
     
     public String getCodigoMoneda() {
@@ -33,6 +37,21 @@ public class CargoMantenimiento {
     }
     public void setImporte(float importe) {
         this.importe = importe;
+    }
+
+    public float getCuenSaldo() {
+        return cuenSaldo;
+    }
+
+    public void setCuenSaldo(float cuenSaldo) {
+        this.cuenSaldo = cuenSaldo;
+    }
+    
+    @Override
+    public float calcularCosto() {
+        if(getCuenSaldo() <= getMontoMaximo())
+            return 0;
+        return getImporte();
     }
 
 }

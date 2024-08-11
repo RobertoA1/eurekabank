@@ -1,6 +1,9 @@
 package entidades;
 
-public class Moneda {
+import java.util.*;
+
+
+public class Moneda implements OperacionFinanciera{
     
     private String codigo = null;
     private String descripcion = null;
@@ -9,6 +12,7 @@ public class Moneda {
     private CostoMovimiento costoMovimiento = null;
     private InteresMensual interesMensual = null;
     private int estado = 1;
+    private ArrayList<OperacionFinanciera> operaciones = new ArrayList<>();
 
     public Moneda() {
     }
@@ -74,6 +78,22 @@ public class Moneda {
         this.estado = estado;
     }
     
+    public void agregarOperacion(OperacionFinanciera operacion) {
+        operaciones.add(operacion);
+    }
+
+    public void removerOperacion(OperacionFinanciera operacion) {
+        operaciones.remove(operacion);
+    } 
+    
+    @Override
+    public float calcularCosto() {
+        float costoTotal = 0.0f;
+        for (OperacionFinanciera operacion : operaciones) {
+            costoTotal += operacion.calcularCosto();
+        }
+        return costoTotal;
+    }
     
 
 }

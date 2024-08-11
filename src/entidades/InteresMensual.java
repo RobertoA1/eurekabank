@@ -1,16 +1,18 @@
 package entidades;
 
-public class InteresMensual {
+public class InteresMensual implements OperacionFinanciera{
     
     private String codigoMoneda = null;
-    private float importe = 0.0f;
+    private float tasaInteres = -1;//0.70% soles,  0.60% dolares
+    private float cuenSaldo = -1;
     
     public InteresMensual() {
     }
 
-    public InteresMensual(String codigoMoneda, float importe) {
+    public InteresMensual(String codigoMoneda, float tasaInteres, float cuenSaldo) {
         this.codigoMoneda = codigoMoneda;
-        this.importe = importe;
+        this.tasaInteres = tasaInteres;
+        this.cuenSaldo = cuenSaldo;
     }
 
 
@@ -22,16 +24,26 @@ public class InteresMensual {
         this.codigoMoneda = codigoMoneda;
     }
 
-    public float getImporte() {
-        return importe;
+    public float getTasaInteres() {
+        return tasaInteres;
     }
 
-    public void setImporte(float importe) {
-        this.importe = importe;
+    public void setTasaInteres(float tasaInteres) {
+        this.tasaInteres = tasaInteres;
     }
 
+    public float getCuenSaldo() {
+        return cuenSaldo;
+    }
 
-
+    public void setCuenSaldo(float cuenSaldo) {
+        this.cuenSaldo = cuenSaldo;
+    }
     
+    
+    @Override
+    public float calcularCosto() {
+        return getCuenSaldo() * getTasaInteres();
+    }
 
 }
