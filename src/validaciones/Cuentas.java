@@ -82,7 +82,7 @@ public class Cuentas {
         validarCodigoExistente(codigoCuenta, "cuenta");
         DBCuentas.modificar_fechaCreacion(codigoCuenta, fechaCreacion);
     }
-    
+    /*
     public static void modificar_claveActual(String codigoCuenta, String claveActual, String claveNueva)throws IllegalArgumentException, SQLException{
         if (!existe(codigoCuenta)) {
             throw new IllegalArgumentException(errMsg + "La cuenta no existe, verifique por favor.");
@@ -94,6 +94,7 @@ public class Cuentas {
         
         DBCuentas.modificar_clave(codigoCuenta, claveNueva);
     }
+    */
     
     public static boolean existeClaveActual(String codigoCuenta, String claveActual) throws IllegalArgumentException, SQLException{
         if (!esCodigoValido(codigoCuenta)) return false;
