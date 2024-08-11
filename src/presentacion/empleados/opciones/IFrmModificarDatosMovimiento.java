@@ -5,19 +5,24 @@
 package presentacion.empleados.opciones;
 
 import entidades.Movimiento;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import validaciones.Movimientos;
 
 /**
  *
  * @author LUCANO
  */
-public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
+public class IFrmModificarDatosMovimiento extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form IFrmDatosMovimientoObtenidos
+     * Creates new form IFrmModificarDatosMovimiento
      */
+    
     private Movimiento movimiento;
     
-    public IFrmDatosMovimientoObtenidos() {
+    public IFrmModificarDatosMovimiento() {
         this.movimiento = IFrmConsultarDatosMovimiento.getMovimiento();
         initComponents();
     }
@@ -31,26 +36,19 @@ public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         tituloPanel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         txtImporte = new javax.swing.JTextField();
-        labelCodigo = new javax.swing.JLabel();
-        labelCodigo1 = new javax.swing.JLabel();
         cbxDia = new javax.swing.JComboBox<>();
         cbxMes = new javax.swing.JComboBox<>();
         cbxAño = new javax.swing.JComboBox<>();
-        txtCode = new javax.swing.JTextField();
-        txtEstado = new javax.swing.JTextField();
         txtReferencia = new javax.swing.JTextField();
-        txtNum = new javax.swing.JTextField();
         labelCodigo2 = new javax.swing.JLabel();
         labelCodigo3 = new javax.swing.JLabel();
-        labelCodigo4 = new javax.swing.JLabel();
         labelCodigo5 = new javax.swing.JLabel();
-
-        jLabel1.setText("jLabel1");
+        btnActualizar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -80,15 +78,16 @@ public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
         tituloPanel1.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         tituloPanel1.setForeground(new java.awt.Color(229, 229, 229));
         tituloPanel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        tituloPanel1.setText("Datos del Movimiento");
+        tituloPanel1.setText("Modificando Movimiento");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
                 .addComponent(tituloPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 148, Short.MAX_VALUE))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,14 +100,6 @@ public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, -1));
 
         jPanel2.setBackground(new java.awt.Color(229, 229, 229));
-
-        labelCodigo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        labelCodigo.setForeground(new java.awt.Color(0, 0, 0));
-        labelCodigo.setText("Código de la cuenta:");
-
-        labelCodigo1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        labelCodigo1.setForeground(new java.awt.Color(0, 0, 0));
-        labelCodigo1.setText("Número de Movimiento:");
 
         cbxDia.setBackground(new java.awt.Color(255, 255, 255));
         cbxDia.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
@@ -138,87 +129,92 @@ public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
         labelCodigo3.setForeground(new java.awt.Color(0, 0, 0));
         labelCodigo3.setText("Importe:");
 
-        labelCodigo4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        labelCodigo4.setForeground(new java.awt.Color(0, 0, 0));
-        labelCodigo4.setText("Estado:");
-
         labelCodigo5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelCodigo5.setForeground(new java.awt.Color(0, 0, 0));
         labelCodigo5.setText("Referencia:");
+
+        btnActualizar.setBackground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        btnActualizar.setForeground(new java.awt.Color(0, 0, 0));
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/style_file.gif"))); // NOI18N
+        btnActualizar.setMnemonic('S');
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        btnSalir.setBackground(new java.awt.Color(255, 255, 255));
+        btnSalir.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(0, 0, 0));
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/x.gif"))); // NOI18N
+        btnSalir.setMnemonic('S');
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(81, 81, 81)
+                .addGap(139, 139, 139)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(labelCodigo2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cbxAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(labelCodigo3)
-                        .addGap(188, 188, 188)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(cbxDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
-                                .addComponent(cbxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 100, Short.MAX_VALUE))
-                            .addComponent(txtImporte)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelCodigo)
-                            .addComponent(labelCodigo1))
-                        .addGap(86, 86, 86)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNum)
-                            .addComponent(txtCode)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(labelCodigo5)
-                        .addGap(174, 174, 174)
+                        .addGap(116, 116, 116)
                         .addComponent(txtReferencia))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(labelCodigo4)
-                        .addGap(196, 196, 196)
-                        .addComponent(txtEstado)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelCodigo2)
+                            .addComponent(labelCodigo3))
+                        .addGap(130, 130, 130)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtImporte)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(cbxDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(61, 61, 61)
+                                .addComponent(cbxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                                .addComponent(cbxAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(21, 21, 21)))))
                 .addGap(102, 102, 102))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(244, 244, 244)
+                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(86, 86, 86)
+                .addComponent(btnSalir)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addContainerGap(52, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelCodigo)
-                    .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelCodigo1)
-                    .addComponent(txtNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelCodigo2)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cbxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cbxAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cbxDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(cbxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelCodigo2))
                 .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelCodigo3))
                 .addGap(33, 33, 33)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelCodigo5)
-                    .addComponent(txtReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelCodigo4))
-                .addGap(160, 160, 160))
+                    .addComponent(txtReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelCodigo5))
+                .addGap(112, 112, 112)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnActualizar)
+                    .addComponent(btnSalir))
+                .addGap(81, 81, 81))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 700, 510));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-60, 70, 790, 400));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -227,12 +223,19 @@ public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxAñoActionPerformed
 
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+
+        
+
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        txtCode.setText(movimiento.getCuencodigo());
-        txtNum.setText(String.valueOf(movimiento.getMovinumero()));
         txtImporte.setText(String.valueOf(movimiento.getImporte()));
         txtReferencia.setText(movimiento.getCuenReferencia());
-        txtEstado.setText(String.valueOf(movimiento.getEstado()));
         int dia = movimiento.getFecha().getDate();
         cbxDia.setSelectedItem(String.valueOf(dia));
         int mes = movimiento.getFecha().getMonth() + 1; 
@@ -243,23 +246,18 @@ public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cbxAño;
     private javax.swing.JComboBox<String> cbxDia;
     private javax.swing.JComboBox<String> cbxMes;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel labelCodigo;
-    private javax.swing.JLabel labelCodigo1;
     private javax.swing.JLabel labelCodigo2;
     private javax.swing.JLabel labelCodigo3;
-    private javax.swing.JLabel labelCodigo4;
     private javax.swing.JLabel labelCodigo5;
     private javax.swing.JLabel tituloPanel1;
-    private javax.swing.JTextField txtCode;
-    private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtImporte;
-    private javax.swing.JTextField txtNum;
     private javax.swing.JTextField txtReferencia;
     // End of variables declaration//GEN-END:variables
 }

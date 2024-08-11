@@ -27,7 +27,7 @@ public class DBMovimiento {
 
 
         cs.setString(1,movimiento.getCuencodigo());
-        cs.setInt(2, movimiento.getMovinumero());
+        cs.setLong(2, movimiento.getMovinumero());
         cs.setDate(3, movimiento.getFecha());
         cs.setString(4, movimiento.getEmplcodigo());
         cs.setString(5, movimiento.getTipoCodigo());
@@ -45,7 +45,7 @@ public class DBMovimiento {
         if (rs.next()){
             Movimiento m = new Movimiento();
             m.setCuencodigo(rs.getString(1));
-            m.setMovinumero(rs.getInt(2));
+            m.setMovinumero(rs.getLong(2));
             m.setFecha(rs.getDate(3));
             m.setEmplcodigo(rs.getString(4));
             m.setTipoCodigo(rs.getString(5));
@@ -80,7 +80,7 @@ public class DBMovimiento {
         while (rs.next()) {
             movs.add(new Movimiento(
                 rs.getString(1),   
-                rs.getInt(2),      
+                rs.getLong(2),      
                 rs.getDate(3),     
                 rs.getString(4),   
                 rs.getString(5), 
@@ -95,5 +95,13 @@ public class DBMovimiento {
         return movs;
     }
 
-    
+    public static boolean buscar(long numero) throws SQLException {
+        String sql = "{call sp_BuscarMovimiento(?)}";
+        CallableStatement cs = db.prepareCall(sql);
+        cs.setLong(1, numero);
+        ResultSet rs = cs.executeQuery();
+        if (!rs.next()) return false;
+        if (rs.getLong(2) != numero) return false;
+       return true;
+    }
 }

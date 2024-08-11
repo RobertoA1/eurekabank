@@ -74,7 +74,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="0" y="70" width="890" height="500"/>
+          <AbsoluteConstraints x="0" y="70" width="890" height="150"/>
         </Constraint>
       </Constraints>
 
@@ -116,7 +116,7 @@
                       <Component id="txtNumeroCuenta" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnBuscarCuenta" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="389" max="32767" attributes="0"/>
+                  <EmptySpace pref="39" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -155,6 +155,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Buscar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarCuentaActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

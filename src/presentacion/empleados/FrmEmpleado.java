@@ -136,6 +136,11 @@ public class FrmEmpleado extends javax.swing.JFrame {
         menuModificar.add(mi_modificarCliente);
 
         mi_modificarMovimiento.setText("Modificar los datos de un movimiento");
+        mi_modificarMovimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_modificarMovimientoActionPerformed(evt);
+            }
+        });
         menuModificar.add(mi_modificarMovimiento);
 
         jMenuBar1.add(menuModificar);
@@ -233,13 +238,13 @@ public class FrmEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_mi_verDatosClienteActionPerformed
 
     private void mi_modificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_modificarClienteActionPerformed
-        // TODO add your handling code here:
+        IFrmConsultarDatosCliente form = new IFrmConsultarDatosCliente();
+        centrarInternalFrame(form);
     }//GEN-LAST:event_mi_modificarClienteActionPerformed
 
     private void mi_verDatosCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_verDatosCuentaActionPerformed
-        //IFrmConsultarDatosCuenta form = new IFrmConsultarDatosCuenta();
-        //centrarInternalFrame(form);
-        /* Es una futura adición */
+        IFrmConsultarDatosCuenta form = new IFrmConsultarDatosCuenta();
+        centrarInternalFrame(form);
     }//GEN-LAST:event_mi_verDatosCuentaActionPerformed
 
     private void mi_verDatosMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_verDatosMovimientoActionPerformed
@@ -259,6 +264,11 @@ public class FrmEmpleado extends javax.swing.JFrame {
     private void mi_registrarMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_registrarMovimientoActionPerformed
         
     }//GEN-LAST:event_mi_registrarMovimientoActionPerformed
+
+    private void mi_modificarMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_modificarMovimientoActionPerformed
+        IFrmConsultarDatosMovimiento form = new IFrmConsultarDatosMovimiento();
+        centrarInternalFrame(form);
+    }//GEN-LAST:event_mi_modificarMovimientoActionPerformed
 
     public static FrmEmpleado getInstance(){
         /* Set the Nimbus look and feel */

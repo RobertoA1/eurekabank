@@ -4,6 +4,16 @@
  */
 package presentacion.empleados.opciones;
 
+import entidades.Movimiento;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import presentacion.empleados.FrmEmpleado;
+import static presentacion.empleados.opciones.IFrmConsultarDatosCliente.setCliente;
+import validaciones.Clientes;
+import validaciones.Movimientos;
+
 /**
  *
  * @author LUCANO
@@ -30,8 +40,8 @@ public class IFrmConsultarDatosMovimiento extends javax.swing.JInternalFrame {
         tituloPanel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtDNI1 = new javax.swing.JTextField();
-        btnPaso3 = new javax.swing.JButton();
+        txtNumero = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         tituloPanel1 = new javax.swing.JLabel();
 
@@ -57,6 +67,10 @@ public class IFrmConsultarDatosMovimiento extends javax.swing.JInternalFrame {
                 .addGap(0, 15, Short.MAX_VALUE))
         );
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(229, 229, 229));
@@ -66,11 +80,11 @@ public class IFrmConsultarDatosMovimiento extends javax.swing.JInternalFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Por favor, introduce el número del movimiento: ");
 
-        btnPaso3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        btnPaso3.setText("Buscar");
-        btnPaso3.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPaso3ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -82,9 +96,9 @@ public class IFrmConsultarDatosMovimiento extends javax.swing.JInternalFrame {
                 .addContainerGap(35, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(48, 48, 48)
-                .addComponent(txtDNI1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
-                .addComponent(btnPaso3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
         );
         jPanel1Layout.setVerticalGroup(
@@ -93,8 +107,8 @@ public class IFrmConsultarDatosMovimiento extends javax.swing.JInternalFrame {
                 .addGap(68, 68, 68)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtDNI1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPaso3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(224, Short.MAX_VALUE))
         );
 
@@ -129,19 +143,40 @@ public class IFrmConsultarDatosMovimiento extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPaso3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaso3ActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        int numero = Integer.parseInt(txtNumero.getText());
+        try {
+            if(Movimientos.buscar(numero)){
+                movimiento = Movimientos.obtener(numero);
+                setMovimiento(movimiento);
+                IFrmDatosMovimientoObtenidos i = new IFrmDatosMovimientoObtenidos();
+                FrmEmpleado.centrarInternalFrameExterno(i);
+            }else{
+                JOptionPane.showMessageDialog(this, "El movimiento no existe", "Resultado", 1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(IFrmConsultarDatosCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
-    }//GEN-LAST:event_btnPaso3ActionPerformed
+    public static Movimiento getMovimiento() {
+        return movimiento;
+    }
 
-
+    public static void setMovimiento(Movimiento movimiento) {
+        IFrmConsultarDatosMovimiento.movimiento = movimiento;
+    }
+    
+    
+    private static Movimiento movimiento;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnPaso3;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel tituloPanel;
     private javax.swing.JLabel tituloPanel1;
-    private javax.swing.JTextField txtDNI1;
+    private javax.swing.JTextField txtNumero;
     // End of variables declaration//GEN-END:variables
 }

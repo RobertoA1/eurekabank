@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Movimiento {
     private String cuencodigo = null;
-    private int movinumero = -1;
+    private long movinumero = -1;
     private Date fecha = null;
     private String emplcodigo = null;
     private String tipoCodigo = null;
@@ -15,7 +15,7 @@ public class Movimiento {
     public Movimiento() {
     }
 
-    public Movimiento(String cuencodigo, int movinumero, Date fecha, String emplcodigo, String tipoCodigo, float importe, String cuenReferencia) {
+    public Movimiento(String cuencodigo, long movinumero, Date fecha, String emplcodigo, String tipoCodigo, float importe, String cuenReferencia) {
         this.cuencodigo = cuencodigo;
         this.movinumero = movinumero;
         this.fecha = fecha;
@@ -24,8 +24,6 @@ public class Movimiento {
         this.importe = importe;
         this.cuenReferencia = cuenReferencia;
     }
-    
-    
 
     public Movimiento(String cuencodigo, Date fecha, String emplcodigo, String tipoCodigo, float importe,
             String cuenReferencia) {
@@ -45,11 +43,11 @@ public class Movimiento {
         this.cuencodigo = cuencodigo;
     }
 
-    public int getMovinumero() {
+    public long getMovinumero() {
         return movinumero;
     }
 
-    public void setMovinumero(int movinumero) {
+    public void setMovinumero(long movinumero) {
         this.movinumero = movinumero;
     }
 

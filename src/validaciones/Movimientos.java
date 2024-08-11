@@ -52,4 +52,10 @@ public class Movimientos {
         return DBMovimiento.listar();
     }
     
+    public static boolean buscar(long numero) throws SQLException {
+        if(numero<=99999999999L)
+            return DBMovimiento.buscar(numero);
+        return false;
+    }
+    
 }
