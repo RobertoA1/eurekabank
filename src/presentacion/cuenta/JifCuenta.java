@@ -73,7 +73,7 @@ public class JifCuenta extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
+      
         jPanel1.setBackground(new java.awt.Color(20, 45, 68));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -295,7 +295,6 @@ public class JifCuenta extends javax.swing.JInternalFrame {
             Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_cbxCuentasActionPerformed
-
     
     private void llenarTabla(String tipoMov) throws IllegalArgumentException, SQLException {
         modelo = new DefaultTableModel();
@@ -511,7 +510,6 @@ public class JifCuenta extends javax.swing.JInternalFrame {
         Empleado e = DBEmpleado.obtener(codEmpl);
         return e.getApellidoPaterno() + " " + e.getNombre();
     }
-    
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

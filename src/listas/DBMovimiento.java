@@ -87,7 +87,6 @@ public class DBMovimiento {
             m.setImporte(rs.getFloat(6));
             m.setCuenReferencia(rs.getString(7));
             arr.add(m);
-            
         }
         return arr;
     }
