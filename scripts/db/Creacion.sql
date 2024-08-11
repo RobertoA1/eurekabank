@@ -27,11 +27,11 @@ CREATE TABLE empleado (
 -- Creación de la tabla asignado
 CREATE TABLE asignado (
     asigcodigo CHAR(6) PRIMARY KEY,
-    succodigo CHAR(3),
+    sucucodigo CHAR(3),
     emplcodigo CHAR(4),
     asigfecalta DATE,
     asigfecbaja DATE,
-    FOREIGN KEY (succodigo) REFERENCES sucursal(sucucodigo),
+    FOREIGN KEY (sucucodigo) REFERENCES sucursal(sucucodigo),
     FOREIGN KEY (emplcodigo) REFERENCES empleado(emplcodigo)
 );
 
@@ -42,6 +42,14 @@ CREATE TABLE usuario (
     permisos TINYINT DEFAULT 1,
     estado TINYINT DEFAULT 1,
     PRIMARY KEY (codigo)
+);
+
+-- Creacion de la tabla Administrador
+CREATE TABLE administrador (
+	idadministrador CHAR(8),
+    idUsuario CHAR(8),
+    PRIMARY KEY (idadministrador),
+    FOREIGN KEY (idUsuario) REFERENCES empleado(idUsuario)
 );
 
 -- Creación de la tabla cliente
@@ -70,7 +78,7 @@ CREATE TABLE sesiones (
 -- Creación de la tabla moneda
 CREATE TABLE moneda (
     monecodigo CHAR(2) PRIMARY KEY,
-    monedescription VARCHAR(20),
+    monedescripcion VARCHAR(20),
     estado TINYINT DEFAULT 1
 );
 

@@ -71,6 +71,30 @@ public class DBMovimiento {
         cs.executeUpdate();
     }
     
+    public static ArrayList<Movimiento> listar() throws SQLException {
+        String sql = "{CALL sp_listar_movimientos()}";
+        CallableStatement cs = db.prepareCall(sql);
+        ResultSet rs = cs.executeQuery();
+        ArrayList<Movimiento> movs = new ArrayList<>();
+
+        while (rs.next()) {
+            movs.add(new Movimiento(
+                rs.getString(1),   
+                rs.getInt(2),      
+                rs.getDate(3),     
+                rs.getString(4),   
+                rs.getString(5), 
+                rs.getFloat(6),    
+                rs.getString(7)
+            ));
+        }
+
+        rs.close();
+        cs.close();
+
+        return movs;
+    }
+
     public static ArrayList<Movimiento> obtenerMovPorNumCuenta(String cuencodigo) throws SQLException{
         ArrayList<Movimiento> arr = new ArrayList<>();
         cs = db.prepareCall("CALL sp_obtenerMovimientoPorCuenta(?)");
