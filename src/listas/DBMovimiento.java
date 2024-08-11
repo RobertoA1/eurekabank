@@ -12,9 +12,9 @@ public class DBMovimiento {
 
     private static Connection db = ConexionDB.obtenerDB();
 
-    public static boolean existe(int numero) throws SQLException{
+    public static boolean existe(long numero) throws SQLException{
         cs = db.prepareCall("CALL sp_movimiento_obtenerEstado(?)");
-        cs.setInt(1, numero);
+        cs.setLong(1, numero);
         rs = cs.executeQuery();
 
         if (!rs.next()) return false;
@@ -37,9 +37,9 @@ public class DBMovimiento {
         cs.executeUpdate();
     }
     
-    public static Movimiento obtener(int numero) throws SQLException{
+    public static Movimiento obtener(long numero) throws SQLException{
         cs = db.prepareCall("CALL sp_BuscarMovimiento(?)");
-        cs.setInt(1, numero);
+        cs.setLong(1, numero);
         rs = cs.executeQuery();
 
         if (rs.next()){
@@ -56,17 +56,34 @@ public class DBMovimiento {
         return null;
     }
     
-    public static void modificarImporte(int moviNumero, float nuevoImporte) throws SQLException{
+    public static void modificarImporte(long moviNumero, float nuevoImporte) throws SQLException{
         cs = db.prepareCall("CALL sp_modMovimiento_importe(?, ?)");
-        cs.setInt(1, moviNumero);
+        cs.setLong(1, moviNumero);
         cs.setFloat(2, nuevoImporte);
 
         cs.executeUpdate();
     }
+    
+    public static void modificarFecha(long moviNumero, Date nuevaFecha) throws SQLException {
+        cs = db.prepareCall("CALL sp_modMovimiento_fecha(?, ?)");
+        cs.setLong(1, moviNumero);
+        cs.setDate(2, nuevaFecha);
 
-    public static void remover(int numero) throws SQLException{
+        cs.executeUpdate();
+    }
+    
+    public static void modificarCuenReferencia(long moviNumero, String nuevaReferencia) throws SQLException {
+        cs = db.prepareCall("CALL sp_modMovimiento_cuenReferencia(?, ?)");
+        cs.setLong(1, moviNumero);
+        cs.setString(2, nuevaReferencia);
+
+        cs.executeUpdate();
+    }
+    
+
+    public static void remover(long numero) throws SQLException{
         cs = db.prepareCall("CALL sp_remMovimiento(?)");
-        cs.setInt(1, numero);
+        cs.setLong(1, numero);
 
         cs.executeUpdate();
     }

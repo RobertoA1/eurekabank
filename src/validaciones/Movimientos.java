@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Movimientos {
     private static String errMsg = "Error en movimiento: ";
 
-    private static void validarMovNumero(int numero) throws IllegalArgumentException {
+    private static void validarMovNumero(long numero) throws IllegalArgumentException {
         if (numero <= 0) throw new IllegalArgumentException(errMsg + "El número debe ser mayor que cero.");
     }
 
@@ -32,18 +32,31 @@ public class Movimientos {
         DBMovimiento.agregar(new Movimiento(cuencodigo, movinumero, fecha, emplcodigo, tipoCodigo, importe, cuenReferencia));
     }
 
-    public static Movimiento obtener(int numero) throws IllegalArgumentException, SQLException{
+    public static Movimiento obtener(long numero) throws IllegalArgumentException, SQLException{
         validarMovNumero(numero);
         return DBMovimiento.obtener(numero);
     }
 
-    public static void modificarImporte(int moviNumero, float nuevoImporte) throws IllegalArgumentException, SQLException{
+    public static void modificarImporte(long moviNumero, float nuevoImporte) throws IllegalArgumentException, SQLException{
         validarMovNumero(moviNumero);
         if (nuevoImporte <= 0) throw new IllegalArgumentException(errMsg + "El nuevo importe debe ser mayor que cero.");
         DBMovimiento.modificarImporte( moviNumero,nuevoImporte);
     }
+    
+    public static void modificarFecha(long moviNumero, Date nuevaFecha) throws IllegalArgumentException, SQLException{
+        validarMovNumero(moviNumero);
+        if (nuevaFecha == null) throw new IllegalArgumentException(errMsg + "La nueva fecha no puede ser nula.");
+        DBMovimiento.modificarFecha( moviNumero,nuevaFecha);
+    }
+    
+    public static void modificarCuenReferencia(long moviNumero, String nuevaReferencia) throws IllegalArgumentException, SQLException{
+        validarMovNumero(moviNumero);
+        if (nuevaReferencia.isBlank()) throw new IllegalArgumentException(errMsg + "La nueva referencia no puede estar vacía.");
+        if (nuevaReferencia.length() > 8) throw new IllegalArgumentException(errMsg + "La nueva referencia es demasiado larga (máx. 8 caracteres)");
+        DBMovimiento.modificarCuenReferencia( moviNumero,nuevaReferencia);
+    }
 
-    public static void remover(int numero) throws SQLException{
+    public static void remover(long numero) throws SQLException{
         validarMovNumero(numero);
         DBMovimiento.remover(numero);
     }
