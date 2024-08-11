@@ -83,6 +83,7 @@ public class IFrmDatosCuentaObtenidos extends javax.swing.JInternalFrame {
         txtEmail = new javax.swing.JTextField();
         txtNombreUsuario = new javax.swing.JTextField();
 
+        setClosable(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(20, 45, 68));
@@ -266,6 +267,7 @@ public class IFrmDatosCuentaObtenidos extends javax.swing.JInternalFrame {
         try {
             txtCodigo.setText(cuenta.getCodigo());
             Sucursal sucursal = Sucursales.obtener(cuenta.getCodigoSucursal());
+            System.out.println("sucursal: " + sucursal.getNombre());
             txtSucursal.setText(sucursal.getNombre());
             
             Moneda moneda = Monedas.obtener(cuenta.getCodigoMoneda());
@@ -292,7 +294,7 @@ public class IFrmDatosCuentaObtenidos extends javax.swing.JInternalFrame {
             SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
             java.util.Date fechaFormateada = formateador.parse(fecha.toString());
             txtFechaCreacion.setText(DateFormat.getDateInstance().format(fechaFormateada));
-        } catch (ParseException e){
+        } catch (NullPointerException | ParseException e){
             // Detecta si el parser falló para la fecha
             JOptionPane.showMessageDialog(this, "Datos de una Cuenta | No se pudo obtener la fecha correctamente.", "Ocurrió un problema...", JOptionPane.ERROR_MESSAGE);
             System.out.println(e.getMessage());

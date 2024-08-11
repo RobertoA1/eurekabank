@@ -25,7 +25,7 @@ public class DBSucursales {
         ResultSet rs = cs.executeQuery();
 
         if (rs.next()) {
-            if (rs.getInt(3) == 1) return true;
+            if (rs.getInt(6) == 1) return true;
         }
         return false;
     }   
