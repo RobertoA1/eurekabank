@@ -51,6 +51,10 @@ public class IFrmConsultarDatosCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(20, 45, 68));
@@ -131,8 +135,18 @@ public class IFrmConsultarDatosCliente extends javax.swing.JInternalFrame {
             if(Clientes.buscar(codigo)){
                 cliente = Clientes.obtener(codigo);
                 setCliente(cliente);
-                IFrmDatosClienteObtenidos i = new IFrmDatosClienteObtenidos();
-                FrmEmpleado.centrarInternalFrameExterno(i);
+                if(FrmEmpleado.getOpciones() == 1){
+                    IFrmDatosClienteObtenidos i = new IFrmDatosClienteObtenidos();
+                    FrmEmpleado.centrarInternalFrameExterno(i);
+                    this.dispose();
+                }
+                if(FrmEmpleado.getOpciones() == 2){
+                    IFrmModificarDatosCliente i = new IFrmModificarDatosCliente();
+                    FrmEmpleado.centrarInternalFrameExterno(i);
+                    this.dispose();
+                }
+                
+                
             }else{
                 JOptionPane.showMessageDialog(this, "El cliente no se encuentra registrado", "Resultado", 1);
             }

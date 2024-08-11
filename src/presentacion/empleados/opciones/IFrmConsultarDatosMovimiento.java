@@ -149,8 +149,16 @@ public class IFrmConsultarDatosMovimiento extends javax.swing.JInternalFrame {
             if(Movimientos.buscar(numero)){
                 movimiento = Movimientos.obtener(numero);
                 setMovimiento(movimiento);
-                IFrmDatosMovimientoObtenidos i = new IFrmDatosMovimientoObtenidos();
-                FrmEmpleado.centrarInternalFrameExterno(i);
+                if(FrmEmpleado.getOpciones() == 1){
+                    IFrmDatosMovimientoObtenidos i = new IFrmDatosMovimientoObtenidos();
+                    FrmEmpleado.centrarInternalFrameExterno(i);
+                    this.dispose();
+                }
+                if(FrmEmpleado.getOpciones() == 2){
+                    IFrmModificarDatosMovimiento i = new IFrmModificarDatosMovimiento();
+                    FrmEmpleado.centrarInternalFrameExterno(i);
+                    this.dispose();
+                }
             }else{
                 JOptionPane.showMessageDialog(this, "El movimiento no existe", "Resultado", 1);
             }

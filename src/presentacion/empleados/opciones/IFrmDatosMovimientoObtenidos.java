@@ -49,6 +49,8 @@ public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
         labelCodigo3 = new javax.swing.JLabel();
         labelCodigo4 = new javax.swing.JLabel();
         labelCodigo5 = new javax.swing.JLabel();
+        btnRegistrar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -146,6 +148,15 @@ public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
         labelCodigo5.setForeground(new java.awt.Color(0, 0, 0));
         labelCodigo5.setText("Referencia:");
 
+        btnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/save.gif"))); // NOI18N
+        btnRegistrar.setMnemonic('R');
+        btnRegistrar.setText("Registrar");
+        btnRegistrar.setEnabled(false);
+
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/x.gif"))); // NOI18N
+        btnSalir.setMnemonic('S');
+        btnSalir.setText("Salir");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -184,6 +195,12 @@ public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
                         .addGap(196, 196, 196)
                         .addComponent(txtEstado)))
                 .addGap(102, 102, 102))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(207, 207, 207)
+                .addComponent(btnRegistrar)
+                .addGap(105, 105, 105)
+                .addComponent(btnSalir)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,7 +232,11 @@ public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelCodigo4))
-                .addGap(160, 160, 160))
+                .addGap(47, 47, 47)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalir)
+                    .addComponent(btnRegistrar))
+                .addGap(90, 90, 90))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 700, 510));
@@ -243,6 +264,8 @@ public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cbxAño;
     private javax.swing.JComboBox<String> cbxDia;
     private javax.swing.JComboBox<String> cbxMes;

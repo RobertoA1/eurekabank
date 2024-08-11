@@ -8,6 +8,7 @@ import entidades.Cliente;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import validaciones.Clientes;
 
 /**
@@ -252,7 +253,7 @@ public class IFrmModificarDatosCliente extends javax.swing.JInternalFrame {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         
         String code = cliente.getCodigo();
-        
+    
         try {
             Clientes.modificarApellidoPaterno(code, txtAP.getText());
             Clientes.modificarApellidoMaterno(code, txtAM.getText());
@@ -262,10 +263,12 @@ public class IFrmModificarDatosCliente extends javax.swing.JInternalFrame {
             Clientes.modificarDireccion(code, txtDir.getText());
             Clientes.modificarTelefono(code, txtT.getText());
             Clientes.modificarEmail(code, txtE.getText());
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(IFrmModificarDatosCliente.class.getName()).log(Level.SEVERE, null, ex);
+
+            JOptionPane.showMessageDialog(this, "Datos del cliente actualizados correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
         } catch (SQLException ex) {
             Logger.getLogger(IFrmModificarDatosCliente.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error al actualizar los datos en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
         
     }//GEN-LAST:event_btnActualizarActionPerformed

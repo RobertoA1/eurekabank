@@ -47,6 +47,7 @@ public class FrmEmpleado extends javax.swing.JFrame {
         menuModificar = new javax.swing.JMenu();
         mi_modificarCliente = new javax.swing.JMenuItem();
         mi_modificarMovimiento = new javax.swing.JMenuItem();
+        mi_modificarCuenta = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -62,11 +63,11 @@ public class FrmEmpleado extends javax.swing.JFrame {
         dspFondo.setLayout(dspFondoLayout);
         dspFondoLayout.setHorizontalGroup(
             dspFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1280, Short.MAX_VALUE)
+            .addGap(0, 1088, Short.MAX_VALUE)
         );
         dspFondoLayout.setVerticalGroup(
             dspFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 697, Short.MAX_VALUE)
+            .addGap(0, 566, Short.MAX_VALUE)
         );
 
         menuBuscar.setText("Buscar un registro");
@@ -142,6 +143,14 @@ public class FrmEmpleado extends javax.swing.JFrame {
             }
         });
         menuModificar.add(mi_modificarMovimiento);
+
+        mi_modificarCuenta.setText("Modificar los datos de una cuenta");
+        mi_modificarCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_modificarCuentaActionPerformed(evt);
+            }
+        });
+        menuModificar.add(mi_modificarCuenta);
 
         jMenuBar1.add(menuModificar);
 
@@ -219,8 +228,7 @@ public class FrmEmpleado extends javax.swing.JFrame {
     }
     
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        IFrmCuentas i = new IFrmCuentas();
-        centrarInternalFrame(i);
+        
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
@@ -235,21 +243,25 @@ public class FrmEmpleado extends javax.swing.JFrame {
     private void mi_verDatosClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_verDatosClienteActionPerformed
         IFrmConsultarDatosCliente form = new IFrmConsultarDatosCliente();
         centrarInternalFrame(form);
+        setOpciones(1);
     }//GEN-LAST:event_mi_verDatosClienteActionPerformed
 
     private void mi_modificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_modificarClienteActionPerformed
         IFrmConsultarDatosCliente form = new IFrmConsultarDatosCliente();
         centrarInternalFrame(form);
+        setOpciones(2);
     }//GEN-LAST:event_mi_modificarClienteActionPerformed
 
     private void mi_verDatosCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_verDatosCuentaActionPerformed
         IFrmConsultarDatosCuenta form = new IFrmConsultarDatosCuenta();
         centrarInternalFrame(form);
+        setOpciones(1);
     }//GEN-LAST:event_mi_verDatosCuentaActionPerformed
 
     private void mi_verDatosMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_verDatosMovimientoActionPerformed
         IFrmConsultarDatosMovimiento form = new IFrmConsultarDatosMovimiento();
         centrarInternalFrame(form);
+        setOpciones(1);
     }//GEN-LAST:event_mi_verDatosMovimientoActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -268,7 +280,14 @@ public class FrmEmpleado extends javax.swing.JFrame {
     private void mi_modificarMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_modificarMovimientoActionPerformed
         IFrmConsultarDatosMovimiento form = new IFrmConsultarDatosMovimiento();
         centrarInternalFrame(form);
+        setOpciones(2);
     }//GEN-LAST:event_mi_modificarMovimientoActionPerformed
+
+    private void mi_modificarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_modificarCuentaActionPerformed
+        IFrmConsultarDatosCuenta form = new IFrmConsultarDatosCuenta();
+        centrarInternalFrame(form);
+        setOpciones(2);
+    }//GEN-LAST:event_mi_modificarCuentaActionPerformed
 
     public static FrmEmpleado getInstance(){
         /* Set the Nimbus look and feel */
@@ -296,9 +315,19 @@ public class FrmEmpleado extends javax.swing.JFrame {
         if (form == null) form = new FrmEmpleado();
         return form;
     }
+
+    public static int getOpciones() {
+        return opciones;
+    }
+
+    public void setOpciones(int opciones) {
+        this.opciones = opciones;
+    }
     
     
     
+    
+    private static int opciones = -1;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JDesktopPane dspFondo;
     private javax.swing.JMenu jMenu1;
@@ -314,6 +343,7 @@ public class FrmEmpleado extends javax.swing.JFrame {
     private javax.swing.JMenu menuModificar;
     private javax.swing.JMenu menuRegistrar;
     private javax.swing.JMenuItem mi_modificarCliente;
+    private javax.swing.JMenuItem mi_modificarCuenta;
     private javax.swing.JMenuItem mi_modificarMovimiento;
     private javax.swing.JMenuItem mi_registrarCliente;
     private javax.swing.JMenuItem mi_registrarCuenta;
