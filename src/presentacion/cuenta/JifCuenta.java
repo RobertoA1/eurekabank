@@ -45,15 +45,15 @@ public class JifCuenta extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        treeFiltrar = new javax.swing.JTree();
         lblDatos = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblDatos = new javax.swing.JTable();
         cbxCuentas = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        treeFiltrar = new javax.swing.JTree();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblDatos = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        separator = new javax.swing.JSeparator();
 
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
@@ -74,10 +74,35 @@ public class JifCuenta extends javax.swing.JInternalFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(20, 45, 65));
+        jPanel1.setBackground(new java.awt.Color(20, 45, 68));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        lblDatos.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
+        lblDatos.setForeground(new java.awt.Color(229, 229, 229));
+        lblDatos.setText("DETALLES DE LA OPERACIÓN");
+        jPanel1.add(lblDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 330, 40));
+
+        cbxCuentas.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        cbxCuentas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CUENTA" }));
+        cbxCuentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxCuentasActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cbxCuentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 100, -1));
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(229, 229, 229));
+        jLabel1.setText("CÓDIGO DE CUENTA:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, 100));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         treeFiltrar.setBackground(new java.awt.Color(204, 204, 204));
+        treeFiltrar.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
         treeFiltrar.setForeground(new java.awt.Color(0, 51, 51));
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Operaciones");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Ingresos");
@@ -112,14 +137,10 @@ public class JifCuenta extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(treeFiltrar);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 220, 310));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 220, 340));
 
-        lblDatos.setFont(new java.awt.Font("Ebrima", 1, 24)); // NOI18N
-        lblDatos.setForeground(new java.awt.Color(255, 204, 0));
-        lblDatos.setText("DETALLES DE LA OPERACIÓN");
-        jPanel1.add(lblDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, 360, 30));
-
-        tblDatos.setBackground(new java.awt.Color(255, 204, 51));
+        tblDatos.setBackground(new java.awt.Color(20, 45, 68));
+        tblDatos.setForeground(new java.awt.Color(229, 229, 229));
         tblDatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -133,27 +154,14 @@ public class JifCuenta extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(tblDatos);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 510, 270));
+        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 600, 270));
 
-        cbxCuentas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CUENTA" }));
-        cbxCuentas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxCuentasActionPerformed(evt);
-            }
-        });
-        jPanel1.add(cbxCuentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, 100, -1));
-
-        jLabel1.setFont(new java.awt.Font("Microsoft YaHei", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("CÓDIGO DE CUENTA:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, -1, -1));
-
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("FILTRAR POR:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
-        jPanel1.add(separator, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 770, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 470));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 880, 410));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -511,10 +519,10 @@ public class JifCuenta extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblDatos;
-    private javax.swing.JSeparator separator;
     private javax.swing.JTable tblDatos;
     private javax.swing.JTree treeFiltrar;
     // End of variables declaration//GEN-END:variables
