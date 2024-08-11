@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 
 import java.sql.SQLException;
 import presentacion.*;
+import presentacion.administrador.FrmAdministrador;
 
 import seguridad.Autenticacion;
 
@@ -237,6 +238,11 @@ public class Login extends javax.swing.JFrame {
                 /* Si el nivel de permisos es 10, quiere decir que es un empleado */
                 /* Por ende, lpermilamamos FrmSecundario, que es de empleados */
                 FrmEmpleado menu = FrmEmpleado.getInstance();
+                menu.setVisible(true);
+            }
+            
+            if (user.getNivelPermisos() == 20){
+                FrmAdministrador menu = FrmAdministrador.getInstance();
                 menu.setVisible(true);
             }
             
