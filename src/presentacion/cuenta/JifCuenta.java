@@ -249,7 +249,9 @@ public class JifCuenta extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_treeFiltrarValueChanged
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        /*
         try {
+            /*
             Usuario usuario = seguridad.Autenticacion.obtenerUsuario();
             Cliente cliente = Clientes.obtenerPorIdUsuario(usuario.getCodigo());
             listaC = Clientes.listarCuentas(cliente.getCodigo());
@@ -259,6 +261,7 @@ public class JifCuenta extends javax.swing.JInternalFrame {
         } catch (IllegalStateException | SQLException ex) {
             Logger.getLogger(JifCuenta.class.getName()).log(Level.SEVERE, null, ex);
         }
+        */
     }//GEN-LAST:event_formInternalFrameOpened
 
     

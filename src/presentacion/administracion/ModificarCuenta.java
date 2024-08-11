@@ -209,6 +209,7 @@ public class ModificarCuenta extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEliminarCuentaActionPerformed
 
     private void btnCambiarClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarClaveActionPerformed
+        /*
         String claveActual = new String(pswClaveActual.getPassword());
         String claveNueva = new String(pswClaveNueva.getPassword());
         String codigoCuenta = txtCodigo.getText();
@@ -221,6 +222,7 @@ public class ModificarCuenta extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             javax.swing.JOptionPane.showMessageDialog(this, "Error en la base de datos: " + ex.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
+        */
     }//GEN-LAST:event_btnCambiarClaveActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed

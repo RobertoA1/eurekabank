@@ -53,10 +53,11 @@ public class Clientes {
         return DBCliente.obtenerClientePorNombreUsuario(usuario);
     }
     
+    /*
     public static Cliente obtenerPorIdUsuario(String usuario) throws SQLException{
         return DBCliente.obtenerPorIdUsuario(usuario);
     }
-
+    */
     public static void modificarNombre(String codigo, String nuevoNombre) throws IllegalArgumentException, SQLException{
         validarCodigo(codigo);
         if (nuevoNombre.isBlank()) throw new IllegalArgumentException(errMsg + "El nuevo nombre no puede estar vacío.");
