@@ -118,11 +118,4 @@ public class Clientes {
         validarCodigo(codigoCliente);
         return DBCliente.listarCuentas(codigoCliente);
     }
-    
-    public static boolean buscar(String codigo) throws SQLException {
-        if(codigo.trim().length()==5)
-            return DBCliente.buscar(codigo.trim());
-        return false;
-    }
-    
 }

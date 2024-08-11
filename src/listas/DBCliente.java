@@ -192,16 +192,4 @@ public class DBCliente{
         }
         return arr;
     }
-    
-    public static boolean buscar(String codigo) throws SQLException {
-        String sql = "{call sp_buscar_cliente(?)}";
-        CallableStatement cs = db.prepareCall(sql);
-        cs.setString(1, codigo);
-        ResultSet rs = cs.executeQuery();
-        if (!rs.next()) return false;
-        if (!rs.getString(1).trim().equalsIgnoreCase(codigo)) return false;
-       return true;
-    }
-    
-    
 }
