@@ -4,6 +4,7 @@ import java.sql.*;
 import entidades.Movimiento;
 import conexion.ConexionDB;
 import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class DBMovimiento {
 
@@ -87,8 +88,8 @@ public class DBMovimiento {
             m.setImporte(rs.getFloat(6));
             m.setCuenReferencia(rs.getString(7));
             arr.add(m);
-            return arr;
+            
         }
-        return null;
+        return arr;
     }
 }
