@@ -4,6 +4,8 @@
  */
 package presentacion.login;
 
+import presentacion.empleados.FrmEmpleado;
+import presentacion.clientes.registro.Registro;
 import entidades.Usuario;
 import java.awt.Cursor;
 import java.awt.Image;
@@ -222,7 +224,6 @@ public class Login extends javax.swing.JFrame {
         
         try {
             Autenticacion.iniciarSesion(nombreUsuario, pass);
-            
             Usuario user = Autenticacion.obtenerUsuario();
             this.setVisible(false);
             if (user.getNivelPermisos() == 1){
@@ -234,8 +235,8 @@ public class Login extends javax.swing.JFrame {
             
             if (user.getNivelPermisos() == 10){
                 /* Si el nivel de permisos es 10, quiere decir que es un empleado */
-                /* Por ende, llamamos FrmSecundario, que es de empleados */
-                FrmSecundario menu = FrmSecundario.getInstance();
+                /* Por ende, lpermilamamos FrmSecundario, que es de empleados */
+                FrmEmpleado menu = FrmEmpleado.getInstance();
                 menu.setVisible(true);
             }
             
@@ -254,7 +255,7 @@ public class Login extends javax.swing.JFrame {
 
     private void label_RegistrateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_RegistrateMouseClicked
         this.setVisible(false);
-        Registro reg = Registro.getInstance();
+        Registro reg = Registro.getInstance("login");
         reg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_label_RegistrateMouseClicked

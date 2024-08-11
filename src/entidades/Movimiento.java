@@ -10,6 +10,7 @@ public class Movimiento {
     private String tipoCodigo = null;
     private float importe = -1;
     private String cuenReferencia = null;
+    private int estado = 1;
 
     public Movimiento() {
     }
@@ -23,6 +24,8 @@ public class Movimiento {
         this.importe = importe;
         this.cuenReferencia = cuenReferencia;
     }
+    
+    
 
     public Movimiento(String cuencodigo, Date fecha, String emplcodigo, String tipoCodigo, float importe,
             String cuenReferencia) {
@@ -89,4 +92,14 @@ public class Movimiento {
     public void setCuenReferencia(String cuenreferencia) {
         this.cuenReferencia = cuenreferencia;
     }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+    
+    
 }
