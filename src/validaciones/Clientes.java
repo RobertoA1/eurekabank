@@ -48,6 +48,10 @@ public class Clientes {
         validarCodigo(codigo);
         return DBCliente.obtener(codigo);
     }
+    
+    public static Cliente obtenerPorIdUsuario(String usuario) throws SQLException{
+        return DBCliente.obtenerPorIdUsuario(usuario);
+    }
 
     public static void modificarNombre(String codigo, String nuevoNombre) throws IllegalArgumentException, SQLException{
         validarCodigo(codigo);

@@ -121,4 +121,24 @@ public class DBMovimiento {
         if (rs.getLong(2) != numero) return false;
        return true;
     }
+    public static ArrayList<Movimiento> obtenerMovPorNumCuenta(String cuencodigo) throws SQLException{
+        ArrayList<Movimiento> arr = new ArrayList<>();
+        cs = db.prepareCall("CALL sp_obtenerMovimientoPorCuenta(?)");
+        cs.setString(1, cuencodigo);
+        rs = cs.executeQuery();
+
+        while (rs.next()){
+            Movimiento m = new Movimiento();
+            m.setCuencodigo(rs.getString(1));
+            m.setMovinumero(rs.getInt(2));
+            m.setFecha(rs.getDate(3));
+            m.setEmplcodigo(rs.getString(4));
+            m.setTipoCodigo(rs.getString(5));
+            m.setImporte(rs.getFloat(6));
+            m.setCuenReferencia(rs.getString(7));
+            arr.add(m);
+            return arr;
+        }
+        return null;
+    }
 }
