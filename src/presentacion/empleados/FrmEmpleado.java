@@ -14,6 +14,7 @@ import presentacion.empleados.opciones.*;
 import presentacion.empleados.opciones.consultas.IFrmConsultarDatosMovimiento;
 import presentacion.empleados.opciones.ediciones.IFrmModificarCliente;
 import presentacion.empleados.opciones.registros.IFrmRegistrarCuenta;
+import presentacion.empleados.opciones.registros.IFrmRegistrarMovimiento;
 
 /**
  *
@@ -275,7 +276,8 @@ public class FrmEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_mi_registrarCuentaActionPerformed
 
     private void mi_registrarMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_registrarMovimientoActionPerformed
-        /* Esperando clase Transacciones */
+        IFrmRegistrarMovimiento form = IFrmRegistrarMovimiento.getInstance();
+        centrarInternalFrame(form);
     }//GEN-LAST:event_mi_registrarMovimientoActionPerformed
 
     private void mi_modificarMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_modificarMovimientoActionPerformed

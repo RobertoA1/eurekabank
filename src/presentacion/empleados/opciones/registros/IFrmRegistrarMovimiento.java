@@ -2,10 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package presentacion.empleados.opciones;
+package presentacion.empleados.opciones.registros;
 
 import entidades.Movimiento;
 import entidades.TipoMovimiento;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import javax.swing.JOptionPane;
 import presentacion.empleados.opciones.registros.IFrmRegistrarCuenta;
 import static presentacion.empleados.opciones.registros.IFrmRegistrarCuenta.form;
 import seguridad.Autenticacion;
+import validaciones.Cuentas;
 import validaciones.Movimientos;
 import validaciones.TiposMovimiento;
 
@@ -23,20 +26,25 @@ import validaciones.TiposMovimiento;
  *
  * @author LUCANO
  */
-public class IFrmRegistrarMovimiento_old extends javax.swing.JInternalFrame {
+public class IFrmRegistrarMovimiento extends javax.swing.JInternalFrame {
 
-    public static IFrmRegistrarMovimiento_old form = null;
+    public static IFrmRegistrarMovimiento form = null;
     private static ArrayList<TipoMovimiento> movimientosDisponibles = null;
     /**
      * Creates new form IFrmRegistrarMovimiento
      */
-    public IFrmRegistrarMovimiento_old() {
+    public IFrmRegistrarMovimiento() {
         initComponents();
         try {
             tipEmpleado.setText(Autenticacion.obtenerUsuario().getCodigo());
             
             movimientosDisponibles = TiposMovimiento.listar();
             Iterator<TipoMovimiento> iteradorTM = movimientosDisponibles.iterator();
+            
+            while (iteradorTM.hasNext()){
+                TipoMovimiento m = iteradorTM.next();
+                cbxTM.addItem(m.getDescripcion());
+            }
             
         } catch (IllegalStateException e){
             JOptionPane.showMessageDialog(this, "Autenticación | No se puede continuar: No existe una sesión iniciada.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
@@ -81,7 +89,7 @@ public class IFrmRegistrarMovimiento_old extends javax.swing.JInternalFrame {
         tituloPanel1.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         tituloPanel1.setForeground(new java.awt.Color(229, 229, 229));
         tituloPanel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        tituloPanel1.setText("Registrar Movimiento");
+        tituloPanel1.setText("Realizar Movimiento");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -101,6 +109,8 @@ public class IFrmRegistrarMovimiento_old extends javax.swing.JInternalFrame {
         );
 
         jPanel2.setBackground(new java.awt.Color(229, 229, 229));
+
+        txtImporte.setBackground(new java.awt.Color(255, 255, 255));
 
         labelCodigo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelCodigo.setForeground(new java.awt.Color(0, 0, 0));
@@ -125,6 +135,10 @@ public class IFrmRegistrarMovimiento_old extends javax.swing.JInternalFrame {
                 cbxAñoActionPerformed(evt);
             }
         });
+
+        txtCode.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtReferencia.setBackground(new java.awt.Color(255, 255, 255));
 
         labelCodigo2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelCodigo2.setForeground(new java.awt.Color(0, 0, 0));
@@ -174,49 +188,48 @@ public class IFrmRegistrarMovimiento_old extends javax.swing.JInternalFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(tipAccion, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72)
-                .addComponent(tipEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(81, 81, 81)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(labelCodigo5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addComponent(txtReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelCodigo4)
+                            .addComponent(labelCodigo3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbxTM, 0, 310, Short.MAX_VALUE)
+                            .addComponent(txtImporte)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelCodigo)
+                            .addComponent(labelCodigo2))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(112, 112, 112)
+                                .addComponent(cbxDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cbxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addComponent(cbxAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(102, 102, 102)
+                                .addComponent(txtCode)))))
+                .addGap(102, 102, 102))
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(32, 32, 32)
+                        .addComponent(tipAccion, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(72, 72, 72)
+                        .addComponent(tipEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(labelCodigo5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                                .addComponent(txtReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelCodigo4)
-                                    .addComponent(labelCodigo3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cbxTM, 0, 310, Short.MAX_VALUE)
-                                    .addComponent(txtImporte)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelCodigo)
-                                    .addComponent(labelCodigo2))
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(112, 112, 112)
-                                        .addComponent(cbxDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cbxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(40, 40, 40)
-                                        .addComponent(cbxAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(102, 102, 102)
-                                        .addComponent(txtCode)))))
-                        .addGap(102, 102, 102))))
+                        .addGap(291, 291, 291)
+                        .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,9 +260,9 @@ public class IFrmRegistrarMovimiento_old extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelCodigo5))
-                .addGap(56, 56, 56)
+                .addGap(59, 59, 59)
                 .addComponent(btnRegistrar)
-                .addGap(107, 107, 107))
+                .addGap(104, 104, 104))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -261,7 +274,7 @@ public class IFrmRegistrarMovimiento_old extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 2, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
@@ -282,32 +295,37 @@ public class IFrmRegistrarMovimiento_old extends javax.swing.JInternalFrame {
     
     
     
-    private void registrarInformacion(){
+    private void registrarInformacion() throws SQLException{
         
-        
-        
-        
-        /* ! Deshabilitado temporalmente 
         try {
+            String codigoCuenta = txtCode.getText();
             int dia = Integer.parseInt(cbxDia.getSelectedItem().toString());
             int mes = Integer.parseInt(cbxMes.getSelectedItem().toString());
             int año = Integer.parseInt(cbxAño.getSelectedItem().toString());
             Date fecha = new Date(año, mes, dia);
-            Movimientos.agregar(txtCode.getText(), Long.parseLong(txtNum.getText()), fecha, tipEmpleado.getText(), cbxTM.getSelectedItem().toString() ,Float.parseFloat(txtImporte.getText()), txtReferencia.getText());
-
-            JOptionPane.showMessageDialog(this, "Datos del cliente registrados correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(IFrmModificarDatosCliente.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "Error al registrar los datos en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            if (cbxTM.getSelectedIndex() == -1) throw new IllegalArgumentException("Se tiene que seleccionar una sucursal válida.");
+            String tm = movimientosDisponibles.get(cbxTM.getSelectedIndex()).getCodigo();
+            float importe = Float.parseFloat(txtImporte.getText());
+            String codeCuenRef = Cuentas.obtener(txtReferencia.getText()).getCodigo();
+            Movimientos.agregar(codigoCuenta, movimientosDisponibles.size() + 1, fecha, tipEmpleado.getText(), tm, importe, codeCuenRef);
+            JOptionPane.showMessageDialog(this, "Movimiento ralizado correctamente. : " , "La operación se ha realizado con éxito.", JOptionPane.INFORMATION_MESSAGE);
+        } catch (NullPointerException e){
+            JOptionPane.showMessageDialog(null, "Autenticación: Ha ocurrido un problema grave. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+            System.out.println(e.getLocalizedMessage());
+        } catch (IllegalArgumentException e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(this, "Registrar una nueva cuenta | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
         }
-        */
     }
     
     
     
-    public static IFrmRegistrarMovimiento_old getInstance(){
-        form = new IFrmRegistrarMovimiento_old();
+    public static IFrmRegistrarMovimiento getInstance(){
+        form = new IFrmRegistrarMovimiento();
         return form;
     }
     
@@ -317,7 +335,12 @@ public class IFrmRegistrarMovimiento_old extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxAñoActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        form.registrarInformacion();
+        try {
+            form.registrarInformacion();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Registrar una nueva cuenta | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(ex.getMessage());
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void cbxTMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTMActionPerformed
