@@ -47,6 +47,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnuiSucursales = new javax.swing.JMenuItem();
         mnuiListaCuentas = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("..:: EUREKABANK ::..");
@@ -172,6 +176,19 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenu2.add(jMenuItem1);
 
         jMenuBar1.add(jMenu2);
+
+        jMenu5.setText("Realizar Transaccion");
+
+        jMenuItem9.setText("Depósitos ");
+        jMenu5.add(jMenuItem9);
+
+        jMenuItem10.setText("Retiros");
+        jMenu5.add(jMenuItem10);
+
+        jMenuItem13.setText("Transferencias");
+        jMenu5.add(jMenuItem13);
+
+        jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
 
@@ -321,8 +338,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JDesktopPane dspFondo;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu mnuMantenedor;
     private javax.swing.JMenuItem mnuiAdministrarCuentas;

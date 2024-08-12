@@ -56,6 +56,7 @@ public class IFrmConsultarDatosCuenta extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(20, 45, 68));
 
+        tituloPanel.setBackground(new java.awt.Color(20, 45, 68));
         tituloPanel.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         tituloPanel.setForeground(new java.awt.Color(229, 229, 229));
         tituloPanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
