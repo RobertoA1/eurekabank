@@ -12,7 +12,6 @@ import operaciones.rutina.*;
 import validaciones.Cuentas;
 import validaciones.Empleados;
 import validaciones.Monedas;
-import validaciones.Movimientos;
 
 public class GestorTransacciones {
     
