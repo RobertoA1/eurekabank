@@ -167,6 +167,13 @@ CREATE TABLE interesmensual (
     FOREIGN KEY (monecodigo) REFERENCES moneda(monecodigo)
 );
 
+CREATE TABLE administrador (
+    idadministrador CHAR(8),
+    idempleado CHAR(4),
+    PRIMARY KEY (idadministrador),
+    FOREIGN KEY (idempleado) REFERENCES empleado(emplcodigo)
+);
+
 -- [!] Tipos de Movimiento disponibles
 
 -- Operaciones comunes (0-9)
@@ -202,6 +209,10 @@ INSERT INTO sucursal (sucucodigo, sucunombre, sucuciudad, sucudireccion, sucucue
 ('007', 'Sucursal Costera', 'Chiclayo', 'Av. Costera 6543', 10006543, 1),
 ('008', 'Sucursal Selva', 'Iquitos', 'Calle Selva 8765', 10008765, 1);
 
+-- Se crea al administrador principal.
+INSERT INTO usuario VALUES ('adminusr', 'dVICmBPThZ5kIQ3k1YxdTMB3Lg3p5JhYw6Mwhm+F+2TmDVkEIRyP0Q==', '20', 1);
+INSERT INTO empleado VALUES ('admi', 'ApellidoPAdministrador', 'ApellidoMAdministrador', 'Administrador', 'Trujillo' 'Av. Administradores', 'adminusr', 1);
+INSERT INTO administrador VALUES ('adminusr', 'adminusr');
 
 -- [!] Se consideran sin uso y pueden ser removidos en futuras versiones.
 
@@ -212,13 +223,29 @@ INSERT INTO sucursal (sucucodigo, sucunombre, sucuciudad, sucudireccion, sucucue
 -- [!] Valores de requerimientos
 INSERT INTO usuario VALUES ('INTERNET', '', '', '');
 INSERT INTO empleado VALUES ('9999', '', '', 'INTERNET', '', '', 'INTERNET', 1);
+
+-- Creación de la tabla empleado
+CREATE TABLE empleado (
+    emplcodigo CHAR(4) PRIMARY KEY,
+    emplpaterno VARCHAR(25),
+    emplmaterno VARCHAR(25),
+    emplnombre VARCHAR(30),
+    emplciudad VARCHAR(30),
+    empldireccion VARCHAR(50),
+    idusuario CHAR(8),
+    estado TINYINT DEFAULT 1,  /* Establece si el empleado está activo o está eliminado */
+    FOREIGN KEY (idusuario) REFERENCES usuario(codigo)
+);
+
 -- INSERT INTO empleado VALUES ('1234', 'EmplAP', 'EmplAM', 'Roberto', 'Trux', 'dir', 'RobertoQ', 1);
 
 -- INSERT INTO cuenta VALUES ('23020202', '01', '001', '0001', 'RobertoQ', 1000.52, null, 0, '2323', 1)
 
 -- [!] Valores de administrador
 -- Se advierte que es de uso futuro. Descomentar la línea de debajo para cuando esté implementado.
--- INSERT INTO administrador VALUES (...)
+-- INSERT INTO administrador VALUES ("RobertoA", "RobertoQ")
+
+
 
 
 

@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import presentacion.*;
 import presentacion.administrador.FrmAdministrador;
-
 import seguridad.Autenticacion;
 
 /**
