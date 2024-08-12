@@ -100,7 +100,7 @@ public class Cuentas {
     
     public static boolean existeClaveActual(String codigoCuenta, String claveActual) throws IllegalArgumentException, SQLException{
         if (!esCodigoValido(codigoCuenta)) return false;
-        if (!DBCuentas.existe(codigoCuenta)) return false; //crear un sp y un metodo en DBCuentas
+        if (!existe(codigoCuenta)) return false; //crear un sp y un metodo en DBCuentas
         return true;
     }
 
@@ -108,6 +108,11 @@ public class Cuentas {
         validarCodigoExistente(codigo, "cuenta");
         return (Cuenta)cuentas.obtener(codigo);
 //        return DBCuentas.obtener(codigo);
+    }
+    
+    public static float obtenerSaldo(String codigo)throws SQLException{
+        Cuenta cuenta = obtener(codigo);
+        return cuenta.getSaldo();
     }
     
 }

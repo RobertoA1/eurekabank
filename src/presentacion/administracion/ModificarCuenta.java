@@ -193,7 +193,7 @@ public class ModificarCuenta extends javax.swing.JInternalFrame {
             }
         
             // Obtener el saldo de la cuenta
-            float saldo = DBCuentas.obtenerSaldo(codigoCuenta);
+            float saldo = Cuentas.obtenerSaldo(codigoCuenta);
 
             // Verificar si el saldo es 0
             if (saldo == 0) {

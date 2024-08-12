@@ -107,33 +107,9 @@ public class DBCuentas implements DBAdapter {
         return arr;
     }
 
-    public static float obtenerSaldo(String codigo) throws SQLException {
-        Cuenta c = obtener(codigo);
-        return c.getSaldo();
-    }
+//    public static float obtenerSaldo(String codigo) throws SQLException {
+//        Cuenta c = obtener(codigo);
+//        return c.getSaldo();
+//    }
     
-
-    public static ArrayList<Cuenta> listar(String codigoCliente) throws SQLException{
-        ArrayList<Cuenta> arr = new ArrayList<>();
-        CallableStatement cs = db.prepareCall("CALL sp_cuenta_listar(?)");
-        cs.setString(1, codigoCliente);
-
-        ResultSet rs = cs.executeQuery();
-
-        while (rs.next()){
-            Cuenta c = Cuenta.builder()
-                        .codigo(rs.getString(1))
-                        .codigoMoneda(rs.getString(2))
-                        .codigoSucursal(rs.getString(3))
-                        .codigoCliente(rs.getString(4))
-                        .saldo(rs.getFloat(5))
-                        .fechaCreacion(rs.getDate(6))
-                        .cantidadMovimientos(rs.getInt(7))
-                        .clave(rs.getString(8))
-                        .build();
-            arr.add(c);
-        }
-
-        return arr;
-    }
 }
