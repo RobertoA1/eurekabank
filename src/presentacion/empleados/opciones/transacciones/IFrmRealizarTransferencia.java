@@ -4,17 +4,32 @@
  */
 package presentacion.empleados.opciones.transacciones;
 
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import operaciones.GestorTransacciones;
+import seguridad.Autenticacion;
+import validaciones.Empleados;
+
 /**
  *
  * @author LUCANO
  */
 public class IFrmRealizarTransferencia extends javax.swing.JInternalFrame {
-
+    public static IFrmRealizarTransferencia form = null;
     /**
      * Creates new form IFrmRealizarTransferencia
      */
     public IFrmRealizarTransferencia() {
         initComponents();
+        try {
+            tipEmpleado.setText(Autenticacion.obtenerUsuario().getCodigo());
+        } catch (IllegalStateException e){
+            JOptionPane.showMessageDialog(this, "Autenticación | No se puede continuar: No existe una sesión iniciada.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(this, "Datos de un Cliente | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -36,6 +51,8 @@ public class IFrmRealizarTransferencia extends javax.swing.JInternalFrame {
         txtCodigoCuentaReceptora = new javax.swing.JTextField();
         labelCodigo5 = new javax.swing.JLabel();
         txtCodigoCuenta = new javax.swing.JTextField();
+        tipAccion = new javax.swing.JLabel();
+        tipEmpleado = new javax.swing.JLabel();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -71,6 +88,11 @@ public class IFrmRealizarTransferencia extends javax.swing.JInternalFrame {
         btnRealizarTransferencia.setBackground(new java.awt.Color(255, 255, 255));
         btnRealizarTransferencia.setForeground(new java.awt.Color(0, 0, 0));
         btnRealizarTransferencia.setText("Realizar Transferencia");
+        btnRealizarTransferencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRealizarTransferenciaActionPerformed(evt);
+            }
+        });
 
         labelCodigo4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelCodigo4.setForeground(new java.awt.Color(0, 0, 0));
@@ -79,6 +101,12 @@ public class IFrmRealizarTransferencia extends javax.swing.JInternalFrame {
         labelCodigo5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelCodigo5.setForeground(new java.awt.Color(0, 0, 0));
         labelCodigo5.setText("Código de Cuenta:");
+
+        tipAccion.setForeground(new java.awt.Color(0, 0, 0));
+        tipAccion.setText("Esta es una acción de empleado autorizada para:");
+
+        tipEmpleado.setForeground(new java.awt.Color(0, 0, 0));
+        tipEmpleado.setText("usuarioPlaceholder");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -104,11 +132,21 @@ public class IFrmRealizarTransferencia extends javax.swing.JInternalFrame {
                                 .addGap(155, 155, 155)
                                 .addComponent(btnRealizarTransferencia)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(tipAccion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tipEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tipAccion)
+                    .addComponent(tipEmpleado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelCodigo5)
                     .addComponent(txtCodigoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -130,6 +168,24 @@ public class IFrmRealizarTransferencia extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRealizarTransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarTransferenciaActionPerformed
+        try {
+            GestorTransacciones.transferir(txtCodigoCuenta.getText(), txtCodigoCuentaReceptora.getText(), Float.parseFloat(txtImporte.getText()), Empleados.obtenerPorIdUsuario(tipEmpleado.getText()).getCodigo());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Realizando Transferencia | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_btnRealizarTransferenciaActionPerformed
+
+    public static IFrmRealizarTransferencia getInstance(){
+        form = new IFrmRealizarTransferencia();
+        return form;
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRealizarTransferencia;
@@ -138,6 +194,8 @@ public class IFrmRealizarTransferencia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel labelCodigo3;
     private javax.swing.JLabel labelCodigo4;
     private javax.swing.JLabel labelCodigo5;
+    private javax.swing.JLabel tipAccion;
+    private javax.swing.JLabel tipEmpleado;
     private javax.swing.JLabel tituloPanel;
     private javax.swing.JTextField txtCodigoCuenta;
     private javax.swing.JTextField txtCodigoCuentaReceptora;

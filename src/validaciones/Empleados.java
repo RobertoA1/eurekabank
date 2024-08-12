@@ -35,6 +35,10 @@ public class Empleados {
         validarCodigo(codigo);
         return DBEmpleado.obtener(codigo);
     }
+    
+    public static Empleado obtenerPorIdUsuario(String idUsuario) throws IllegalArgumentException, SQLException{
+        return DBEmpleado.obtenerPorIdUsuario(idUsuario);
+    }
 
     public static void modificarNombre(String codigo, String nuevoNombre) throws IllegalArgumentException, SQLException{
         validarCodigo(codigo);

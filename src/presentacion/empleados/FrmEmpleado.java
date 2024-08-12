@@ -15,6 +15,7 @@ import presentacion.empleados.opciones.consultas.IFrmConsultarDatosMovimiento;
 import presentacion.empleados.opciones.ediciones.IFrmModificarCliente;
 import presentacion.empleados.opciones.registros.IFrmRegistrarCuenta;
 import presentacion.empleados.opciones.registros.IFrmRegistrarMovimiento;
+import presentacion.empleados.opciones.transacciones.*;
 
 /**
  *
@@ -225,9 +226,19 @@ public class FrmEmpleado extends javax.swing.JFrame {
         jMenu5.add(jMenuItem9);
 
         jMenuItem10.setText("Retiros");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem10);
 
         jMenuItem13.setText("Transferencias");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem13);
 
         jMenuBar1.add(jMenu5);
@@ -277,23 +288,23 @@ public class FrmEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_mi_registrarClienteActionPerformed
 
     private void mi_verDatosClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_verDatosClienteActionPerformed
-        IFrmConsultarDatosCliente form = new IFrmConsultarDatosCliente();
-        centrarInternalFrame(form);
+        IFrmConsultarDatosCliente i = new IFrmConsultarDatosCliente();
+        centrarInternalFrame(i);
     }//GEN-LAST:event_mi_verDatosClienteActionPerformed
 
     private void mi_modificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_modificarClienteActionPerformed
-        IFrmModificarCliente form = new IFrmModificarCliente();
-        centrarInternalFrame(form);
+        IFrmModificarCliente i = new IFrmModificarCliente();
+        centrarInternalFrame(i);
     }//GEN-LAST:event_mi_modificarClienteActionPerformed
 
     private void mi_verDatosCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_verDatosCuentaActionPerformed
-        IFrmConsultarDatosCuenta form = new IFrmConsultarDatosCuenta();
-        centrarInternalFrame(form);
+        IFrmConsultarDatosCuenta i = new IFrmConsultarDatosCuenta();
+        centrarInternalFrame(i);
     }//GEN-LAST:event_mi_verDatosCuentaActionPerformed
 
     private void mi_verDatosMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_verDatosMovimientoActionPerformed
-        IFrmConsultarDatosMovimiento form = new IFrmConsultarDatosMovimiento();
-        centrarInternalFrame(form);
+        IFrmConsultarDatosMovimiento i = new IFrmConsultarDatosMovimiento();
+        centrarInternalFrame(i);
     }//GEN-LAST:event_mi_verDatosMovimientoActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -302,13 +313,13 @@ public class FrmEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void mi_registrarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_registrarCuentaActionPerformed
-        IFrmRegistrarCuenta form = IFrmRegistrarCuenta.getInstance();
-        centrarInternalFrame(form);
+        IFrmRegistrarCuenta i = IFrmRegistrarCuenta.getInstance();
+        centrarInternalFrame(i);
     }//GEN-LAST:event_mi_registrarCuentaActionPerformed
 
     private void mi_registrarMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_registrarMovimientoActionPerformed
-        IFrmRegistrarMovimiento form = IFrmRegistrarMovimiento.getInstance();
-        centrarInternalFrame(form);
+        IFrmRegistrarMovimiento i = IFrmRegistrarMovimiento.getInstance();
+        centrarInternalFrame(i);
     }//GEN-LAST:event_mi_registrarMovimientoActionPerformed
 
     private void mi_modificarMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_modificarMovimientoActionPerformed
@@ -316,12 +327,23 @@ public class FrmEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_mi_modificarMovimientoActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        
+        IFrmRealizarDeposito i = IFrmRealizarDeposito.getInstance();
+        FrmEmpleado.centrarInternalFrame(i);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        IFrmRealizarTransferencia i = IFrmRealizarTransferencia.getInstance();
+        FrmEmpleado.centrarInternalFrame(i);
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        IFrmRealizarRetiro i = IFrmRealizarRetiro.getInstance();
+        FrmEmpleado.centrarInternalFrame(i);
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     public static FrmEmpleado getInstance(){
         /* Set the Nimbus look and feel */

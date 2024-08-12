@@ -4,18 +4,33 @@
  */
 package presentacion.empleados.opciones.transacciones;
 
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import operaciones.GestorTransacciones;
+import seguridad.Autenticacion;
+import validaciones.Empleados;
+
 
 /**
  *
  * @author LUCANO
  */
-public class IfrmRealizarRetiro extends javax.swing.JInternalFrame {
-
+public class IFrmRealizarRetiro extends javax.swing.JInternalFrame {
+    public static IFrmRealizarRetiro form = null;
     /**
      * Creates new form IfrmRealizarRetiro
      */
-    public IfrmRealizarRetiro() {
+    public IFrmRealizarRetiro() {
         initComponents();
+        try {
+            tipEmpleado.setText(Autenticacion.obtenerUsuario().getCodigo());
+        } catch (IllegalStateException e){
+            JOptionPane.showMessageDialog(this, "Autenticación | No se puede continuar: No existe una sesión iniciada.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(this, "Realizando retiro | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -35,6 +50,8 @@ public class IfrmRealizarRetiro extends javax.swing.JInternalFrame {
         btnRealizarRetiro = new javax.swing.JButton();
         labelCodigo4 = new javax.swing.JLabel();
         txtCodigoCuenta = new javax.swing.JTextField();
+        tipAccion = new javax.swing.JLabel();
+        tipEmpleado = new javax.swing.JLabel();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -74,10 +91,21 @@ public class IfrmRealizarRetiro extends javax.swing.JInternalFrame {
         btnRealizarRetiro.setBackground(new java.awt.Color(255, 255, 255));
         btnRealizarRetiro.setForeground(new java.awt.Color(0, 0, 0));
         btnRealizarRetiro.setText("Realizar Retiro");
+        btnRealizarRetiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRealizarRetiroActionPerformed(evt);
+            }
+        });
 
         labelCodigo4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelCodigo4.setForeground(new java.awt.Color(0, 0, 0));
         labelCodigo4.setText("Código de Cuenta:");
+
+        tipAccion.setForeground(new java.awt.Color(0, 0, 0));
+        tipAccion.setText("Esta es una acción de empleado autorizada para:");
+
+        tipEmpleado.setForeground(new java.awt.Color(0, 0, 0));
+        tipEmpleado.setText("usuarioPlaceholder");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -89,20 +117,30 @@ public class IfrmRealizarRetiro extends javax.swing.JInternalFrame {
                         .addGap(143, 143, 143)
                         .addComponent(btnRealizarRetiro))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelCodigo3)
-                            .addComponent(labelCodigo4))
-                        .addGap(55, 55, 55)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtCodigoCuenta)
-                            .addComponent(txtImporte, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                        .addGap(16, 16, 16)
+                        .addComponent(tipAccion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tipEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelCodigo3)
+                    .addComponent(labelCodigo4))
+                .addGap(55, 55, 55)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtCodigoCuenta)
+                    .addComponent(txtImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tipAccion)
+                    .addComponent(tipEmpleado))
+                .addGap(34, 34, 34)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelCodigo4)
                     .addComponent(txtCodigoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -110,7 +148,7 @@ public class IfrmRealizarRetiro extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelCodigo3)
                     .addComponent(txtImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
+                .addGap(26, 26, 26)
                 .addComponent(btnRealizarRetiro)
                 .addContainerGap(40, Short.MAX_VALUE))
         );
@@ -120,13 +158,32 @@ public class IfrmRealizarRetiro extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRealizarRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarRetiroActionPerformed
+        try {
+            GestorTransacciones.retirar(txtCodigoCuenta.getText(), Float.parseFloat(txtImporte.getText()), Empleados.obtenerPorIdUsuario(tipEmpleado.getText()).getCodigo());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Realizando Depósito | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_btnRealizarRetiroActionPerformed
 
+    public static IFrmRealizarRetiro getInstance(){
+        form = new IFrmRealizarRetiro();
+        return form;
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRealizarRetiro;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel labelCodigo3;
     private javax.swing.JLabel labelCodigo4;
+    private javax.swing.JLabel tipAccion;
+    private javax.swing.JLabel tipEmpleado;
     private javax.swing.JLabel tituloPanel;
     private javax.swing.JTextField txtCodigoCuenta;
     private javax.swing.JTextField txtImporte;

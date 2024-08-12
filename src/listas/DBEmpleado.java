@@ -51,6 +51,27 @@ public class DBEmpleado {
         }
         return null;
     }
+    
+    public static Empleado obtenerPorIdUsuario(String id) throws SQLException{
+        CallableStatement cs = db.prepareCall("CALL sp_BuscarEmpleadoPorIdUsuario(?)");
+        cs.setString(1, id);
+
+        ResultSet rs = cs.executeQuery();
+
+        if (rs.next()){
+            Empleado e = new Empleado();
+            e.setCodigo(rs.getString(1));
+            e.setApellidoPaterno(rs.getString(2));
+            e.setApellidoMaterno(rs.getString(3));
+            e.setNombre(rs.getString(4));
+            e.setCiudad(rs.getString(5));
+            e.setDireccion(rs.getString(6));
+            e.setIdUsuario(rs.getString(7));
+            return e;
+        }
+        return null;
+    }
+    
 
     public static void modificarNombre(String codigo, String nuevoNombre) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_modEmpleado_nombre(?, ?)");
