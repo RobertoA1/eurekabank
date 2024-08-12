@@ -250,9 +250,11 @@ public class RegistroPaso2 extends javax.swing.JFrame {
             this.setVisible(false);
             login.setVisible(true);
             this.dispose();
+            return;
         } else if (fuente.equalsIgnoreCase("empleados")){
             this.setVisible(false);
             this.dispose();
+            return;
         }
 
        JOptionPane.showMessageDialog(this, "Paso 2 del Registro | Error del desarrollador: La fuente de llamada al menú de Registro es incorrecta.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);

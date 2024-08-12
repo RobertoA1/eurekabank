@@ -13,6 +13,23 @@ import java.util.ArrayList;
 public class DBCuentas {
     private static Connection db = ConexionDB.obtenerDB();
 
+    public static String generarCodigo() throws SQLException{
+        int siguienteId = 0;
+        CallableStatement cs = db.prepareCall("CALL sp_cantidad_cuentas()");
+        ResultSet rs = cs.executeQuery();
+        if (rs.next()) siguienteId = rs.getInt(1) + 1;
+        
+        StringBuilder codigoBuilder = new StringBuilder();
+        String tempCodigo = String.valueOf(siguienteId);
+        for (int i = tempCodigo.length(); i < 8; i++){
+            codigoBuilder.append("0");
+        }
+        
+        codigoBuilder.append(tempCodigo);
+        return codigoBuilder.toString();
+    }
+    
+ 
     public static boolean existe(String codigoCuenta) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_cuenta_existe(?)");
         cs.setString(1, codigoCuenta);
@@ -75,6 +92,20 @@ public class DBCuentas {
         cs.setString(1, codigoCuenta);
         cs.setDate(2, fechaCreacion);
 
+        cs.executeUpdate();
+    }
+    
+    public static void modificar_saldo(String codigo, float nuevoSaldo) throws SQLException{
+        CallableStatement cs = db.prepareCall("CALL sp_cuenta_modificar_saldo(?, ?)");
+        cs.setString(1, codigo);
+        cs.setFloat(2, nuevoSaldo);
+        cs.executeUpdate();
+    }
+    
+    public static void modificar_clave(String codigo, String nuevaClave) throws SQLException{
+        CallableStatement cs = db.prepareCall("CALL sp_cuenta_modificar_clave(?, ?)");
+        cs.setString(1, codigo);
+        cs.setString(2, nuevaClave);
         cs.executeUpdate();
     }
 

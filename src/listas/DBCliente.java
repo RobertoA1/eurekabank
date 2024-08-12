@@ -18,7 +18,7 @@ public class DBCliente{
         
         StringBuilder codigoBuilder = new StringBuilder();
         String tempCodigo = String.valueOf(siguienteId);
-        for (int i = tempCodigo.length(); i < 4; i++){
+        for (int i = tempCodigo.length(); i < 5; i++){
             codigoBuilder.append("0");
         }
         
@@ -54,7 +54,7 @@ public class DBCliente{
     }
 
     public static Cliente obtener(String codigo) throws SQLException{
-        CallableStatement cs = db.prepareCall("CALL sp_BuscarCliente(?)");
+        CallableStatement cs = db.prepareCall("CALL sp_cliente_buscar(?)");
         cs.setString(1, codigo);
 
         ResultSet rs = cs.executeQuery();
@@ -189,7 +189,7 @@ public class DBCliente{
                 .cantidadMovimientos(rs.getInt(8))
                 .clave(rs.getString(9))
                 .build();
-                arr.add(cuenta);
+            arr.add(cuenta);
         }
         return arr;
     }

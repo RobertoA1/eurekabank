@@ -4,7 +4,7 @@
  */
 package presentacion.administracion;
 
-import presentacion.FrmPrincipal;
+import presentacion.FrmClientes;
 
 /**
  *
@@ -143,7 +143,7 @@ public class AdministracionCuentas extends javax.swing.JInternalFrame {
 
     private void btnCrearMiCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearMiCuentaActionPerformed
         this.setVisible(false);
-        FrmPrincipal form = FrmPrincipal.getInstance();
+        FrmClientes form = FrmClientes.getInstance();
         CrearCuenta crearCuenta = new CrearCuenta();  
         form.centrarInternalFrameExterno(crearCuenta);
         this.dispose();  
@@ -151,7 +151,7 @@ public class AdministracionCuentas extends javax.swing.JInternalFrame {
 
     private void btnAdministrarMiCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministrarMiCuentaActionPerformed
         this.setVisible(false);
-        FrmPrincipal form = FrmPrincipal.getInstance();
+        FrmClientes form = FrmClientes.getInstance();
         ModificarCuenta modificarCuenta = new ModificarCuenta();  
         form.centrarInternalFrameExterno(modificarCuenta);  
         this.dispose();  

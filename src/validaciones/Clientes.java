@@ -76,7 +76,7 @@ public class Clientes {
         validarCodigo(codigo);
         if (nuevoApellido.isBlank()) throw new IllegalArgumentException(errMsg + "El nuevo apellido materno no puede estar vacío.");
         if (nuevoApellido.length() > 25) throw new IllegalArgumentException(errMsg + "El nuevo apellido materno es demasiado largo (máx. 25 caracteres)");
-        DBCliente.modificarApellidoPaterno(codigo, nuevoApellido.trim());
+        DBCliente.modificarApellidoMaterno(codigo, nuevoApellido.trim());
     }
 
     public static void modificarDni(String codigo, String nuevoDni) throws IllegalArgumentException, SQLException{
