@@ -111,7 +111,7 @@ public class Cuentas {
     }
     
     public static void modificar_saldo(String codigo, float nuevoSaldo) throws SQLException{
-        if (nuevoSaldo <= 0) throw new IllegalArgumentException(errMsg + "El nuevo saldo no puede ser menor a 0.");
+        if (nuevoSaldo < 0) throw new IllegalArgumentException(errMsg + "El nuevo saldo no puede ser menor a 0.");
         DBCuentas.modificar_saldo(codigo, nuevoSaldo);
     }
 }

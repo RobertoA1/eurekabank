@@ -7,7 +7,7 @@ package presentacion.empleados;
 import presentacion.empleados.opciones.consultas.IFrmConsultarDatosCuenta;
 import presentacion.empleados.opciones.consultas.IFrmConsultarDatosCliente;
 import javax.swing.JInternalFrame;
-import presentacion.FrmPrincipal;
+import presentacion.FrmClientes;
 import presentacion.empleados.opciones.IFrmSucursales;
 import presentacion.clientes.registro.Registro;
 import presentacion.empleados.opciones.*;
@@ -337,13 +337,13 @@ public class FrmEmpleado extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         if (form == null) form = new FrmEmpleado();

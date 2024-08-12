@@ -230,7 +230,7 @@ public class Login extends javax.swing.JFrame {
             if (user.getNivelPermisos() == 1){
                 /* Si el nivel de permisos es 1, quiere decir que es un cliente */
                 /* Por ende, llamamos FrmPrincipal, que es la de clientes */
-                FrmPrincipal menu = FrmPrincipal.getInstance();
+                FrmClientes menu = FrmClientes.getInstance();
                 menu.setVisible(true);
             }
             
