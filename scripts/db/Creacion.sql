@@ -2,25 +2,6 @@
 CREATE DATABASE IF NOT EXISTS Eureka;
 USE Eureka;
 
--- Creación de la tabla contador
--- ! Se considera sin uso y puede ser removido en una versión futura.
-CREATE TABLE contador (
-    contabla VARCHAR(30),
-    continit INT(11),
-    contingount INT(11),
-    PRIMARY KEY (contabla)
-);
-
--- Creación de la tabla parametro
--- ! Se considera sin uso y puede ser removido en una versión futura.
-CREATE TABLE parametro (
-    paracodigo CHAR(3) PRIMARY KEY,
-    paradescripcion VARCHAR(50),
-    paratipocacion VARCHAR(10),
-    paravalor VARCHAR(70),
-    parastado VARCHAR(15)
-);
-
 -- Creación de la tabla sucursal
 CREATE TABLE sucursal (
     sucucodigo CHAR(3) PRIMARY KEY,
@@ -83,17 +64,6 @@ CREATE TABLE empleado (
     FOREIGN KEY (idusuario) REFERENCES usuario(codigo)
 );
 
--- Creación de la tabla asignado
-CREATE TABLE asignado (
-    asigcodigo CHAR(6) PRIMARY KEY,
-    sucucodigo CHAR(3),
-    emplcodigo CHAR(4),
-    asigfecalta DATE,
-    asigfecbaja DATE,
-    FOREIGN KEY (sucucodigo) REFERENCES sucursal(sucucodigo),
-    FOREIGN KEY (emplcodigo) REFERENCES empleado(emplcodigo)
-);
-
 -- Creación de la tabla cuenta
 CREATE TABLE cuenta (
     codigo CHAR(8) PRIMARY KEY,
@@ -136,36 +106,7 @@ CREATE TABLE movimiento (
     FOREIGN KEY (tipocodigo) REFERENCES tipomovimiento(tipocodigo)
 );
 
--- Creación de la tabla cargomantenimiento
--- ! Se considera sin uso y puede ser removido en una versión futura.
--- Sin embargo, se recomienda implementarlo
-CREATE TABLE cargomantenimiento (
-    monecodigo CHAR(2),
-    cargMontoMaximo DECIMAL(12,2),
-    cargImporte DECIMAL(12,2),
-    PRIMARY KEY (monecodigo),
-    FOREIGN KEY (monecodigo) REFERENCES moneda(monecodigo)
-);
-
--- Creación de la tabla costomovimiento
--- ! Se considera sin uso y puede ser removido en una versión futura.
--- Sin embargo, se recomienda implementarlo
-CREATE TABLE costomovimiento (
-    monecodigo CHAR(2),
-    costimporte DECIMAL(12,2),
-    PRIMARY KEY (monecodigo),
-    FOREIGN KEY (monecodigo) REFERENCES moneda(monecodigo)
-);
-
--- Creación de la tabla interesmensual
--- ! Se considera sin uso y puede ser removido en una versión futura.
--- Sin embargo, se recomienda implementarlo
-CREATE TABLE interesmensual (
-    monecodigo CHAR(2),
-    intimporte DECIMAL(12,2),
-    PRIMARY KEY (monecodigo),
-    FOREIGN KEY (monecodigo) REFERENCES moneda(monecodigo)
-);
+-- Creación de la tabla Administrador
 
 CREATE TABLE administrador (
     idadministrador CHAR(8),
@@ -211,44 +152,20 @@ INSERT INTO sucursal (sucucodigo, sucunombre, sucuciudad, sucudireccion, sucucue
 
 -- Se crea al administrador principal.
 INSERT INTO usuario VALUES ('adminusr', 'dVICmBPThZ5kIQ3k1YxdTMB3Lg3p5JhYw6Mwhm+F+2TmDVkEIRyP0Q==', '20', 1);
-INSERT INTO empleado VALUES ('admi', 'ApellidoPAdministrador', 'ApellidoMAdministrador', 'Administrador', 'Trujillo' 'Av. Administradores', 'adminusr', 1);
+INSERT INTO empleado VALUES ('admi', 'ApellidoPAdministrador', 'ApellidoMAdministrador', 'Administrador', 'Trujillo', 'Av. Administradores', 'adminusr', 1);
 INSERT INTO administrador VALUES ('adminusr', 'adminusr');
-
--- [!] Se consideran sin uso y pueden ser removidos en futuras versiones.
-
--- INSERT INTO parametro (paracodigo, paradescripcion, paratipocacion, paravalor, parastado) VALUES ('001', 'Tasa de Interés', 'Porcentaje', '0.05', 'Activo');
--- INSERT INTO contador (contabla, continit, contingount) VALUES ('cuenta', 0, 0);
--- INSERT INTO contador (contabla, continit, contingount) VALUES ('movimiento', 0, 0);
 
 -- [!] Valores de requerimientos
 INSERT INTO usuario VALUES ('INTERNET', '', '', '');
 INSERT INTO empleado VALUES ('9999', '', '', 'INTERNET', '', '', 'INTERNET', 1);
 
--- Creación de la tabla empleado
-CREATE TABLE empleado (
-    emplcodigo CHAR(4) PRIMARY KEY,
-    emplpaterno VARCHAR(25),
-    emplmaterno VARCHAR(25),
-    emplnombre VARCHAR(30),
-    emplciudad VARCHAR(30),
-    empldireccion VARCHAR(50),
-    idusuario CHAR(8),
-    estado TINYINT DEFAULT 1,  /* Establece si el empleado está activo o está eliminado */
-    FOREIGN KEY (idusuario) REFERENCES usuario(codigo)
-);
-
 -- INSERT INTO empleado VALUES ('1234', 'EmplAP', 'EmplAM', 'Roberto', 'Trux', 'dir', 'RobertoQ', 1);
 
 -- INSERT INTO cuenta VALUES ('23020202', '01', '001', '0001', 'RobertoQ', 1000.52, null, 0, '2323', 1)
 
--- [!] Valores de administrador
+-- [!] Valores de prueba
 -- Se advierte que es de uso futuro. Descomentar la línea de debajo para cuando esté implementado.
 -- INSERT INTO administrador VALUES ("RobertoA", "RobertoQ")
-
-
-
-
-
 
 -- Insertar un nuevo usuario
 INSERT INTO usuario (codigo, clave, permisos, estado) 
