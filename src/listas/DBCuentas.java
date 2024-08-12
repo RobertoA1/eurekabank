@@ -94,6 +94,13 @@ public class DBCuentas {
 
         cs.executeUpdate();
     }
+    
+    public static void modificar_saldo(String codigo, float nuevoSaldo) throws SQLException{
+        CallableStatement cs = db.prepareCall("CALL sp_cuenta_modificar_saldo(?, ?)");
+        cs.setString(1, codigo);
+        cs.setFloat(2, nuevoSaldo);
+        cs.executeUpdate();
+    }
 
     public static float obtenerSaldo(String codigo) throws SQLException {
         Cuenta c = obtener(codigo);
