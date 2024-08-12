@@ -3,9 +3,35 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Usuario/Documents/GitHub/eurekabank/src/presentacion/login/Registro.java</file>
-            <file>file:/C:/Users/Usuario/Documents/GitHub/eurekabank/src/presentacion/login/RegistroPaso2.java</file>
-            <file>file:/C:/Users/Usuario/Documents/GitHub/eurekabank/src/presentacion/cuenta/JifCuenta.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/presentacion/IFrmCuentas.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/presentacion/FrmEmpleado.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/listas/DBCliente.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/presentacion/FrmPrincipal.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/listas/DBUsuario.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/entidades/Movimiento.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/presentacion/IFrmModificarTransaccion.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/entidades/MontoMaximo.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/seguridad/Sesiones.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/validaciones/Empleados.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/seguridad/Autenticacion.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/entidades/Sucursal.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/entidades/Moneda.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/conexion/ConexionDB.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/entidades/CostoMovimiento.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/entidades/Cliente.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/entidades/Usuario.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/listas/DBMovimiento.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/seguridad/Contrasenas.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/presentacion/IFrmModificarMoneda.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/entidades/TipoMovimiento.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/seguridad/FabricaToken.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/presentacion/IFrmConsultarMovimientos.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/presentacion/FrmSecundario.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/entidades/OperacionFinanciera.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/validaciones/Clientes.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/validaciones/Movimientos.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/validaciones/Usuarios.java</file>
+            <file>file:/C:/Users/Usuario/Documents/AdrianGit/eurekabank/src/presentacion/login/Login.java</file>
         </group>
     </open-files>
 </project-private>
