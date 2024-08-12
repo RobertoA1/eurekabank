@@ -12,6 +12,17 @@ public class DBMovimiento {
 
     private static Connection db = ConexionDB.obtenerDB();
 
+    
+    public static int generarCodigo() throws SQLException{
+        int siguienteId = 0;
+        CallableStatement cs = db.prepareCall("CALL sp_cantidad_movimientos()");
+        ResultSet rs = cs.executeQuery();
+        if (rs.next()) siguienteId = rs.getInt(1) + 1;
+        
+        return siguienteId;
+    }
+    
+    
     public static boolean existe(int numero) throws SQLException{
         cs = db.prepareCall("CALL sp_movimiento_obtenerEstado(?)");
         cs.setInt(1, numero);

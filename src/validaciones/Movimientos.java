@@ -9,6 +9,10 @@ import java.util.ArrayList;
 public class Movimientos {
     private static String errMsg = "Error en movimiento: ";
 
+    public static int generarCodigo() throws SQLException{
+        return DBMovimiento.generarCodigo();
+    }
+    
     private static void validarMovNumero(int numero) throws IllegalArgumentException {
         if (numero <= 0) throw new IllegalArgumentException(errMsg + "El número debe ser mayor que cero.");
     }
