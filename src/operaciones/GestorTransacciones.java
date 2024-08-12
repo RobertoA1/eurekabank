@@ -19,7 +19,7 @@ public class GestorTransacciones {
     
     public static void depositar(String codigoCuenta, float cantidad, String codigoEmpleado) throws IllegalArgumentException, SQLException{
         Cuenta cuenta = Cuentas.obtener(codigoCuenta);
-        Empleado empleado = Empleados.obtener(codigoCuenta);
+        Empleado empleado = Empleados.obtener(codigoEmpleado);
         
         if (cantidad < 0) throw new IllegalArgumentException(err + "La cantidad a depositar no puede ser negativa.");
         
@@ -43,7 +43,7 @@ public class GestorTransacciones {
     
     public static void retirar(String codigoCuenta, float cantidad, String codigoEmpleado) throws IllegalArgumentException, SQLException{
         Cuenta cuenta = Cuentas.obtener(codigoCuenta);
-        Empleado empleado = Empleados.obtener(codigoCuenta);
+        Empleado empleado = Empleados.obtener(codigoEmpleado);
         
         if (cantidad < 0) throw new IllegalArgumentException(err + "La cantidad a retirar no puede ser negativa.");
         if (cantidad > cuenta.getSaldo()) throw new IllegalArgumentException(err + "La cantidad a retirar no puede ser mayor al saldo disponible en la cuenta.");

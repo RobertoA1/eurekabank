@@ -29,9 +29,9 @@ public class Retiros {
     
     public static void retirar(String codigoCuenta, float cantidad, String codigoEmpleado) throws IllegalArgumentException, SQLException{
         Cuenta cuenta = Cuentas.obtener(codigoCuenta);
-        Empleado empleado = Empleados.obtener(codigoCuenta);
+        Empleado empleado = Empleados.obtener(codigoEmpleado);
         
-        Cuentas.modificar_saldo(codigoCuenta, cuenta.getSaldo() + cantidad);
+        Cuentas.modificar_saldo(codigoCuenta, cuenta.getSaldo() - cantidad);
         Movimientos.agregar(codigoCuenta, Movimientos.generarCodigo(), obtenerFechaActual(), codigoEmpleado, 
                 CODIGO_RETIRO, cantidad, "");
     }

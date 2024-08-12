@@ -212,6 +212,7 @@ INSERT INTO sucursal (sucucodigo, sucunombre, sucuciudad, sucudireccion, sucucue
 -- [!] Valores de requerimientos
 INSERT INTO usuario VALUES ('INTERNET', '', '', '');
 INSERT INTO empleado VALUES ('9999', '', '', 'INTERNET', '', '', 'INTERNET', 1);
+-- INSERT INTO empleado VALUES ('1234', 'EmplAP', 'EmplAM', 'Roberto', 'Trux', 'dir', 'RobertoQ', 1);
 
 -- INSERT INTO cuenta VALUES ('23020202', '01', '001', '0001', 'RobertoQ', 1000.52, null, 0, '2323', 1)
 

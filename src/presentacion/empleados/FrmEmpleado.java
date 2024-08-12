@@ -11,12 +11,13 @@ import presentacion.FrmClientes;
 import presentacion.empleados.opciones.IFrmSucursales;
 import presentacion.clientes.registro.Registro;
 import presentacion.empleados.opciones.*;
+import presentacion.empleados.opciones.consultas.IFrmConsultarCuentasCliente;
 import presentacion.empleados.opciones.consultas.IFrmConsultarDatosMovimiento;
 import presentacion.empleados.opciones.ediciones.IFrmModificarCliente;
 import presentacion.empleados.opciones.ediciones.IFrmModificarCuenta;
 import presentacion.empleados.opciones.registros.IFrmRegistrarCuenta;
 import presentacion.empleados.opciones.registros.IFrmRegistrarMovimiento;
-import presentacion.empleados.opciones.transacciones.*;
+import presentacion.empleados.opciones.operaciones.*;
 
 /**
  *
@@ -47,17 +48,20 @@ public class FrmEmpleado extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         dspFondo = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
+        menuOperaciones = new javax.swing.JMenu();
+        miDeposito = new javax.swing.JMenuItem();
+        miRetiro = new javax.swing.JMenuItem();
+        miTransferencia = new javax.swing.JMenuItem();
         menuBuscar = new javax.swing.JMenu();
         mi_verDatosCuenta = new javax.swing.JMenuItem();
         mi_verDatosCliente = new javax.swing.JMenuItem();
         mi_verDatosMovimiento = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         menuRegistrar = new javax.swing.JMenu();
         mi_registrarCliente = new javax.swing.JMenuItem();
         mi_registrarCuenta = new javax.swing.JMenuItem();
-        mi_registrarMovimiento = new javax.swing.JMenuItem();
         menuModificar = new javax.swing.JMenu();
         mi_modificarCliente = new javax.swing.JMenuItem();
-        mi_modificarMovimiento = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -65,12 +69,6 @@ public class FrmEmpleado extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -90,6 +88,34 @@ public class FrmEmpleado extends javax.swing.JFrame {
             dspFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 697, Short.MAX_VALUE)
         );
+
+        menuOperaciones.setText("Realizar operaciones");
+
+        miDeposito.setText("Realizar un depósito a una cuenta");
+        miDeposito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDepositoActionPerformed(evt);
+            }
+        });
+        menuOperaciones.add(miDeposito);
+
+        miRetiro.setText("Realizar un retiro de una cuenta");
+        miRetiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRetiroActionPerformed(evt);
+            }
+        });
+        menuOperaciones.add(miRetiro);
+
+        miTransferencia.setText("Realizar una transferencia de una cuenta a otra");
+        miTransferencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miTransferenciaActionPerformed(evt);
+            }
+        });
+        menuOperaciones.add(miTransferencia);
+
+        jMenuBar1.add(menuOperaciones);
 
         menuBuscar.setText("Buscar un registro");
 
@@ -117,6 +143,14 @@ public class FrmEmpleado extends javax.swing.JFrame {
         });
         menuBuscar.add(mi_verDatosMovimiento);
 
+        jMenuItem6.setText("Ver las cuentas de una persona");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        menuBuscar.add(jMenuItem6);
+
         jMenuBar1.add(menuBuscar);
 
         menuRegistrar.setText("Crear un nuevo registro");
@@ -137,14 +171,6 @@ public class FrmEmpleado extends javax.swing.JFrame {
         });
         menuRegistrar.add(mi_registrarCuenta);
 
-        mi_registrarMovimiento.setText("Registrar un nuevo movimiento (deshabilitado)");
-        mi_registrarMovimiento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mi_registrarMovimientoActionPerformed(evt);
-            }
-        });
-        menuRegistrar.add(mi_registrarMovimiento);
-
         jMenuBar1.add(menuRegistrar);
 
         menuModificar.setText("Modificar un registro existente");
@@ -156,14 +182,6 @@ public class FrmEmpleado extends javax.swing.JFrame {
             }
         });
         menuModificar.add(mi_modificarCliente);
-
-        mi_modificarMovimiento.setText("Modificar los datos de un movimiento (deshabilitado)");
-        mi_modificarMovimiento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mi_modificarMovimientoActionPerformed(evt);
-            }
-        });
-        menuModificar.add(mi_modificarMovimiento);
 
         jMenuItem7.setText("Modificar los datos de una cuenta");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
@@ -204,46 +222,6 @@ public class FrmEmpleado extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Listados (será removido)");
-
-        jMenuItem6.setText("Historial de Actividades");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem6);
-
-        jMenuBar1.add(jMenu2);
-
-        jMenu5.setText("Realizar Transaccion");
-
-        jMenuItem9.setText("Depósitos ");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
-            }
-        });
-        jMenu5.add(jMenuItem9);
-
-        jMenuItem10.setText("Retiros");
-        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem10ActionPerformed(evt);
-            }
-        });
-        jMenu5.add(jMenuItem10);
-
-        jMenuItem13.setText("Transferencias");
-        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem13ActionPerformed(evt);
-            }
-        });
-        jMenu5.add(jMenuItem13);
-
-        jMenuBar1.add(jMenu5);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -278,10 +256,6 @@ public class FrmEmpleado extends javax.swing.JFrame {
         IFrmCuentas i = new IFrmCuentas();
         centrarInternalFrame(i);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void mi_registrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_registrarClienteActionPerformed
         Registro r = Registro.getInstance("empleados");
@@ -318,34 +292,30 @@ public class FrmEmpleado extends javax.swing.JFrame {
         centrarInternalFrame(i);
     }//GEN-LAST:event_mi_registrarCuentaActionPerformed
 
-    private void mi_registrarMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_registrarMovimientoActionPerformed
-        IFrmRegistrarMovimiento i = IFrmRegistrarMovimiento.getInstance();
-        centrarInternalFrame(i);
-    }//GEN-LAST:event_mi_registrarMovimientoActionPerformed
-
-    private void mi_modificarMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_modificarMovimientoActionPerformed
-        /* Esperando clase Transacciones */
-    }//GEN-LAST:event_mi_modificarMovimientoActionPerformed
-
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+    private void miDepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDepositoActionPerformed
         IFrmRealizarDeposito i = IFrmRealizarDeposito.getInstance();
         FrmEmpleado.centrarInternalFrame(i);
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
+    }//GEN-LAST:event_miDepositoActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         IFrmModificarCuenta i = new IFrmModificarCuenta();
         FrmEmpleado.centrarInternalFrame(i);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
-    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+    private void miTransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miTransferenciaActionPerformed
         IFrmRealizarTransferencia i = IFrmRealizarTransferencia.getInstance();
         FrmEmpleado.centrarInternalFrame(i);
-    }//GEN-LAST:event_jMenuItem13ActionPerformed
+    }//GEN-LAST:event_miTransferenciaActionPerformed
 
-    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+    private void miRetiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRetiroActionPerformed
         IFrmRealizarRetiro i = IFrmRealizarRetiro.getInstance();
         FrmEmpleado.centrarInternalFrame(i);
-    }//GEN-LAST:event_jMenuItem10ActionPerformed
+    }//GEN-LAST:event_miRetiroActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        IFrmConsultarCuentasCliente i = new IFrmConsultarCuentasCliente();
+        FrmEmpleado.centrarInternalFrame(i);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     public static FrmEmpleado getInstance(){
         /* Set the Nimbus look and feel */
@@ -379,30 +349,27 @@ public class FrmEmpleado extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JDesktopPane dspFondo;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenu menuBuscar;
     private javax.swing.JMenu menuModificar;
+    private javax.swing.JMenu menuOperaciones;
     private javax.swing.JMenu menuRegistrar;
+    private javax.swing.JMenuItem miDeposito;
+    private javax.swing.JMenuItem miRetiro;
+    private javax.swing.JMenuItem miTransferencia;
     private javax.swing.JMenuItem mi_modificarCliente;
-    private javax.swing.JMenuItem mi_modificarMovimiento;
     private javax.swing.JMenuItem mi_registrarCliente;
     private javax.swing.JMenuItem mi_registrarCuenta;
-    private javax.swing.JMenuItem mi_registrarMovimiento;
     private javax.swing.JMenuItem mi_verDatosCliente;
     private javax.swing.JMenuItem mi_verDatosCuenta;
     private javax.swing.JMenuItem mi_verDatosMovimiento;

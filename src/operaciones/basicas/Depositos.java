@@ -30,7 +30,7 @@ public class Depositos {
     
     public static void depositar(String codigoCuenta, float cantidad, String codigoEmpleado) throws IllegalArgumentException, SQLException{
         Cuenta cuenta = Cuentas.obtener(codigoCuenta);
-        Empleado empleado = Empleados.obtener(codigoCuenta);
+        Empleado empleado = Empleados.obtener(codigoEmpleado);
 
         Cuentas.modificar_saldo(codigoCuenta, cuenta.getSaldo() + cantidad);
         Movimientos.agregar(codigoCuenta, Movimientos.generarCodigo(), obtenerFechaActual(), codigoEmpleado, 

@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package presentacion.clientes.opciones.transacciones;
+package presentacion.empleados.opciones.operaciones;
 
+import presentacion.clientes.opciones.transacciones.*;
 import presentacion.clientes.opciones.cuentas.*;
 import presentacion.empleados.opciones.registros.*;
 import java.sql.SQLException;
@@ -37,8 +38,10 @@ public class IFrmConfirmarTransferencia extends javax.swing.JInternalFrame {
     private IFrmConfirmarTransferencia(Cliente emisor, Cliente receptor, Cuenta ctaemisor, Cuenta ctareceptor) {
         initComponents();
         try {
-            labelCodigoEmisor.setText("Estás transfiriendo desde tu cuenta: " + ctaemisor.getCodigo());
+            tipAccionEmpleado.setText("Esta es una acción de empleado autorizada para: " + Autenticacion.obtenerUsuario().getCodigo());
+            labelCodigoEmisor.setText("Estás transfiriendo desde la cuenta: " + emisor.getCodigo());
             labelNombreEmisor.setText("Emisor: " + emisor.getApellidoPaterno() + " " + emisor.getApellidoMaterno() + " " + emisor.getNombre());
+            labelSaldo.setText("Saldo: " + String.valueOf(ctaemisor.getSaldo()));
             labelCodigoReceptor.setText("Código de cuenta del receptor: " + ctareceptor.getCodigo());
             labelNombreReceptor.setText("Receptor: " + receptor.getApellidoPaterno() + " " + receptor.getApellidoMaterno() + " " + receptor.getNombre());
             this.ctaemisor = ctaemisor;
@@ -49,6 +52,9 @@ public class IFrmConfirmarTransferencia extends javax.swing.JInternalFrame {
         } catch (IllegalStateException e){
             JOptionPane.showMessageDialog(this, "Autenticación | No se puede continuar: No existe una sesión iniciada.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
             this.dispose();
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(this, "Datos de una Cuenta | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -67,13 +73,15 @@ public class IFrmConfirmarTransferencia extends javax.swing.JInternalFrame {
         labelCantidad = new javax.swing.JLabel();
         btnConfirmarTransferencia = new javax.swing.JButton();
         tipRealizandoTransf = new javax.swing.JLabel();
-        labelNombreEmisor = new javax.swing.JLabel();
+        labelSaldo = new javax.swing.JLabel();
         txtCantidad = new javax.swing.JTextField();
         tipTipoTransfer1 = new javax.swing.JLabel();
         labelCodigoEmisor = new javax.swing.JLabel();
         tipRealizandoTransf1 = new javax.swing.JLabel();
         labelCodigoReceptor = new javax.swing.JLabel();
         labelNombreReceptor = new javax.swing.JLabel();
+        labelNombreEmisor = new javax.swing.JLabel();
+        tipAccionEmpleado = new javax.swing.JLabel();
 
         setClosable(true);
         setPreferredSize(new java.awt.Dimension(630, 560));
@@ -85,7 +93,7 @@ public class IFrmConfirmarTransferencia extends javax.swing.JInternalFrame {
         tituloPanel.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         tituloPanel.setForeground(new java.awt.Color(229, 229, 229));
         tituloPanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        tituloPanel.setText("Confirma tu transferencia");
+        tituloPanel.setText("Confirma la transferencia");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -122,13 +130,13 @@ public class IFrmConfirmarTransferencia extends javax.swing.JInternalFrame {
         tipRealizandoTransf.setForeground(new java.awt.Color(0, 0, 0));
         tipRealizandoTransf.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tipRealizandoTransf.setText("Estás transfiriendo a:");
-        jPanel2.add(tipRealizandoTransf, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 620, -1));
+        jPanel2.add(tipRealizandoTransf, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 620, -1));
 
-        labelNombreEmisor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        labelNombreEmisor.setForeground(new java.awt.Color(0, 0, 0));
-        labelNombreEmisor.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        labelNombreEmisor.setText("Emisor: nombresCompletosPlaceholder");
-        jPanel2.add(labelNombreEmisor, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 530, -1));
+        labelSaldo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelSaldo.setForeground(new java.awt.Color(0, 0, 0));
+        labelSaldo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        labelSaldo.setText("Saldo: saldoPlaceholder");
+        jPanel2.add(labelSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 530, -1));
         jPanel2.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 320, 190, -1));
 
         tipTipoTransfer1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -140,8 +148,8 @@ public class IFrmConfirmarTransferencia extends javax.swing.JInternalFrame {
         labelCodigoEmisor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelCodigoEmisor.setForeground(new java.awt.Color(0, 0, 0));
         labelCodigoEmisor.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        labelCodigoEmisor.setText("Estás transfiriendo desde tu cuenta: codigoPlaceholder");
-        jPanel2.add(labelCodigoEmisor, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 530, -1));
+        labelCodigoEmisor.setText("Estás transfiriendo desde la cuenta: codigoPlaceholder");
+        jPanel2.add(labelCodigoEmisor, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 530, -1));
 
         tipRealizandoTransf1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         tipRealizandoTransf1.setForeground(new java.awt.Color(0, 0, 0));
@@ -153,13 +161,24 @@ public class IFrmConfirmarTransferencia extends javax.swing.JInternalFrame {
         labelCodigoReceptor.setForeground(new java.awt.Color(0, 0, 0));
         labelCodigoReceptor.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelCodigoReceptor.setText("Código de cuenta del receptor: codigoPlaceholder");
-        jPanel2.add(labelCodigoReceptor, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 530, -1));
+        jPanel2.add(labelCodigoReceptor, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 530, -1));
 
         labelNombreReceptor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelNombreReceptor.setForeground(new java.awt.Color(0, 0, 0));
         labelNombreReceptor.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelNombreReceptor.setText("Receptor: nombresCompletosPlaceholder");
-        jPanel2.add(labelNombreReceptor, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 530, -1));
+        jPanel2.add(labelNombreReceptor, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 530, -1));
+
+        labelNombreEmisor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelNombreEmisor.setForeground(new java.awt.Color(0, 0, 0));
+        labelNombreEmisor.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        labelNombreEmisor.setText("Emisor: nombresCompletosPlaceholder");
+        jPanel2.add(labelNombreEmisor, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 530, -1));
+
+        tipAccionEmpleado.setForeground(new java.awt.Color(0, 0, 0));
+        tipAccionEmpleado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tipAccionEmpleado.setText("Esta es una acción de empleado autorizada para: usuarioPlaceholder");
+        jPanel2.add(tipAccionEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 620, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 620, 460));
 
@@ -198,6 +217,8 @@ public class IFrmConfirmarTransferencia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel labelCodigoReceptor;
     private javax.swing.JLabel labelNombreEmisor;
     private javax.swing.JLabel labelNombreReceptor;
+    private javax.swing.JLabel labelSaldo;
+    private javax.swing.JLabel tipAccionEmpleado;
     private javax.swing.JLabel tipRealizandoTransf;
     private javax.swing.JLabel tipRealizandoTransf1;
     private javax.swing.JLabel tipTipoTransfer1;
