@@ -45,7 +45,8 @@ public class Movimientos {
         if (cuenReferencia.isBlank()) throw new IllegalArgumentException(errMsg + "La referencia de cuenta no puede estar vacía.");
 
         if(validarSaldo(cuencodigo, importe, tipoCodigo))
-            DBMovimiento.agregar(new Movimiento(cuencodigo, movinumero, fecha, emplcodigo, tipoCodigo, importe, cuenReferencia));
+            movimientos.agregar(new Movimiento(cuencodigo, movinumero, fecha, emplcodigo, tipoCodigo, importe, cuenReferencia));
+//            DBMovimiento.agregar(new Movimiento(cuencodigo, movinumero, fecha, emplcodigo, tipoCodigo, importe, cuenReferencia));
         
     }
 
@@ -69,4 +70,9 @@ public class Movimientos {
         validarMovNumero(numero);
         DBMovimiento.remover(numero);
     }
+    
+    public static ArrayList<Movimiento> listar() throws SQLException{
+        return DBMovimiento.listar();
+    }
+    
 }
