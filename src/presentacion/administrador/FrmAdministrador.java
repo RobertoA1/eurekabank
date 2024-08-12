@@ -2,7 +2,7 @@ package presentacion.administrador;
 
 import presentacion.empleados.opciones.consultas.IFrmConsultarDatosCuenta;
 import javax.swing.JInternalFrame;
-import presentacion.FrmPrincipal;
+import presentacion.FrmClientes;
 import presentacion.administrador.opciones.IFrmEliminarEmpleado;
 import presentacion.administrador.opciones.IFrmModificarEmpleados;
 import presentacion.administrador.opciones.IFrmRegistrarEmpleados;
@@ -245,13 +245,13 @@ public class FrmAdministrador extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         if (form == null) form = new FrmAdministrador();

@@ -41,10 +41,10 @@ public class Movimientos {
         if (tipoCodigo.isBlank()) throw new IllegalArgumentException(errMsg + "El ID del tipo de movimiento no puede estar vacío.");
         if (importe < 0) throw new IllegalArgumentException(errMsg + "El importe no puede ser negativo.");
         if (cuenReferencia.length() > 8) throw new IllegalArgumentException(errMsg + "La referencia de cuenta es demasiado larga (máx. 8 caracteres).");
-        if (cuenReferencia.isBlank()) throw new IllegalArgumentException(errMsg + "La referencia de cuenta no puede estar vacía.");
+        // if (cuenReferencia.isBlank()) throw new IllegalArgumentException(errMsg + "La referencia de cuenta no puede estar vacía.");
 
-        if(validarSaldo(cuencodigo, importe, tipoCodigo))
-            DBMovimiento.agregar(new Movimiento(cuencodigo, movinumero, fecha, emplcodigo, tipoCodigo, importe, cuenReferencia));
+        //if(validarSaldo(cuencodigo, importe, tipoCodigo))
+        DBMovimiento.agregar(new Movimiento(cuencodigo, movinumero, fecha, emplcodigo, tipoCodigo, importe, cuenReferencia));
         
     }
 

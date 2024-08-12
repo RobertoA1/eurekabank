@@ -56,7 +56,7 @@ public class Cobros {
     public static float calcularCobroMovimiento(int cantidadMovimientos, String moneda){
         float descuento = 0;
         if (cantidadMovimientos > 15 && moneda.equalsIgnoreCase("Sol Peruano")) descuento = CARGO_MOVIMIENTO_SOLES;
-        if (cantidadMovimientos > 15 && moneda.equalsIgnoreCase("dolar")) descuento = CARGO_MOVIMIENTO_DOLARES;
+        if (cantidadMovimientos > 15 && moneda.equalsIgnoreCase("Dolar")) descuento = CARGO_MOVIMIENTO_DOLARES;
         return descuento;
     }
     

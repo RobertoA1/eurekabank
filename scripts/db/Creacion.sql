@@ -105,7 +105,7 @@ CREATE TABLE cuenta (
     fechacreacion DATE,
     cantidadmovimientos INT(11),
     clave CHAR(56),
-    estado TINYINT,
+    estado TINYINT DEFAULT 1,
 
     FOREIGN KEY (monecodigo) REFERENCES moneda(monecodigo),
     FOREIGN KEY (sucucodigo) REFERENCES sucursal(sucucodigo),
@@ -130,7 +130,7 @@ CREATE TABLE movimiento (
     tipocodigo CHAR(3),
     movimporte DECIMAL(12,2),
     cuenreferencia CHAR(8), 
-    estado TINYINT,
+    estado TINYINT DEFAULT 1,
     FOREIGN KEY (cuencodigo) REFERENCES cuenta(codigo),
     FOREIGN KEY (emplecodigo) REFERENCES empleado(emplcodigo),
     FOREIGN KEY (tipocodigo) REFERENCES tipomovimiento(tipocodigo)
@@ -170,22 +170,22 @@ CREATE TABLE interesmensual (
 -- [!] Tipos de Movimiento disponibles
 
 -- Operaciones comunes (0-9)
-INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, estado) VALUES ('001', 'Deposito', 'Ingreso', 'Activo');
-INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, estado) VALUES ('002', 'Retiro', 'Salida', 'Activo');
-INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, estado) VALUES ('003', 'Transferencia', 'Ingreso', 'Activo');
-INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, estado) VALUES ('004', 'Transferencia', 'Salida', 'Activo');
+INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, estado) VALUES ('001', 'Deposito', 'Ingreso', 1);
+INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, estado) VALUES ('002', 'Retiro', 'Salida', 1);
+INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, estado) VALUES ('003', 'Transferencia', 'Ingreso', 1);
+INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, estado) VALUES ('004', 'Transferencia', 'Salida', 1);
 
 -- Operaciones de Pago al Cliente (10-19)
-INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, estado) VALUES ('010', 'Pago de Intereses', 'Ingreso', 'Activo');
+INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, estado) VALUES ('010', 'Pago de Intereses', 'Ingreso', 1);
 
 -- Operaciones de descuento al cliente (20-29)
-INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, estado) VALUES ('020', 'Cargo por Mantenimiento', 'Salida', 'Activo');
-INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, estado) VALUES ('021', 'Cargo por Movimiento', 'Salida', 'Activo');
-INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, estado) VALUES ('022', 'Cargo por impuesto ITF', 'Salida', 'Activo');
+INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, estado) VALUES ('020', 'Cargo por Mantenimiento', 'Salida', 1);
+INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, estado) VALUES ('021', 'Cargo por Movimiento', 'Salida', 1);
+INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, estado) VALUES ('022', 'Cargo por impuesto ITF', 'Salida', 1);
 
 -- Operaciones de Configuración de Cuenta (80-99)
-INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, estado) VALUES ('080', 'Apertura de la Cuenta', 'Ingreso', 'Activo');
-INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, estado) VALUES ('081', 'Cancelación de la Cuenta', 'Salida', 'Activo');
+INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, estado) VALUES ('080', 'Apertura de la Cuenta', 'Ingreso', 1);
+INSERT INTO tipomovimiento (tipocodigo, tipodescripcion, tipoaccion, estado) VALUES ('081', 'Cancelacion de la Cuenta', 'Salida', 1);
 
 -- [!] Tipos de monedas disponibles
 INSERT INTO moneda (monecodigo, monedescription) VALUES ('01', 'Dolar');
