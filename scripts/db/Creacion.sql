@@ -218,3 +218,30 @@ INSERT INTO empleado VALUES ('9999', '', '', 'INTERNET', '', '', 'INTERNET', 1);
 -- [!] Valores de administrador
 -- Se advierte que es de uso futuro. Descomentar la línea de debajo para cuando esté implementado.
 -- INSERT INTO administrador VALUES (...)
+
+
+
+
+-- Insertar un nuevo usuario
+INSERT INTO usuario (codigo, clave, permisos, estado) 
+VALUES ('USR00001', 'hashedpassword123', 1, 1);
+
+-- Insertar un cliente asociado al usuario
+INSERT INTO cliente (cliecodigo, cliepaterno, cliematerno, clienombre, cliedni, clieciudad, cliedireccion, clietelefono, clieemail, clieidusuario, estado) 
+VALUES ('CLI01', 'Perez', 'Lopez', 'Juan', '12345678', 'Lima', 'Av. Ejemplo 123', '999999999', 'juan@example.com', 'USR00001', 1);
+
+-- Insertar una nueva cuenta
+INSERT INTO cuenta (codigo, monecodigo, sucucodigo, cliecodigo, usurcodigo, saldo, fechacreacion, cantidadmovimientos, clave, estado) 
+VALUES ('CUE00001', '01', '001', 'CLI01', 'USR00001', 1500.00, CURDATE(), 0, 'hashedpassword123', 1);
+
+
+INSERT INTO movimiento (cuencodigo, movifecha, emplecodigo, tipocodigo, movimporte, cuenreferencia, estado) 
+VALUES (
+    'CUE00001', -- Código de la cuenta (debe existir en la tabla cuenta)
+    CURDATE(),  -- Fecha del movimiento (puedes reemplazar CURDATE() con una fecha específica si es necesario)
+    '9999', -- Código del empleado (debe existir en la tabla empleado)
+    '001',      -- Código del tipo de movimiento (debe existir en la tabla tipomovimiento, '001' es para un Depósito)
+    500.00,     -- Importe del movimiento
+    NULL,       -- Código de referencia de la cuenta (puede ser NULL si no aplica)
+    1           -- Estado del movimiento (1 para activo)
+);

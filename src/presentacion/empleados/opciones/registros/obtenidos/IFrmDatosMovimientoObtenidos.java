@@ -221,11 +221,12 @@ public class IFrmDatosMovimientoObtenidos extends javax.swing.JInternalFrame {
             txtEmpleadoAutorizador.setText(movimiento.getEmplcodigo());
             
             /* Convierte la fecha java.sql.Date a String */
-            java.util.Date fecha = new java.util.Date(movimiento.getFecha().getTime());
+            java.sql.Date fechaSql = movimiento.getFecha();
             SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
-            java.util.Date fechaFormateada = formateador.parse(fecha.toString());
-            txtFechaMovimiento.setText(DateFormat.getDateInstance().format(fechaFormateada));
-        } catch (NullPointerException | ParseException e){
+            java.util.Date fechaUtil = new java.util.Date(fechaSql.getTime());
+            String fechaFormateada = formateador.format(fechaUtil);
+            txtFechaMovimiento.setText(fechaFormateada);
+        } catch (NullPointerException e){
             // Detecta si el parser falló para la fecha
             JOptionPane.showMessageDialog(this, "Datos de una Cuenta | No se pudo obtener la fecha correctamente.", "Ocurrió un problema...", JOptionPane.ERROR_MESSAGE);
             System.out.println(e.getMessage());
