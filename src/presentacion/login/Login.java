@@ -222,7 +222,6 @@ public class Login extends javax.swing.JFrame {
         
         try {
             Autenticacion.iniciarSesion(nombreUsuario, pass);
-            
             Usuario user = Autenticacion.obtenerUsuario();
             this.setVisible(false);
             if (user.getNivelPermisos() == 1){
@@ -234,8 +233,8 @@ public class Login extends javax.swing.JFrame {
             
             if (user.getNivelPermisos() == 10){
                 /* Si el nivel de permisos es 10, quiere decir que es un empleado */
-                /* Por ende, llamamos FrmSecundario, que es de empleados */
-                FrmSecundario menu = FrmSecundario.getInstance();
+                /* Por ende, lpermilamamos FrmSecundario, que es de empleados */
+                FrmEmpleado menu = FrmEmpleado.getInstance();
                 menu.setVisible(true);
             }
             

@@ -63,4 +63,9 @@ public class Movimientos {
         validarMovNumero(numero);
         DBMovimiento.remover(numero);
     }
+    
+    public static ArrayList<Movimiento> listar() throws SQLException{
+        return DBMovimiento.listar();
+    }
+    
 }

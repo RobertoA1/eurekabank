@@ -77,6 +77,7 @@ public class DBCuentas {
 
         cs.executeUpdate();
     }
+<<<<<<< HEAD
 
     public static float obtenerSaldo(String codigo) throws SQLException {
         Cuenta c = obtener(codigo);
@@ -107,4 +108,8 @@ public class DBCuentas {
 
         return arr;
     }
+=======
+    
+    
+>>>>>>> frmEmpleadosMerge
 }
