@@ -5,10 +5,10 @@ import conexion.ConexionDB;
 import entidades.Usuario;
 import java.util.*;
 
-public class DBUsuario {
+public class DBUsuario implements DBAdapter{
     private static Connection db = ConexionDB.obtenerDB();
 
-    public static boolean existe(String codigo) throws SQLException{
+    public boolean existe(String codigo) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_usuario_existe(?)");
         cs.setString(1, codigo);
 
@@ -26,6 +26,11 @@ public class DBUsuario {
         cs.setString(2,usuario.getClave());
         cs.setInt(3, usuario.getNivelPermisos());
         cs.executeUpdate();
+    }
+    
+    public void agregar(Object o) throws SQLException{
+        Usuario user = (Usuario)o;
+        insertarUsuario(user);
     }
 
     public static boolean buscarUsuario(String codigo) throws SQLException{
@@ -51,6 +56,10 @@ public class DBUsuario {
             return usuario;
         }
         return null;
+    }
+    
+    public Usuario obtener(String codigo) throws SQLException{
+        return obtenerUsuario(codigo);
     }
 
     public static void modificarUsuario(String codigo, String nuevaClave) throws SQLException{

@@ -7,8 +7,9 @@ import entidades.Cliente;
 import entidades.Cuenta;
 import conexion.ConexionDB;
 
-public class DBCliente{
+public class DBCliente implements DBAdapter{
     private static Connection db = ConexionDB.obtenerDB();
+    Cliente c = new Cliente();
 
     public static String generarCodigo() throws SQLException{
         int siguienteId = 0;
@@ -26,7 +27,7 @@ public class DBCliente{
         return codigoBuilder.toString();
     }
     
-    public static boolean existe(String codigo) throws SQLException{
+    public boolean existe(String codigo) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_cliente_obtenerEstado(?)");
         cs.setString(1,codigo);
 
@@ -37,7 +38,7 @@ public class DBCliente{
         return true;
     }
 
-    public static void agregar(Cliente cliente) throws SQLException{
+    public void agregar(Cliente cliente) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_agregarCliente(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         cs.setString(1, cliente.getCodigo());
         cs.setString(2, cliente.getApellidoPaterno());
@@ -53,7 +54,12 @@ public class DBCliente{
         cs.executeUpdate();
     }
 
-    public static Cliente obtener(String codigo) throws SQLException{
+    public void agregar(Object o) throws SQLException {
+        Cliente c = (Cliente)o;
+        agregar(c);
+    }
+    
+    public Cliente obtener(String codigo) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_BuscarCliente(?)");
         cs.setString(1, codigo);
 
@@ -76,6 +82,27 @@ public class DBCliente{
         return null;
     }
     
+    public static Cliente obtenerPorIdUsuario(String usuario) throws SQLException{
+        CallableStatement cs = db.prepareCall("CALL sp_obtener_clientePorIdUsuario(?)");
+        cs.setString(1, usuario);
+        ResultSet rs = cs.executeQuery();
+        if (rs.next()){
+            Cliente c = new Cliente();
+            c.setCodigo(rs.getString(1));
+            c.setApellidoPaterno(rs.getString(2));
+            c.setApellidoMaterno(rs.getString(3));
+            c.setNombre(rs.getString(4));
+            c.setDni(rs.getString(5));
+            c.setCiudad(rs.getString(6));
+            c.setDireccion(rs.getString(7));
+            c.setTelefono(rs.getString(8));
+            c.setEmail(rs.getString(9));
+            c.setIdUsuario(rs.getString(10));
+            return c;
+        }
+        return null;
+    }
+
     public static Cliente obtenerClientePorNombreUsuario(String usuario) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_BuscarCodigoPorUsuario(?)");
         cs.setString(1, usuario);

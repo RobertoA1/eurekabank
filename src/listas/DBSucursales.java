@@ -5,7 +5,7 @@ import conexion.ConexionDB;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DBSucursales {
+public class DBSucursales implements DBAdapter{
 
     private static Connection db = ConexionDB.obtenerDB();
 
@@ -18,8 +18,13 @@ public class DBSucursales {
         cs.setInt(5, sucursal.getContCuenta());
         cs.executeUpdate();
     }
+    
+    public void agregar(Object o) throws SQLException{
+        Sucursal s = (Sucursal)o;
+        insertar(s);
+    }
 
-    public static boolean existe(String codigo) throws SQLException {
+    public boolean existe(String codigo) throws SQLException {
         CallableStatement cs = db.prepareCall("CALL sp_buscar_sucursal(?)");
         cs.setString(1, codigo);
         ResultSet rs = cs.executeQuery();
@@ -84,7 +89,7 @@ public class DBSucursales {
     }
 
 
-    public static Sucursal obtener(String codigo) throws SQLException {
+    public Sucursal obtener(String codigo) throws SQLException {
         Sucursal sucursal = new Sucursal();
         CallableStatement cs = db.prepareCall("{call sp_buscar_sucursal(?)}");
         cs.setString(1, codigo);

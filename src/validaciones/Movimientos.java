@@ -8,14 +8,19 @@ import java.util.ArrayList;
 
 public class Movimientos {
     private static String errMsg = "Error en movimiento: ";
-
+    private static DBAdapter cuentas = new DBCuentas();
+    private static DBAdapter movimientos = new DBMovimiento();
+    
     private static void validarMovNumero(int numero) throws IllegalArgumentException {
         if (numero <= 0) throw new IllegalArgumentException(errMsg + "El número debe ser mayor que cero.");
     }
 
     private static boolean validarSaldo(String cuencodigo,float moviimporte, String tipocodigo) throws IllegalArgumentException, SQLException{
-        float cuensaldo = DBCuentas.obtenerSaldo(cuencodigo);
-        if(tipocodigo.equalsIgnoreCase("002") || tipocodigo.equalsIgnoreCase("004") ||
+        
+//        float cuensaldo = DBCuentas.obtenerSaldo(cuencodigo);
+        Cuenta cuenta = (Cuenta)cuentas.obtener(cuencodigo);
+        float cuensaldo = cuenta.getSaldo();
+        if(tipocodigo.equalsIgnoreCase( "002") || tipocodigo.equalsIgnoreCase("004") ||
         tipocodigo.equalsIgnoreCase("006") || tipocodigo.equalsIgnoreCase("007") ||
         tipocodigo.equalsIgnoreCase("009") || tipocodigo.equalsIgnoreCase("010")  ){
             if(cuensaldo<moviimporte) throw new IllegalArgumentException("No hay suficiente saldo en la cuenta para realizar el movimiento");
@@ -40,7 +45,8 @@ public class Movimientos {
         if (cuenReferencia.isBlank()) throw new IllegalArgumentException(errMsg + "La referencia de cuenta no puede estar vacía.");
 
         if(validarSaldo(cuencodigo, importe, tipoCodigo))
-            DBMovimiento.agregar(new Movimiento(cuencodigo, movinumero, fecha, emplcodigo, tipoCodigo, importe, cuenReferencia));
+            movimientos.agregar(new Movimiento(cuencodigo, movinumero, fecha, emplcodigo, tipoCodigo, importe, cuenReferencia));
+//            DBMovimiento.agregar(new Movimiento(cuencodigo, movinumero, fecha, emplcodigo, tipoCodigo, importe, cuenReferencia));
         
     }
 
@@ -50,7 +56,8 @@ public class Movimientos {
     }
     
     public static ArrayList<Movimiento> obtenerMovPorNumCuenta(String cuencodigo) throws IllegalArgumentException, SQLException{
-        return DBMovimiento.obtenerMovPorNumCuenta(cuencodigo);
+        return (ArrayList<Movimiento>)movimientos.obtener(cuencodigo);
+//        return DBMovimiento.obtenerMovPorNumCuenta(cuencodigo);
     }
 
     public static void modificarImporte(int moviNumero, float nuevoImporte) throws IllegalArgumentException, SQLException{

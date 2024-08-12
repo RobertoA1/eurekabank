@@ -3,10 +3,11 @@ import java.sql.*;
 
 import entidades.Movimiento;
 import conexion.ConexionDB;
-import java.util.ArrayList;
+
 import java.util.ArrayList;
 
-public class DBMovimiento {
+
+public class DBMovimiento implements DBAdapter {
 
     private static ResultSet rs = null;
     private static CallableStatement cs = null;
@@ -36,6 +37,11 @@ public class DBMovimiento {
         cs.setString(7, movimiento.getCuenReferencia());
 
         cs.executeUpdate();
+    }
+    
+    public void agregar(Object o) throws SQLException{
+        Movimiento m = (Movimiento)o;
+        agregar(m);
     }
     
     public static Movimiento obtener(int numero) throws SQLException{
@@ -72,6 +78,8 @@ public class DBMovimiento {
         cs.executeUpdate();
     }
     
+
+
     public static ArrayList<Movimiento> listar() throws SQLException {
         String sql = "{CALL sp_listar_movimientos()}";
         CallableStatement cs = db.prepareCall(sql);
@@ -96,7 +104,7 @@ public class DBMovimiento {
         return movs;
     }
 
-    public static ArrayList<Movimiento> obtenerMovPorNumCuenta(String cuencodigo) throws SQLException{
+    public ArrayList<Movimiento> obtener(String cuencodigo) throws SQLException{
         ArrayList<Movimiento> arr = new ArrayList<>();
         cs = db.prepareCall("CALL sp_obtenerMovimientoPorCuenta(?)");
         cs.setString(1, cuencodigo);
@@ -116,4 +124,11 @@ public class DBMovimiento {
         }
         return arr;
     }
+
+
+    @Override
+    public boolean existe(String c) throws SQLException {
+        throw new UnsupportedOperationException("--"); 
+    }
+
 }

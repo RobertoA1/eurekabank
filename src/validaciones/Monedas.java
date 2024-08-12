@@ -5,10 +5,12 @@ import java.util.ArrayList;
 
 import listas.DBMonedas;
 import entidades.Moneda;
+import listas.DBAdapter;
 
 public class Monedas {
     private static String errMsg = "Error en monedas: ";
-
+    private static DBAdapter monedas = new DBMonedas();
+    
     private static void validarCodigo(String codigo) throws IllegalArgumentException {
         if (codigo == null) throw new IllegalArgumentException(errMsg + "El código introducido es inválido.");
         if (codigo.length() != 2) throw new IllegalArgumentException(errMsg + "El código debe tener exactamente 2 caracteres.");
@@ -17,13 +19,15 @@ public class Monedas {
 
     public static boolean existe(String codigo) throws IllegalArgumentException, SQLException {
         validarCodigo(codigo);
-        return DBMonedas.existe(codigo);
+        return monedas.existe(codigo);
+//        return DBMonedas.existe(codigo);
     }
 
     public static Moneda obtener(String codigo) throws IllegalArgumentException, SQLException {
         validarCodigo(codigo);
         validarEstado(codigo);
-        return DBMonedas.obtener(codigo);
+        return (Moneda)monedas.obtener(codigo);
+//        return DBMonedas.obtener(codigo);
     }
 
     public static void actualizarDescripcion(String codigo, String descripcion) throws IllegalArgumentException, SQLException {
@@ -41,15 +45,17 @@ public class Monedas {
     }
 
     private static void validarEstado(String codigo) throws IllegalArgumentException, SQLException {
-        if (!DBMonedas.existe(codigo)) throw new IllegalArgumentException("La moneda solicitada no existe.");
+        if (!existe(codigo)) throw new IllegalArgumentException("La moneda solicitada no existe.");
     }
 
     public static void insertar(String codigo, String descripcion) throws SQLException{
         validarCodigo(codigo);
-        if (DBMonedas.existe(codigo)) throw new IllegalArgumentException(errMsg + "El código especificado ya está vinculado a otra moneda.");
+        if (existe(codigo)) throw new IllegalArgumentException(errMsg + "El código especificado ya está vinculado a otra moneda.");
         if (descripcion.isBlank()) throw new IllegalArgumentException(errMsg + "La descripción no puede estar vacía.");
         if (descripcion.length() > 20) throw new IllegalArgumentException(errMsg + "La descripción es demasiado larga (máx. 20 caracteres).");
-        DBMonedas.insertar(new Moneda(codigo, descripcion));
+        monedas.agregar(new Moneda(codigo,descripcion));
+        
+//        DBMonedas.insertar(new Moneda(codigo, descripcion));
     }
 
     public static ArrayList<Moneda> listarMonedas() throws SQLException {
