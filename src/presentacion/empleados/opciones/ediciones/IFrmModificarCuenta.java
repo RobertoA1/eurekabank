@@ -4,35 +4,22 @@
  */
 package presentacion.empleados.opciones.ediciones;
 
-import presentacion.empleados.opciones.consultas.*;
-import presentacion.empleados.opciones.registros.obtenidos.IFrmDatosClienteObtenidos;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import presentacion.empleados.FrmEmpleado;
-import presentacion.empleados.opciones.ediciones.modificadores.IFrmModificarDatosCliente;
-import seguridad.Autenticacion;
-import validaciones.Clientes;
+import presentacion.empleados.opciones.ediciones.modificadores.IFrmModificarDatosCuenta;
+import validaciones.Cuentas;
 
 /**
  *
- * @author Roberto
+ * @author LUCANO
  */
-public class IFrmModificarCliente extends javax.swing.JInternalFrame {
+public class IFrmModificarCuenta extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form IFrmConsultarDatosCuenta
+     * Creates new form IFrmModificarCuenta
      */
-    public IFrmModificarCliente() {
+    public IFrmModificarCuenta() {
         initComponents();
-        try {
-            tipEmpleado.setText(Autenticacion.obtenerUsuario().getCodigo());
-        } catch (IllegalStateException e){
-            JOptionPane.showMessageDialog(this, "Autenticación | No se puede continuar: No existe una sesión iniciada.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
-            this.dispose();
-        } catch (SQLException e){
-            JOptionPane.showMessageDialog(this, "Datos de un Cliente | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
-            System.out.println(e.getMessage());
-        }
     }
 
     /**
@@ -53,31 +40,26 @@ public class IFrmModificarCliente extends javax.swing.JInternalFrame {
         txtNumeroCliente = new javax.swing.JTextField();
         btnBuscarCliente = new javax.swing.JButton();
 
-        setClosable(true);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         jPanel1.setBackground(new java.awt.Color(20, 45, 68));
 
         tituloPanel.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         tituloPanel.setForeground(new java.awt.Color(229, 229, 229));
         tituloPanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        tituloPanel.setText("Actualizar los datos de un Cliente");
+        tituloPanel.setText("Actualizar los datos de una cuenta");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tituloPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(tituloPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 879, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tituloPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
         );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 70));
 
         jPanel2.setBackground(new java.awt.Color(229, 229, 229));
 
@@ -89,7 +71,7 @@ public class IFrmModificarCliente extends javax.swing.JInternalFrame {
 
         labelNumeroCliente.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         labelNumeroCliente.setForeground(new java.awt.Color(0, 0, 0));
-        labelNumeroCliente.setText("Por favor, introduce el número de cliente:");
+        labelNumeroCliente.setText("Por favor, introduce el código de la cuenta:");
 
         btnBuscarCliente.setText("Actualizar");
         btnBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -116,7 +98,7 @@ public class IFrmModificarCliente extends javax.swing.JInternalFrame {
                         .addComponent(txtNumeroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,24 +115,37 @@ public class IFrmModificarCliente extends javax.swing.JInternalFrame {
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 890, 150));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
-        String codigo = txtNumeroCliente.getText();
-        
-        try{
-            IFrmModificarDatosCliente form = IFrmModificarDatosCliente.getInstance(Clientes.obtener(codigo));
-            FrmEmpleado.centrarInternalFrame(form);
-        } catch (IllegalArgumentException e){
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
-            System.out.println(e.getMessage());
-        } catch (SQLException e){
-            JOptionPane.showMessageDialog(this, "Datos de un Cliente | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
-            System.out.println(e.getMessage());
-        }
+//        String codigo = txtNumeroCliente.getText();
+//
+//        try{
+//            IFrmModificarDatosCuenta form = IFrmModificarDatosCuenta.getInstance(Cuentas.obtener(codigo));
+//            FrmEmpleado.centrarInternalFrame(form);
+//        } catch (IllegalArgumentException e){
+//            JOptionPane.showMessageDialog(this, e.getMessage(), "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+//            System.out.println(e.getMessage());
+//        }
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
 

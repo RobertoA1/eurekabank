@@ -17,15 +17,15 @@ import validaciones.Movimientos;
  *
  * @author LUCANO
  */
-public class IFrmModificarDatosMovimiento extends javax.swing.JInternalFrame {
+public class IFrmModificarDatosMovimiento_old extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form IFrmModificarDatosMovimiento
+     * Creates new form IFrmModificarDatosMovimiento_old
      */
     
-    public static IFrmModificarDatosMovimiento form = null;
+    public static IFrmModificarDatosMovimiento_old form = null;
     
-    public IFrmModificarDatosMovimiento() {
+    public IFrmModificarDatosMovimiento_old() {
         initComponents();
         try {
             tipEmpleado.setText(Autenticacion.obtenerUsuario().getCodigo());
@@ -265,8 +265,8 @@ public class IFrmModificarDatosMovimiento extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_formInternalFrameOpened
 
-    public static IFrmModificarDatosMovimiento getInstance(Movimiento movimiento){
-        form = new IFrmModificarDatosMovimiento();
+    public static IFrmModificarDatosMovimiento_old getInstance(Movimiento movimiento){
+        form = new IFrmModificarDatosMovimiento_old();
         form.rellenarInformacion(movimiento);
         numero = movimiento.getMovinumero();
         return form;
