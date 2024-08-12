@@ -20,6 +20,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import listas.DBEmpleado;
 import validaciones.Clientes;
 import validaciones.Cuentas;
+import validaciones.Empleados;
 import validaciones.Movimientos;
 
 /**
@@ -508,7 +509,7 @@ public class JifCuenta extends javax.swing.JInternalFrame {
     }
     
     private String retornarEmpleado(String codEmpl) throws SQLException{
-        Empleado e = DBEmpleado.obtener(codEmpl);
+        Empleado e = Empleados.obtener(codEmpl);
         return e.getApellidoPaterno() + " " + e.getNombre();
     }
     

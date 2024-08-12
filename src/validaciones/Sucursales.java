@@ -6,9 +6,11 @@ import listas.DBSucursales;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import listas.DBAdapter;
 
 public class Sucursales {
     private static String errMsg = "Error en sucursales: ";
+    private static DBAdapter sucursales = new DBSucursales();
     
     private static void validarCodigo(String codigo) throws IllegalArgumentException {
         if (codigo == null) throw new IllegalArgumentException(errMsg + "El código introducido es inválido.");
@@ -18,7 +20,7 @@ public class Sucursales {
 
     public static void insertar(String codigo, String nombre, String ciudad, String direccion, int contCuenta) throws IllegalArgumentException, SQLException {
         validarCodigo(codigo);
-        if (DBMonedas.existe(codigo)) throw new IllegalArgumentException(errMsg + "El código especificado ya está vinculado a otra sucursal.");
+        if (Monedas.existe(codigo)) throw new IllegalArgumentException(errMsg + "El código especificado ya está vinculado a otra sucursal.");
         if (nombre.isBlank()) throw new IllegalArgumentException(errMsg + "El nombre no puede estar vacío.");
         if (ciudad.isBlank()) throw new IllegalArgumentException(errMsg + "La ciudad no puede estar vacía.");
         if (direccion.isBlank()) throw new IllegalArgumentException(errMsg + "La dirección no puede estar vacía.");
@@ -27,13 +29,14 @@ public class Sucursales {
         if (nombre.length() > 50) throw new IllegalArgumentException(errMsg +"El nombre de la sucursal es muy largo (máx. 50 caracteres).");
         if (ciudad.length() > 30) throw new IllegalArgumentException(errMsg + "El nombre de la ciudad de la sucursal es muy largo (máx. 30 caracteres).");
         if (direccion.length() > 50) throw new IllegalArgumentException(errMsg + "La dirección de la sucursal es muy larga(máx. 50 caracteres)");
-
-        DBSucursales.insertar(new Sucursal(codigo, nombre, ciudad, direccion, contCuenta));
+        sucursales.agregar(new Sucursal(codigo, nombre, ciudad, direccion, contCuenta));
+//        DBSucursales.insertar(new Sucursal(codigo, nombre, ciudad, direccion, contCuenta));
     }
 
     public static boolean existe(String codigo) throws IllegalArgumentException, SQLException {
         validarCodigo(codigo);
-        return DBSucursales.existe(codigo);
+        return sucursales.existe(codigo);
+//        return DBSucursales.existe(codigo);
     }
 
     public static ArrayList<Sucursal> listarSucursales() throws IllegalArgumentException, SQLException {
@@ -74,7 +77,8 @@ public class Sucursales {
     public static Sucursal obtener(String codigo) throws IllegalArgumentException, SQLException {
         validarCodigo(codigo);
         validarEstado(codigo);
-        return DBSucursales.obtener(codigo);
+        return (Sucursal)sucursales.obtener(codigo);
+//        return DBSucursales.obtener(codigo);
     }
 
     public static void eliminar(String codigo) throws IllegalArgumentException, SQLException {
@@ -84,6 +88,6 @@ public class Sucursales {
     }
 
     private static void validarEstado(String codigo) throws SQLException {
-        if (!DBSucursales.existe(codigo)) throw new IllegalArgumentException("La sucursal solicitada no existe.");
+        if (!existe(codigo)) throw new IllegalArgumentException("La sucursal solicitada no existe.");
     }
 }

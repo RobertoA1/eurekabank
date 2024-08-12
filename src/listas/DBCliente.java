@@ -7,8 +7,9 @@ import entidades.Cliente;
 import entidades.Cuenta;
 import conexion.ConexionDB;
 
-public class DBCliente{
+public class DBCliente implements DBAdapter{
     private static Connection db = ConexionDB.obtenerDB();
+    Cliente c = new Cliente();
 
     public static String generarCodigo() throws SQLException{
         int siguienteId = 0;
@@ -26,7 +27,7 @@ public class DBCliente{
         return codigoBuilder.toString();
     }
     
-    public static boolean existe(String codigo) throws SQLException{
+    public boolean existe(String codigo) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_cliente_obtenerEstado(?)");
         cs.setString(1,codigo);
 
@@ -37,7 +38,7 @@ public class DBCliente{
         return true;
     }
 
-    public static void agregar(Cliente cliente) throws SQLException{
+    public void agregar(Cliente cliente) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_agregarCliente(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         cs.setString(1, cliente.getCodigo());
         cs.setString(2, cliente.getApellidoPaterno());
@@ -53,7 +54,12 @@ public class DBCliente{
         cs.executeUpdate();
     }
 
-    public static Cliente obtener(String codigo) throws SQLException{
+    public void agregar(Object o) throws SQLException {
+        Cliente c = (Cliente)o;
+        agregar(c);
+    }
+    
+    public Cliente obtener(String codigo) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_BuscarCliente(?)");
         cs.setString(1, codigo);
 

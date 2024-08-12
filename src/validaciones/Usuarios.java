@@ -4,10 +4,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import entidades.Usuario;
+import listas.DBAdapter;
 import listas.DBUsuario;
 
 public class Usuarios {
     private static String errMsg = "Error en usuarios: ";
+    private static DBAdapter usuarios = new DBUsuario();
 
     private static void validarCodigo(String codigo) throws IllegalArgumentException,SQLException {
         if (codigo == null) throw new IllegalArgumentException(errMsg + "El código introducido es inválido.");
@@ -17,12 +19,14 @@ public class Usuarios {
 
     public static boolean existe(String codigo) throws IllegalArgumentException, SQLException{
         validarCodigo(codigo);
-        return DBUsuario.existe(codigo);
+        return usuarios.existe(codigo);
+//        return DBUsuario.existe(codigo);
     }
 
     public static void insertarUsuario(String codigo, String clave, int nivelPermisos) throws IllegalArgumentException, SQLException{
         validarCodigo(codigo);
-        DBUsuario.insertarUsuario(new Usuario(codigo, clave, nivelPermisos));
+        usuarios.agregar(new Usuario(codigo, clave, nivelPermisos));
+//        DBUsuario.insertarUsuario(new Usuario(codigo, clave, nivelPermisos));
     }
 
     public static boolean buscarUsuario(String codigo) throws SQLException {
@@ -33,7 +37,8 @@ public class Usuarios {
 
     public static Usuario obtenerUsuario(String codigo) throws IllegalArgumentException, SQLException{
         validarCodigo(codigo);
-        return DBUsuario.obtenerUsuario(codigo);
+        return (Usuario)usuarios.obtener(codigo);
+//        return DBUsuario.obtenerUsuario(codigo);
     }
 
     public static void modificarUsuario(String codigo, String nuevaClave) throws IllegalArgumentException, SQLException{

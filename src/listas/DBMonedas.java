@@ -5,11 +5,11 @@ import conexion.ConexionDB;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DBMonedas {
+public class DBMonedas implements DBAdapter {
 
     private static Connection db = ConexionDB.obtenerDB();
 
-    public static boolean existe(String codigo) throws SQLException {
+    public boolean existe(String codigo) throws SQLException {
         CallableStatement cs = db.prepareCall("CALL sp_buscar_moneda(?)");
         cs.setString(1, codigo);
 
@@ -21,16 +21,21 @@ public class DBMonedas {
         return false;
     }
 
-    public static void insertar(Moneda moneda) throws SQLException{
+    public static void agregar(Moneda moneda) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_insertar_moneda(?, ?)");
         cs.setString(1, moneda.getCodigo());
         cs.setString(2, moneda.getDescripcion());
 
         cs.executeUpdate();
     }
+    
+    public void agregar(Object o) throws SQLException {
+        Moneda m = (Moneda)o;
+        agregar(m);
+    }
 
 
-    public static Moneda obtener(String codigo) throws SQLException {
+    public Moneda obtener(String codigo) throws SQLException {
         CallableStatement cs = db.prepareCall("CALL sp_buscar_moneda(?)");
         cs.setString(1, codigo);
 

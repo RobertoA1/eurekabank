@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import entidades.Empleado;
 import conexion.ConexionDB;
 
-public class DBEmpleado {
+public class DBEmpleado implements DBAdapter {
     private static Connection db = ConexionDB.obtenerDB();
 
-    public static boolean existe(String codigo) throws SQLException{
+    public boolean existe(String codigo) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_empleado_obtenerEstado(?)");
         cs.setString(1, codigo);
         ResultSet rs = cs.executeQuery();
@@ -31,8 +31,13 @@ public class DBEmpleado {
 
         cs.executeUpdate();
     }
+    
+    public void agregar(Object o) throws SQLException{
+        Empleado e = (Empleado)o;
+        agregar(e);
+    }
 
-    public static Empleado obtener(String codigo) throws SQLException{
+    public Empleado obtener(String codigo) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_BuscarEmpleado(?)");
         cs.setString(1, codigo);
 

@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import listas.DBCliente;
 import entidades.Cliente;
 import entidades.Cuenta;
+import listas.DBAdapter;
 
 public class Clientes {
     private static String errMsg = "Error en clientes: ";
+    private static DBAdapter clientes = new DBCliente();
     
     public static String generarCodigo() throws SQLException{
         return DBCliente.generarCodigo();
@@ -21,7 +23,8 @@ public class Clientes {
 
     public static boolean existe(String codigo) throws IllegalArgumentException, SQLException{
         validarCodigo(codigo);
-        return DBCliente.existe(codigo);
+        return clientes.existe(codigo);
+//        return DBCliente.existe(codigo);
     }
 
     public static void agregar(String codigo, String nombre, String apPaterno, String apMaterno,String dni, String ciudad, String direccion, String telefono, String email, String idUsuario) throws IllegalArgumentException, SQLException {
@@ -29,7 +32,7 @@ public class Clientes {
         
         if (codigo.length() > 5) throw new IllegalArgumentException(err + "El código es demasiado largo (máx. 5 caracteres).");
         if (codigo.isBlank()) throw new IllegalArgumentException(err + "El código introducido es inválido.");
-        if (DBCliente.existe(codigo)) throw new IllegalArgumentException(err + "El código introducido ya está vinculado a un cliente.");
+        if (existe(codigo)) throw new IllegalArgumentException(err + "El código introducido ya está vinculado a un cliente.");
         
         if (nombre.length() > 30) throw new IllegalArgumentException(err + "El nombre introducido es demasiado largo. (máx. 30 caracteres)");
         if (apPaterno.length() > 25) throw new IllegalArgumentException(err + "El apellido paterno es demasiado largo. (máx. 25 caracteres)");
@@ -40,13 +43,15 @@ public class Clientes {
         if (telefono.length() > 20) throw new IllegalArgumentException(err + "El telefono es demasiado largo. (máx. 20 caracteres)");
         if (email.length() > 50) throw new IllegalArgumentException(err + "El email es demasiado largo. (máx. 50 caracteres)");
         if (idUsuario.length() != 8) throw new IllegalArgumentException(err + "El nombre de usuario debe tener 8 caracteres.");
-
-        DBCliente.agregar(new Cliente(codigo, nombre, apPaterno, apMaterno,dni, ciudad, direccion,telefono, email, idUsuario));
+        
+        clientes.agregar(new Cliente(codigo, nombre, apPaterno, apMaterno,dni, ciudad, direccion,telefono, email, idUsuario));
+        //DBCliente.agregar(new Cliente(codigo, nombre, apPaterno, apMaterno,dni, ciudad, direccion,telefono, email, idUsuario));
     }
 
     public static Cliente obtener(String codigo) throws IllegalArgumentException, SQLException{
         validarCodigo(codigo);
-        return DBCliente.obtener(codigo);
+        return (Cliente)clientes.obtener(codigo);
+//        return DBCliente.obtener(codigo);
     }
     
     public static Cliente obtenerPorIdUsuario(String usuario) throws SQLException{

@@ -6,12 +6,14 @@ import java.sql.Date;
 import java.sql.SQLException;
 
 import entidades.Cuenta;
+import listas.DBAdapter;
 import listas.DBCuentas;
 import seguridad.Contrasenas;
 
 public class Cuentas {
     private static String errMsg = "Error en Cuentas: ";
-
+    private static DBAdapter cuentas = new DBCuentas();
+    
     private static boolean esCodigoValido(String codigoCuenta) throws SQLException{
         if (codigoCuenta == null) return false;
         if (codigoCuenta.isBlank()) return false;
@@ -41,7 +43,7 @@ public class Cuentas {
 
     public static boolean existe(String codigoCuenta) throws IllegalArgumentException, SQLException{
         if (!esCodigoValido(codigoCuenta)) return false;
-        if (!DBCuentas.existe(codigoCuenta)) return false;
+        if (!cuentas.existe(codigoCuenta)) return false;
         return true;
     }
 
@@ -84,6 +86,8 @@ public class Cuentas {
 
     public static Cuenta obtener(String codigo) throws SQLException{
         validarCodigoExistente(codigo, "cuenta");
-        return DBCuentas.obtener(codigo);
+        return (Cuenta)cuentas.obtener(codigo);
+//        return DBCuentas.obtener(codigo);
     }
+    
 }

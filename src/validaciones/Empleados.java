@@ -4,15 +4,17 @@ import java.sql.*;
 
 import listas.DBEmpleado;
 import entidades.Empleado;
+import listas.DBAdapter;
 
 public class Empleados {
     private static String errMsg = "Error en empleados: ";
-
+    private static DBAdapter empleados = new DBEmpleado();
+    
     private static void validarCodigo(String codigo) throws IllegalArgumentException, SQLException {
         if (codigo == null) throw new IllegalArgumentException(errMsg + "El código introducido es inválido.");
         if (codigo.length() > 4) throw new IllegalArgumentException(errMsg + "El código es demasiado largo (máx. 4 caracteres).");
         if (codigo.isBlank()) throw new IllegalArgumentException(errMsg + "El código introducido es inválido.");
-        if (!DBEmpleado.existe(codigo)) throw new IllegalArgumentException(errMsg + "El código introducido no está vinculado a ningún empleado.");
+        if (!empleados.existe(codigo)) throw new IllegalArgumentException(errMsg + "El código introducido no está vinculado a ningún empleado.");
     }
 
     public static void agregar(String codigo, String nombre, String apPaterno, String apMaterno, String ciudad, String direccion, String idUsuario) throws IllegalArgumentException, SQLException {
@@ -20,7 +22,7 @@ public class Empleados {
         
         if (codigo.length() > 4) throw new IllegalArgumentException(err + "El código es demasiado largo (máx. 4 caracteres).");
         if (codigo.isBlank()) throw new IllegalArgumentException(err + "El código introducido es inválido.");
-        if (DBEmpleado.existe(codigo)) throw new IllegalArgumentException(err + "El código introducido ya está vinculado a un empleado.");
+        if (empleados.existe(codigo)) throw new IllegalArgumentException(err + "El código introducido ya está vinculado a un empleado.");
         
         if (nombre.length() > 30) throw new IllegalArgumentException(err + "El nombre introducido es demasiado largo. (máx. 30 caracteres)");
         if (apPaterno.length() > 25) throw new IllegalArgumentException(err + "El apellido paterno es demasiado largo. (máx. 25 caracteres)");
@@ -28,12 +30,13 @@ public class Empleados {
         if (ciudad.length() > 30) throw new IllegalArgumentException(err + "El nombre de la ciudad es demasiado largo (máx. 30 caracteres)");
         if (direccion.length() > 50) throw new IllegalArgumentException(err + "La dirección es demasiado larga (máx. 50 caracteres)");
         if (idUsuario.length() > 8) throw new IllegalArgumentException(err + "El id del usuario es demasiado largo (máx. 8 caracteres)");
-
-        DBEmpleado.agregar(new Empleado(codigo, nombre, apPaterno, apMaterno, ciudad, direccion, idUsuario));
+        empleados.agregar(new Empleado(codigo, nombre, apPaterno, apMaterno, ciudad, direccion, idUsuario));
+//        DBEmpleado.agregar(new Empleado(codigo, nombre, apPaterno, apMaterno, ciudad, direccion, idUsuario));
     }
     public static Empleado obtener(String codigo) throws IllegalArgumentException, SQLException{
         validarCodigo(codigo);
-        return DBEmpleado.obtener(codigo);
+        return (Empleado)empleados.obtener(codigo);
+//        return DBEmpleado.obtener(codigo);
     }
 
     public static void modificarNombre(String codigo, String nuevoNombre) throws IllegalArgumentException, SQLException{

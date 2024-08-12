@@ -10,10 +10,10 @@ import conexion.ConexionDB;
 import entidades.Cuenta;
 import java.util.ArrayList;
 
-public class DBCuentas {
+public class DBCuentas implements DBAdapter {
     private static Connection db = ConexionDB.obtenerDB();
 
-    public static boolean existe(String codigoCuenta) throws SQLException{
+    public boolean existe(String codigoCuenta) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_cuenta_existe(?)");
         cs.setString(1, codigoCuenta);
 
@@ -27,7 +27,7 @@ public class DBCuentas {
         return false;
     }
 
-    public static Cuenta obtener(String codigo) throws SQLException{
+    public Cuenta obtener(String codigo) throws SQLException{
         CallableStatement cs = db.prepareCall("CALL sp_cuenta_buscar(?)");
         cs.setString(1, codigo);
 
@@ -62,6 +62,11 @@ public class DBCuentas {
         cs.setString(9, cuenta.getClaveCuenta());
         cs.executeUpdate();
     }
+    
+    public void agregar(Object o) throws SQLException{
+        Cuenta c = (Cuenta)o;
+        agregar(c);
+    }
 
     public static void remover(String codigoCuenta) throws SQLException {
         CallableStatement cs = db.prepareCall("CALL sp_cuenta_remover(?)");
@@ -76,13 +81,7 @@ public class DBCuentas {
         cs.setDate(2, fechaCreacion);
 
         cs.executeUpdate();
-    }
-
-    public static float obtenerSaldo(String codigo) throws SQLException {
-        Cuenta c = obtener(codigo);
-        return c.getSaldo();
-    }
-    
+    }    
 
     public static ArrayList<Cuenta> listar(String codigoCliente) throws SQLException{
         ArrayList<Cuenta> arr = new ArrayList<>();
