@@ -4,6 +4,12 @@
  */
 package presentacion.empleados.opciones.ediciones.modificadores;
 
+import entidades.Cuenta;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import seguridad.Autenticacion;
+import validaciones.Cuentas;
+
 /**
  *
  * @author LUCANO
@@ -13,8 +19,20 @@ public class IFrmModificarDatosCuenta extends javax.swing.JInternalFrame {
     /**
      * Creates new form IFrmModificarDatosCuenta
      */
+    
+    public static IFrmModificarDatosCuenta form = null;
+    
     public IFrmModificarDatosCuenta() {
         initComponents();
+        try {
+            tipEmpleado.setText(Autenticacion.obtenerUsuario().getCodigo());
+        } catch (IllegalStateException e){
+            JOptionPane.showMessageDialog(this, "Autenticación | No se puede continuar: No existe una sesión iniciada.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(this, "Datos de una Cuenta | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -29,6 +47,15 @@ public class IFrmModificarDatosCuenta extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         tituloPanel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        tipAccionEmpleado = new javax.swing.JLabel();
+        tipEmpleado = new javax.swing.JLabel();
+        tipModificandoCliente = new javax.swing.JLabel();
+        tipCuentaCodigo = new javax.swing.JLabel();
+        txtContraseñaActual = new javax.swing.JTextField();
+        labelApellidoPaterno = new javax.swing.JLabel();
+        btnActualizar = new javax.swing.JButton();
+        labelApellidoPaterno1 = new javax.swing.JLabel();
+        txtContraseñaNueva = new javax.swing.JTextField();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -43,7 +70,7 @@ public class IFrmModificarDatosCuenta extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tituloPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(tituloPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -53,30 +80,161 @@ public class IFrmModificarDatosCuenta extends javax.swing.JInternalFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 60));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 60));
 
         jPanel2.setBackground(new java.awt.Color(229, 229, 229));
+
+        tipAccionEmpleado.setForeground(new java.awt.Color(0, 0, 0));
+        tipAccionEmpleado.setText("Esta es una acción de empleado autorizada para:");
+
+        tipEmpleado.setForeground(new java.awt.Color(0, 0, 0));
+        tipEmpleado.setText("usuarioPlaceholder");
+
+        tipModificandoCliente.setForeground(new java.awt.Color(0, 0, 0));
+        tipModificandoCliente.setText("Estás modificando a la cuenta con codigo:");
+
+        tipCuentaCodigo.setForeground(new java.awt.Color(0, 0, 0));
+        tipCuentaCodigo.setText("codigoCuentaPlaceholder");
+
+        txtContraseñaActual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtContraseñaActualActionPerformed(evt);
+            }
+        });
+
+        labelApellidoPaterno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelApellidoPaterno.setForeground(new java.awt.Color(0, 0, 0));
+        labelApellidoPaterno.setText("Contraseña nueva:");
+
+        btnActualizar.setBackground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        btnActualizar.setForeground(new java.awt.Color(0, 0, 0));
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/style_file.gif"))); // NOI18N
+        btnActualizar.setMnemonic('S');
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        labelApellidoPaterno1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelApellidoPaterno1.setForeground(new java.awt.Color(0, 0, 0));
+        labelApellidoPaterno1.setText("Contraseña actual:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 107, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(labelApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56)
+                        .addComponent(txtContraseñaNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(labelApellidoPaterno1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)
+                        .addComponent(txtContraseñaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(146, 146, 146))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(237, 237, 237)
+                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(tipAccionEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(tipEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(tipModificandoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(tipCuentaCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 440, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tipAccionEmpleado)
+                    .addComponent(tipEmpleado))
+                .addGap(4, 4, 4)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tipModificandoCliente)
+                    .addComponent(tipCuentaCodigo))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelApellidoPaterno1)
+                    .addComponent(txtContraseñaActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelApellidoPaterno)
+                    .addComponent(txtContraseñaNueva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 610, 440));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 630, 280));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        form.actualizarInformacion();
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
+    private void txtContraseñaActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseñaActualActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContraseñaActualActionPerformed
+
+    public static IFrmModificarDatosCuenta getInstance(Cuenta cuenta){
+        form = new IFrmModificarDatosCuenta();
+        form.rellenarInformacion(cuenta);
+        codigo = cuenta.getCodigo();
+        return form;
+    }
+    
+    private void actualizarInformacion(){
+        try {
+            if(txtContraseñaActual.getText().equals(Cuentas.obtener(codigo).getClaveCuenta())){
+                Cuentas.modificar_clave(codigo, txtContraseñaNueva.getText());
+                JOptionPane.showMessageDialog(this, "Datos del cliente actualizados correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(this, "Contraseña incorrecta", "Fracaso", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar los datos en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    
+    private void rellenarInformacion(Cuenta cuenta){
+        tipCuentaCodigo.setText(cuenta.getCodigo());
+    }
+    
+    
+    
+    
+    private static String codigo = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel labelApellidoPaterno;
+    private javax.swing.JLabel labelApellidoPaterno1;
+    private javax.swing.JLabel tipAccionEmpleado;
+    private javax.swing.JLabel tipCuentaCodigo;
+    private javax.swing.JLabel tipEmpleado;
+    private javax.swing.JLabel tipModificandoCliente;
     private javax.swing.JLabel tituloPanel1;
+    private javax.swing.JTextField txtContraseñaActual;
+    private javax.swing.JTextField txtContraseñaNueva;
     // End of variables declaration//GEN-END:variables
 }

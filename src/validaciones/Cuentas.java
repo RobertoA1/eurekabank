@@ -114,4 +114,12 @@ public class Cuentas {
         if (nuevoSaldo <= 0) throw new IllegalArgumentException(errMsg + "El nuevo saldo no puede ser menor a 0.");
         DBCuentas.modificar_saldo(codigo, nuevoSaldo);
     }
+    
+    public static void modificar_clave(String codigo, String nuevaClave) throws SQLException{
+        if (nuevaClave.isBlank()) throw new IllegalArgumentException("La nueva clave no puede estar vacía.");
+        if (nuevaClave.length() != 6) throw new IllegalArgumentException("La nueva clave debe tener exactamente 6 caracteres.");
+    
+        DBCuentas.modificar_clave(codigo, nuevaClave);
+    }
+    
 }

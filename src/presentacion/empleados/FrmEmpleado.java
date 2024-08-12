@@ -13,6 +13,7 @@ import presentacion.clientes.registro.Registro;
 import presentacion.empleados.opciones.*;
 import presentacion.empleados.opciones.consultas.IFrmConsultarDatosMovimiento;
 import presentacion.empleados.opciones.ediciones.IFrmModificarCliente;
+import presentacion.empleados.opciones.ediciones.IFrmModificarCuenta;
 import presentacion.empleados.opciones.registros.IFrmRegistrarCuenta;
 import presentacion.empleados.opciones.registros.IFrmRegistrarMovimiento;
 import presentacion.empleados.opciones.transacciones.*;
@@ -332,7 +333,8 @@ public class FrmEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        
+        IFrmModificarCuenta i = new IFrmModificarCuenta();
+        FrmEmpleado.centrarInternalFrame(i);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed

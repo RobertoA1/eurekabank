@@ -101,6 +101,13 @@ public class DBCuentas {
         cs.setFloat(2, nuevoSaldo);
         cs.executeUpdate();
     }
+    
+    public static void modificar_clave(String codigo, String nuevaClave) throws SQLException{
+        CallableStatement cs = db.prepareCall("CALL sp_cuenta_modificar_clave(?, ?)");
+        cs.setString(1, codigo);
+        cs.setString(2, nuevaClave);
+        cs.executeUpdate();
+    }
 
     public static float obtenerSaldo(String codigo) throws SQLException {
         Cuenta c = obtener(codigo);

@@ -88,6 +88,12 @@ public class IFrmRealizarRetiro extends javax.swing.JInternalFrame {
         labelCodigo3.setForeground(new java.awt.Color(0, 0, 0));
         labelCodigo3.setText("Importe:");
 
+        txtImporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtImporteActionPerformed(evt);
+            }
+        });
+
         btnRealizarRetiro.setBackground(new java.awt.Color(255, 255, 255));
         btnRealizarRetiro.setForeground(new java.awt.Color(0, 0, 0));
         btnRealizarRetiro.setText("Realizar Retiro");
@@ -129,8 +135,8 @@ public class IFrmRealizarRetiro extends javax.swing.JInternalFrame {
                     .addComponent(labelCodigo4))
                 .addGap(55, 55, 55)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCodigoCuenta)
-                    .addComponent(txtImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCodigoCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                    .addComponent(txtImporte))
                 .addGap(28, 28, 28))
         );
         jPanel3Layout.setVerticalGroup(
@@ -169,6 +175,10 @@ public class IFrmRealizarRetiro extends javax.swing.JInternalFrame {
             System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_btnRealizarRetiroActionPerformed
+
+    private void txtImporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtImporteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtImporteActionPerformed
 
     public static IFrmRealizarRetiro getInstance(){
         form = new IFrmRealizarRetiro();

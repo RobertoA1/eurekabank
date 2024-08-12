@@ -109,8 +109,8 @@
                   </Group>
                   <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtCodigoCuenta" max="32767" attributes="0"/>
-                      <Component id="txtImporte" min="-2" pref="204" max="-2" attributes="0"/>
+                      <Component id="txtCodigoCuenta" pref="204" max="32767" attributes="0"/>
+                      <Component id="txtImporte" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               </Group>
@@ -154,6 +154,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtImporte">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtImporteActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnRealizarRetiro">
           <Properties>

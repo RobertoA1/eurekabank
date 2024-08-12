@@ -99,7 +99,7 @@
                           <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                           <Component id="labelNumeroCliente" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="txtNumeroCliente" min="-2" pref="285" max="-2" attributes="0"/>
+                          <Component id="txtCodigoCuenta" min="-2" pref="285" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnBuscarCliente" min="-2" pref="123" max="-2" attributes="0"/>
                       </Group>
@@ -119,7 +119,7 @@
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="labelNumeroCliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtNumeroCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCodigoCuenta" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnBuscarCliente" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="39" max="32767" attributes="0"/>
@@ -155,7 +155,7 @@
             <Property name="text" type="java.lang.String" value="Por favor, introduce el c&#xf3;digo de la cuenta:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtNumeroCliente">
+        <Component class="javax.swing.JTextField" name="txtCodigoCuenta">
         </Component>
         <Component class="javax.swing.JButton" name="btnBuscarCliente">
           <Properties>
