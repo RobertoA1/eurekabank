@@ -1,7 +1,6 @@
 package validaciones;
 
 import entidades.*;
-import listas.DBMonedas;
 import listas.DBSucursales;
 
 import java.sql.SQLException;
@@ -18,7 +17,6 @@ public class Sucursales {
 
     public static void insertar(String codigo, String nombre, String ciudad, String direccion, int contCuenta) throws IllegalArgumentException, SQLException {
         validarCodigo(codigo);
-        if (DBMonedas.existe(codigo)) throw new IllegalArgumentException(errMsg + "El código especificado ya está vinculado a otra sucursal.");
         if (nombre.isBlank()) throw new IllegalArgumentException(errMsg + "El nombre no puede estar vacío.");
         if (ciudad.isBlank()) throw new IllegalArgumentException(errMsg + "La ciudad no puede estar vacía.");
         if (direccion.isBlank()) throw new IllegalArgumentException(errMsg + "La dirección no puede estar vacía.");

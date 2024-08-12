@@ -7,6 +7,7 @@ package presentacion.empleados.opciones.consultas;
 import presentacion.empleados.opciones.registros.obtenidos.IFrmDatosCuentaObtenidos;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import presentacion.administrador.FrmAdministrador;
 import presentacion.empleados.FrmEmpleado;
 import validaciones.Cuentas;
 import seguridad.Autenticacion;
@@ -16,7 +17,7 @@ import seguridad.Autenticacion;
  * @author Roberto
  */
 public class IFrmConsultarDatosCuenta extends javax.swing.JInternalFrame {
-
+    private boolean administrador = false;
     /**
      * Creates new form IFrmConsultarDatosCuenta
      */
@@ -31,6 +32,10 @@ public class IFrmConsultarDatosCuenta extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Datos de una Cuenta | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
             System.out.println(e.getMessage());
         }
+    }
+    
+    public void habilitarAdministrador(){
+        administrador = true;
     }
 
     /**
@@ -141,7 +146,8 @@ public class IFrmConsultarDatosCuenta extends javax.swing.JInternalFrame {
         
         try{
             IFrmDatosCuentaObtenidos form = IFrmDatosCuentaObtenidos.getInstance(Cuentas.obtener(codigo));
-            FrmEmpleado.centrarInternalFrame(form);
+            if (administrador == false) FrmEmpleado.centrarInternalFrame(form);
+            else FrmAdministrador.centrarInternalFrame(form);
         } catch (IllegalArgumentException e){
             JOptionPane.showMessageDialog(this, e.getMessage(), "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
             System.out.println(e.getMessage());

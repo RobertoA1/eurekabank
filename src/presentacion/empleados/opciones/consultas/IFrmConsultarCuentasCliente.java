@@ -8,6 +8,7 @@ import presentacion.empleados.opciones.consultas.*;
 import presentacion.empleados.opciones.registros.obtenidos.IFrmDatosClienteObtenidos;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import presentacion.administrador.FrmAdministrador;
 import presentacion.empleados.FrmEmpleado;
 import seguridad.Autenticacion;
 import validaciones.Clientes;
@@ -17,7 +18,7 @@ import validaciones.Clientes;
  * @author Roberto
  */
 public class IFrmConsultarCuentasCliente extends javax.swing.JInternalFrame {
-
+    private boolean administrador = false;
     /**
      * Creates new form IFrmConsultarDatosCuenta
      */
@@ -33,7 +34,10 @@ public class IFrmConsultarCuentasCliente extends javax.swing.JInternalFrame {
             System.out.println(e.getMessage());
         }
     }
-
+    
+    public void habilitarAdministrador(){
+        administrador = true;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -141,7 +145,11 @@ public class IFrmConsultarCuentasCliente extends javax.swing.JInternalFrame {
         
         try{
             IFrmVerCuentas form = IFrmVerCuentas.getInstance(Clientes.obtener(codigo));
-            FrmEmpleado.centrarInternalFrame(form);
+            if (administrador == false) FrmEmpleado.centrarInternalFrame(form);
+            else {
+                form.habilitarAdministrador();
+                FrmAdministrador.centrarInternalFrame(form);
+            }
         } catch (IllegalArgumentException e){
             JOptionPane.showMessageDialog(this, e.getMessage(), "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
             System.out.println(e.getMessage());

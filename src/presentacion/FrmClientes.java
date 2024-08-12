@@ -5,8 +5,6 @@
 package presentacion;
 
 import javax.swing.*;
-import presentacion.cuenta.JifCuenta;
-import presentacion.administracion.AdministracionCuentas;
 import presentacion.clientes.opciones.cuentas.*;
 import presentacion.clientes.opciones.transacciones.IFrmRealizarTransferencia;
 

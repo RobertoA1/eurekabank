@@ -65,7 +65,6 @@ public class FrmAdministrador extends javax.swing.JFrame {
         mi_registrarEmpleado = new javax.swing.JMenuItem();
         menuModificar = new javax.swing.JMenu();
         mi_modificarCliente = new javax.swing.JMenuItem();
-        mi_modificarCuenta = new javax.swing.JMenuItem();
         mi_modificarSucursal = new javax.swing.JMenuItem();
         mi_modificarEmpleado = new javax.swing.JMenuItem();
 
@@ -198,14 +197,6 @@ public class FrmAdministrador extends javax.swing.JFrame {
         });
         menuModificar.add(mi_modificarCliente);
 
-        mi_modificarCuenta.setText("Modificar los datos de una cuenta");
-        mi_modificarCuenta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mi_modificarCuentaActionPerformed(evt);
-            }
-        });
-        menuModificar.add(mi_modificarCuenta);
-
         mi_modificarSucursal.setText("Modificar los datos de una sucursal");
         mi_modificarSucursal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -261,21 +252,25 @@ public class FrmAdministrador extends javax.swing.JFrame {
 
     private void mi_verDatosClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_verDatosClienteActionPerformed
         IFrmConsultarDatosCliente i = new IFrmConsultarDatosCliente();
+        i.habilitarAdministrador();
         centrarInternalFrame(i);
     }//GEN-LAST:event_mi_verDatosClienteActionPerformed
 
     private void mi_modificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_modificarClienteActionPerformed
         IFrmModificarCliente i = new IFrmModificarCliente();
+        i.habilitarAdministrador();
         centrarInternalFrame(i);
     }//GEN-LAST:event_mi_modificarClienteActionPerformed
 
     private void mi_verDatosCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_verDatosCuentaActionPerformed
         IFrmConsultarDatosCuenta i = new IFrmConsultarDatosCuenta();
+        i.habilitarAdministrador();
         centrarInternalFrame(i);
     }//GEN-LAST:event_mi_verDatosCuentaActionPerformed
 
     private void mi_verDatosMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_verDatosMovimientoActionPerformed
         IFrmConsultarDatosMovimiento i = new IFrmConsultarDatosMovimiento();
+        i.habilitarAdministrador();
         centrarInternalFrame(i);
     }//GEN-LAST:event_mi_verDatosMovimientoActionPerformed
 
@@ -289,11 +284,6 @@ public class FrmAdministrador extends javax.swing.JFrame {
         FrmAdministrador.centrarInternalFrame(i);
     }//GEN-LAST:event_miDepositoActionPerformed
 
-    private void mi_modificarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_modificarCuentaActionPerformed
-        IFrmModificarCuenta i = new IFrmModificarCuenta();
-        FrmAdministrador.centrarInternalFrame(i);
-    }//GEN-LAST:event_mi_modificarCuentaActionPerformed
-
     private void miTransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miTransferenciaActionPerformed
         IFrmRealizarTransferencia i = IFrmRealizarTransferencia.getInstance();
         FrmAdministrador.centrarInternalFrame(i);
@@ -306,6 +296,7 @@ public class FrmAdministrador extends javax.swing.JFrame {
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         IFrmConsultarCuentasCliente i = new IFrmConsultarCuentasCliente();
+        i.habilitarAdministrador();
         FrmAdministrador.centrarInternalFrame(i);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
@@ -373,7 +364,6 @@ public class FrmAdministrador extends javax.swing.JFrame {
     private javax.swing.JMenuItem miRetiro;
     private javax.swing.JMenuItem miTransferencia;
     private javax.swing.JMenuItem mi_modificarCliente;
-    private javax.swing.JMenuItem mi_modificarCuenta;
     private javax.swing.JMenuItem mi_modificarEmpleado;
     private javax.swing.JMenuItem mi_modificarSucursal;
     private javax.swing.JMenuItem mi_registrarCliente;

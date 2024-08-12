@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 import presentacion.FrmClientes;
+import presentacion.administrador.FrmAdministrador;
 import presentacion.empleados.FrmEmpleado;
 import seguridad.Autenticacion;
 import seguridad.Contrasenas;
@@ -29,7 +30,7 @@ import seguridad.Contrasenas;
 public class IFrmVerCuentas extends javax.swing.JInternalFrame {
     public static IFrmVerCuentas form = null;
     private ArrayList<Cuenta> cuentas = null;
-    
+    private boolean administrador = false;
     /**
      * Creates new form FrmDatosCuentaObtenidos
      */
@@ -49,6 +50,10 @@ public class IFrmVerCuentas extends javax.swing.JInternalFrame {
         }
         
         
+    }
+    
+    public void habilitarAdministrador(){
+        administrador = true;
     }
 
     /**
@@ -169,7 +174,8 @@ public class IFrmVerCuentas extends javax.swing.JInternalFrame {
         }
         Cuenta cuenta = cuentas.get(row);
         IFrmVerHistorial historial = IFrmVerHistorial.getInstance(cuenta);
-        FrmEmpleado.centrarInternalFrame(historial);
+        if (administrador == false) FrmEmpleado.centrarInternalFrame(historial);
+        else FrmAdministrador.centrarInternalFrame(historial);
     }//GEN-LAST:event_btnVerHistorialActionPerformed
     
     private void rellenarInfoTabla(Cliente cliente){

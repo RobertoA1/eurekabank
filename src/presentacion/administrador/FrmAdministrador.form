@@ -144,14 +144,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mi_modificarClienteActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mi_modificarCuenta">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Modificar los datos de una cuenta"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mi_modificarCuentaActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mi_modificarSucursal">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Modificar los datos de una sucursal"/>

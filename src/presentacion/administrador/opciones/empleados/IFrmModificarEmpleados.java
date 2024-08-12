@@ -44,13 +44,11 @@ public class IFrmModificarEmpleados extends javax.swing.JInternalFrame {
         lblMaterno = new javax.swing.JLabel();
         lblCiudad = new javax.swing.JLabel();
         lblDireccion = new javax.swing.JLabel();
-        lblId = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         txtPaterno = new javax.swing.JTextField();
         txtMaterno = new javax.swing.JTextField();
         txtCiudad = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
-        txtId = new javax.swing.JTextField();
         btnActualizar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(229, 229, 229));
@@ -132,11 +130,6 @@ public class IFrmModificarEmpleados extends javax.swing.JInternalFrame {
         lblDireccion.setText("Direccion:");
         jPanel2.add(lblDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, 82, 27));
 
-        lblId.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lblId.setForeground(new java.awt.Color(0, 0, 0));
-        lblId.setText("Identificador:");
-        jPanel2.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, -1, 27));
-
         txtNombre.setBackground(new java.awt.Color(255, 255, 255));
         txtNombre.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtNombre.setForeground(new java.awt.Color(0, 0, 0));
@@ -167,12 +160,6 @@ public class IFrmModificarEmpleados extends javax.swing.JInternalFrame {
         txtDireccion.setEnabled(false);
         jPanel2.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, 170, -1));
 
-        txtId.setBackground(new java.awt.Color(255, 255, 255));
-        txtId.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        txtId.setForeground(new java.awt.Color(0, 0, 0));
-        txtId.setEnabled(false);
-        jPanel2.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 290, 170, -1));
-
         btnActualizar.setBackground(new java.awt.Color(255, 255, 255));
         btnActualizar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnActualizar.setForeground(new java.awt.Color(0, 0, 0));
@@ -198,7 +185,6 @@ public class IFrmModificarEmpleados extends javax.swing.JInternalFrame {
         txtMaterno.setEnabled(estado);
         txtCiudad.setEnabled(estado);
         txtDireccion.setEnabled(estado);
-        txtId.setEnabled(estado);
         btnBuscar.setEnabled(!estado);
         btnActualizar.setEnabled(estado);
     }
@@ -210,7 +196,6 @@ public class IFrmModificarEmpleados extends javax.swing.JInternalFrame {
         txtMaterno.setText(null);
         txtCiudad.setText(null);
         txtDireccion.setText(null);
-        txtId.setText(null);
     }
     
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -243,7 +228,6 @@ public class IFrmModificarEmpleados extends javax.swing.JInternalFrame {
         txtMaterno.setText(String.valueOf(empleado.getApellidoMaterno()));
         txtCiudad.setText(String.valueOf(empleado.getCiudad()));
         txtDireccion.setText(String.valueOf(empleado.getDireccion()));
-        txtId.setText(String.valueOf(empleado.getIdUsuario()));
         activar(true);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -275,14 +259,12 @@ public class IFrmModificarEmpleados extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblCiudad;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblDireccion;
-    private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblMaterno;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPaterno;
     private javax.swing.JTextField txtCiudad;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtMaterno;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPaterno;

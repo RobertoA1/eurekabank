@@ -176,6 +176,8 @@ public class IFrmRegistrarCuenta extends javax.swing.JInternalFrame {
             String codigoUsuario = Clientes.obtener(codigoCliente).getIdUsuario();
             
             Cuentas.agregar(codigoCuenta, codigoMoneda, codigoSucursal, codigoCliente, codigoUsuario, 0, codigoCajero);
+            java.sql.Date fecha = new java.sql.Date(System.currentTimeMillis());
+            Movimientos.agregar(codigoCuenta, Movimientos.generarCodigo(), fecha, "9999", "080", 0, "");
             JOptionPane.showMessageDialog(this, "Cuenta creada correctamente. Código de cuenta: " + codigoCuenta, "La operación se ha realizado con éxito.", JOptionPane.INFORMATION_MESSAGE);
         } catch (InvalidKeySpecException | NoSuchAlgorithmException | NullPointerException e){
             JOptionPane.showMessageDialog(null, "Autenticación: Ha ocurrido un problema grave. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);

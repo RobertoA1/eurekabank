@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import presentacion.administrador.FrmAdministrador;
 import presentacion.empleados.FrmEmpleado;
 import presentacion.empleados.opciones.ediciones.modificadores.IFrmModificarDatosCuenta;
 import seguridad.Autenticacion;
@@ -18,7 +19,7 @@ import validaciones.Cuentas;
  * @author LUCANO
  */
 public class IFrmModificarCuenta extends javax.swing.JInternalFrame {
-
+    private boolean administrador = false;
     /**
      * Creates new form IFrmModificarCuenta
      */
@@ -33,6 +34,10 @@ public class IFrmModificarCuenta extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Datos de un Cliente | Ha ocurrido un problema mientras nos conectabamos a la BD. Por favor, cierra el programa y vuelve a intentarlo.", "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
             System.out.println(e.getMessage());
         }
+    }
+    
+    public void habilitarAdministrador(){
+        administrador = true;
     }
 
     /**
@@ -52,6 +57,8 @@ public class IFrmModificarCuenta extends javax.swing.JInternalFrame {
         labelNumeroCliente = new javax.swing.JLabel();
         txtCodigoCuenta = new javax.swing.JTextField();
         btnBuscarCliente = new javax.swing.JButton();
+
+        setClosable(true);
 
         jPanel1.setBackground(new java.awt.Color(20, 45, 68));
 
@@ -154,7 +161,8 @@ public class IFrmModificarCuenta extends javax.swing.JInternalFrame {
 
         try{
             IFrmModificarDatosCuenta form = IFrmModificarDatosCuenta.getInstance(Cuentas.obtener(codigo));
-            FrmEmpleado.centrarInternalFrame(form);
+            if (administrador == false) FrmEmpleado.centrarInternalFrame(form);
+            else FrmAdministrador.centrarInternalFrame(form);
         } catch (IllegalArgumentException e){
             JOptionPane.showMessageDialog(this, e.getMessage(), "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
             System.out.println(e.getMessage());
