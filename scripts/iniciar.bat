@@ -1,5 +1,5 @@
 @echo off
-set MYSQL_PATH=D:\xampp\mysql\bin\mysql.exe
+set MYSQL_PATH=C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe
 set DB_USER=admin
 set DB_PASS=12345
 set DB_NAME=eureka
