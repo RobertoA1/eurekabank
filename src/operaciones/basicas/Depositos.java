@@ -16,7 +16,7 @@ import java.sql.SQLException;
  *
  * @author Roberto
  */
-public class Depositos {
+public class Depositos implements Transaccion{
     
     /* ESPECIAL: Código de Empleado para identificar operaciones por Intenet */
     private final static String CODIGO_EMPLEADO_INTERNET = "9999";
@@ -24,16 +24,29 @@ public class Depositos {
     /* Codigo de operación de depósito */
     private final static String CODIGO_DEPOSITO = "001";
     
+    private Cuenta cuenta = null;
+    private Empleado empleado = null;
+    private float cantidad = 0;
+    
     private static Date obtenerFechaActual(){
         return new Date(System.currentTimeMillis());
     }
     
-    public static void depositar(String codigoCuenta, float cantidad, String codigoEmpleado) throws IllegalArgumentException, SQLException{
-        Cuenta cuenta = Cuentas.obtener(codigoCuenta);
-        Empleado empleado = Empleados.obtener(codigoEmpleado);
-
-        Cuentas.modificar_saldo(codigoCuenta, cuenta.getSaldo() + cantidad);
-        Movimientos.agregar(codigoCuenta, Movimientos.generarCodigo(), obtenerFechaActual(), codigoEmpleado, 
+    public void preparar(String codigoCuenta, float cantidad, String codigoEmpleado) throws IllegalArgumentException, SQLException{
+        cuenta = Cuentas.obtener(codigoCuenta);
+        empleado = Empleados.obtener(codigoEmpleado);
+        this.cantidad = cantidad;
+    }
+    
+    public void ejecutar() throws IllegalArgumentException, SQLException{
+        Cuentas.modificar_saldo(cuenta.getCodigo(), cuenta.getSaldo() + cantidad);
+        Movimientos.agregar(cuenta.getCodigo(), Movimientos.generarCodigo(), obtenerFechaActual(), empleado.getCodigo(), 
                 CODIGO_DEPOSITO, cantidad, "");
+    }
+    
+    public void restablecer(){
+        cuenta = null;
+        empleado = null;
+        cantidad = 0;
     }
 }
