@@ -141,7 +141,7 @@ public class FrmAdministrador extends javax.swing.JFrame {
         });
         menuBuscar.add(mi_verDatosMovimiento);
 
-        jMenuItem6.setText("Ver las cuentas de una persona");
+        jMenuItem6.setText("Ver las cuentas de un cliente");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem6ActionPerformed(evt);
@@ -286,6 +286,7 @@ public class FrmAdministrador extends javax.swing.JFrame {
 
     private void miTransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miTransferenciaActionPerformed
         IFrmRealizarTransferencia i = IFrmRealizarTransferencia.getInstance();
+        i.habilitarAdministrador();
         FrmAdministrador.centrarInternalFrame(i);
     }//GEN-LAST:event_miTransferenciaActionPerformed
 

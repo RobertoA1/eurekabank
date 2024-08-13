@@ -32,12 +32,14 @@ public class IFrmConfirmarTransferencia extends javax.swing.JInternalFrame {
     private ArrayList<Cuenta> cuentas = null;
     private Cuenta ctaemisor = null;
     private Cuenta ctareceptor = null;
+    private Empleado empleado = null;
     /**
      * Creates new form FrmDatosCuentaObtenidos
      */
     private IFrmConfirmarTransferencia(Cliente emisor, Cliente receptor, Cuenta ctaemisor, Cuenta ctareceptor) {
         initComponents();
         try {
+            empleado = Empleados.obtenerPorIdUsuario(Autenticacion.obtenerUsuario().getCodigo());
             tipAccionEmpleado.setText("Esta es una acción de empleado autorizada para: " + Autenticacion.obtenerUsuario().getCodigo());
             labelCodigoEmisor.setText("Estás transfiriendo desde la cuenta: " + emisor.getCodigo());
             labelNombreEmisor.setText("Emisor: " + emisor.getApellidoPaterno() + " " + emisor.getApellidoMaterno() + " " + emisor.getNombre());
@@ -188,7 +190,7 @@ public class IFrmConfirmarTransferencia extends javax.swing.JInternalFrame {
     private void btnConfirmarTransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarTransferenciaActionPerformed
         try {
             float cantidad = Float.parseFloat(txtCantidad.getText());
-            GestorTransacciones.transferir(ctaemisor.getCodigo(), ctareceptor.getCodigo(), cantidad, "9999");
+            GestorTransacciones.transferir(ctaemisor.getCodigo(), ctareceptor.getCodigo(), cantidad, empleado.getCodigo());
             JOptionPane.showMessageDialog(this, "La transferencia se realizó correctamente.", "Transferencia completa", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         } catch (IllegalArgumentException e){

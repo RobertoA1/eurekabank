@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 import presentacion.FrmClientes;
+import presentacion.administrador.FrmAdministrador;
 import presentacion.empleados.FrmEmpleado;
 import seguridad.Autenticacion;
 import seguridad.Contrasenas;
@@ -30,6 +31,7 @@ import seguridad.Contrasenas;
  */
 public class IFrmRealizarTransferencia extends javax.swing.JInternalFrame {
     public static IFrmRealizarTransferencia form = null;
+    private boolean administrador = false;
     /**
      * Creates new form FrmDatosCuentaObtenidos
      */
@@ -49,6 +51,9 @@ public class IFrmRealizarTransferencia extends javax.swing.JInternalFrame {
         }
     }
 
+    public void habilitarAdministrador(){
+        administrador = true;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -174,7 +179,8 @@ public class IFrmRealizarTransferencia extends javax.swing.JInternalFrame {
             }
             
             IFrmConfirmarTransferencia form = IFrmConfirmarTransferencia.getInstance(clienteEmisor, clienteReceptor, cuentaEmisora, cuentaReceptora);
-            FrmEmpleado.centrarInternalFrame(form);
+            if (administrador == false) FrmEmpleado.centrarInternalFrame(form);
+            else FrmAdministrador.centrarInternalFrame(form);
         } catch (IllegalArgumentException e){
             JOptionPane.showMessageDialog(this, e.getMessage(), "Un problema ha ocurrido...", JOptionPane.ERROR_MESSAGE);
             System.out.println(e.getMessage());
